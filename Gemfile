@@ -7,6 +7,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 
+gem 'gds-sso', '10.0.0'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
 
