@@ -6,9 +6,3 @@ GDS::SSO.config do |config|
   config.oauth_secret = ENV['OAUTH_SECRET']
   config.oauth_root_url = Plek.current.find('signon')
 end
-
-GDS::SSO.test_user = User.find_or_create_by(email: 'user@test.example.com').tap do |u|
-  u.name = 'Test User'
-  u.permissions = ['signin']
-  u.save!
-end
