@@ -19,4 +19,4 @@ end
 
 ## EXAMPLE
 # require 'gds_api/publishing_api'
-# CollectionsPublisher.services(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
+# PolicyPublisher.services(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
