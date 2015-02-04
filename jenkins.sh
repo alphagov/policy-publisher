@@ -1,10 +1,7 @@
-#!/bin/bash
-set -x
+#!/bin/bash -xe
 export DISPLAY=:99
-export GOVUK_APP_DOMAIN=test.gov.uk
-export GOVUK_ASSET_ROOT=http://static.test.gov.uk
+export RAILS_ENV=test
 export REPO_NAME="alphagov/policy-publisher"
-env
 
 function github_status {
   REPO_NAME="$1"
@@ -36,7 +33,9 @@ github_status "$REPO_NAME" pending "is running on Jenkins"
 git merge --no-commit origin/master || git merge --abort
 
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without development
-RAILS_ENV=test bundle exec cucumber && bundle exec rspec spec/
+bundle exec rake db:reset
+bundle exec rake assets:clean assets:precompile
+bundle exec cucumber && bundle exec rspec spec/
 
 export EXIT_STATUS=$?
 
