@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  username: policy_publisher
+  password: policy_publisher
+
+development:
+  <<: *default
+  database: policy_publisher_development
+
+test: &test
+  <<: *default
+  database: policy_publisher_test
+
+cucumber:
+  <<: *test
