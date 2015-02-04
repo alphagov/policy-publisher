@@ -1,12 +1,30 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Policy publisher</title>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= csrf_meta_tags %>
-  </head>
+<% content_for :app_title, 'GOV.UK Policy publisher' %>
+<% content_for :page_title, ' | GOV.UK Policy publisher' %>
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+<% content_for :head do %>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+<% end %>
+
+<% if user_signed_in? %>
+  <% content_for :navbar_right do %>
+    <%= link_to current_user.name, Plek.current.find('signon') %>
+    &bull; <%= link_to 'Sign out', gds_sign_out_path %>
+  <% end %>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_include_tag 'application' %>
+<% end %>
+
+<% content_for :content do %>
+  <% flash.each do |key,message| %>
+    <div class="alert <%= alert_classes(key) %>">
+      <%= message %>
+    </div>
+  <% end %>
+
+  <%= yield %>
+<% end %>
+
+<%= render template: 'layouts/govuk_admin_template' %>
