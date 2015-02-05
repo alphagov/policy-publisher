@@ -27,7 +27,7 @@ expected to be used by departmental editors.
 
 ### Running the application
 
-- Run `startup.sh`.  This will start the application on port 3098.
+- Run `./startup.sh`.  This will start the application on port 3098.
 
 ### Running the tests
 - Run `bundle exec rake`
