@@ -148,6 +148,8 @@ GEM
       omniauth (~> 1.2)
     pg (0.18.1)
     plek (1.10.0)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.0)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -256,6 +258,7 @@ DEPENDENCIES
   launchy
   pg
   plek (= 1.10.0)
+  quiet_assets (= 1.1.0)
   rails (= 4.2.0)
   rspec-rails (= 3.2.0)
   sass-rails (~> 5.0)
