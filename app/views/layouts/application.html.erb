@@ -13,10 +13,6 @@
   <% end %>
 <% end %>
 
-<% content_for :body_end do %>
-  <%= javascript_include_tag 'application' %>
-<% end %>
-
 <% content_for :content do %>
   <% flash.each do |key,message| %>
     <div class="alert <%= alert_classes(key) %>">
