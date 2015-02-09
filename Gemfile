@@ -11,7 +11,7 @@ gem 'quiet_assets', '1.1.0'
 gem 'gds-sso', '10.0.0'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
-gem 'govuk_admin_template', '1.5.0'
+gem 'govuk_admin_template', '1.5.1'
 
 group :development, :test do
   gem 'byebug'
