@@ -31,8 +31,12 @@ module PolicyPublisher
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
     # Better forms
-    config.action_view.default_form_builder = GenericFormBuilder
+    require "admin_form_builder"
+    config.action_view.default_form_builder = AdminFormBuilder
     config.action_view.field_error_proc = proc {|html_tag, _| html_tag }
   end
 end

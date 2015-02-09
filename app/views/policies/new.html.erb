@@ -4,5 +4,5 @@
   <%= f.text_field :name %>
   <%= f.text_area :description %>
 
-  <button>Save this policy</button>
+  <%= f.buttons(cancel_link: policies_path) %>
 <% end %>
