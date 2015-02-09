@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204143329) do
+ActiveRecord::Schema.define(version: 20150209100815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150204143329) do
     t.string  "organisation_slug"
     t.string  "permissions"
     t.boolean "remotely_signed_out", default: false
+    t.boolean "disabled",            default: false
   end
 
 end
