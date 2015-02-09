@@ -6,7 +6,7 @@ module PolicyHelpers
     fill_in "Name", with: name
     fill_in "Description", with: description
 
-    click_on "Save this policy"
+    click_on "Save"
   end
 
   def check_for_policy(name:)

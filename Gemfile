@@ -12,7 +12,7 @@ gem 'gds-sso', '10.0.0'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
 gem 'govuk_admin_template', '1.5.1'
-gem 'generic_form_builder', '0.11.0'
+gem 'generic_form_builder', '0.12.0'
 gem 'decent_exposure', '2.3.2'
 
 group :development, :test do
