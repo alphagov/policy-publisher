@@ -14,6 +14,16 @@ class PoliciesController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if policy.save
+      redirect_to policies_path
+    else
+      render :new
+    end
+  end
+
 private
 
   def policy_params
