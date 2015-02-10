@@ -23,4 +23,21 @@ RSpec.describe Policy do
     expect(blank_policy).not_to be_valid
     expect(nil_policy).not_to be_valid
   end
+
+  it "enforces unique names" do
+    Policy.create!(name: "Climate change")
+    duplicate_policy = Policy.new(name: "Climate change")
+
+    expect(duplicate_policy).not_to be_valid
+  end
+
+  it "enforces unique slugs" do
+    global_warming = Policy.create!(name: "Global warming")
+    global_warming.name = "Climate change"
+    global_warming.save!
+
+    new_global_warming = Policy.new(name: "Global warming")
+
+    expect(new_global_warming).not_to be_valid
+  end
 end
