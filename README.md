@@ -1,14 +1,12 @@
 # Policy publisher
 
-The policy publisher exists to create and manage policies and policy programmes
+The policy publisher exists to create and manage policy areas and policy programmes
 through the Publishing 2.0 pipeline.
 
 ## Nomenclature
 
-- **Policy**: An abstract guide describing the actions a government is taking
-regarding a specific subject.
-- **Programme**: A concrete activity or activities the government is taking to
-implement a policy or policies.
+- **Policy area**: a broad overview of an area of government activity eg [domestic energy](https://www.gov.uk/government/policies/helping-households-to-cut-their-energy-bills).
+- **Programme**: specific activities the government is taking to support its objectives eg [Green Deal](https://www.gov.uk/government/policies/helping-households-to-cut-their-energy-bills/supporting-pages/green-deal).
 
 ## Technical documentation
 
