@@ -6,6 +6,11 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
 <% end %>
 
+<% content_for :navbar_items do %>
+  <%= nav_link 'Policy areas', policy_areas_path %>
+  <%= nav_link 'Programmes', programmes_path %>
+<% end %>
+
 <% if user_signed_in? %>
   <% content_for :navbar_right do %>
     <%= link_to current_user.name, Plek.current.find('signon') %>

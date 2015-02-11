@@ -1,0 +1,6 @@
+<%= form_for programme do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description %>
+
+  <%= f.buttons(cancel_link: programmes_path) %>
+<% end %>
