@@ -1,0 +1,6 @@
+<%= form_for policy_area do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description %>
+
+  <%= f.buttons(cancel_link: policy_areas_path) %>
+<% end %>

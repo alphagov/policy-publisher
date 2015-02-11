@@ -3,7 +3,7 @@ FactoryGirl.define do
     permissions { ["signin"] }
   end
 
-  factory :policy do
-    sequence(:name) {|n| "Policy #{n}" }
+  factory :policy_area do
+    sequence(:name) {|n| "Policy area #{n}" }
   end
 end
