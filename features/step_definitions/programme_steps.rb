@@ -18,6 +18,20 @@ Then(/^there should be a programme called "(.*?)"$/) do |programme_name|
   check_for_programme(name: programme_name)
 end
 
+When(/^I associate the programme "(.*?)" with the policy areas "(.*?)" and "(.*?)"$/) do |programme_name, pa_1_name, pa_2_name|
+  associate_programme_with_policy_areas(
+    programme_name: programme_name,
+    policy_area_names: [pa_1_name, pa_2_name]
+  )
+end
+
+Then(/^the programme "(.*?)" should be associated with the policy areas "(.*?)" and "(.*?)"$/) do |programme_name, pa_1_name, pa_2_name|
+  check_for_programme_association(
+    programme_name: programme_name,
+    policy_area_names: [pa_1_name, pa_2_name]
+  )
+end
+
 Then(/^a programme called "(.*?)" is published "(.*?)" times$/) do |policy_area_name, times|
   check_content_item_is_published_to_publishing_api("/government/policies/#{policy_area_name.to_s.parameterize}", times.to_i)
 end

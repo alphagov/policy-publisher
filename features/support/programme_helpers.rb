@@ -24,6 +24,29 @@ module ProgrammeHelpers
     visit programmes_path
     expect(page).to have_content(name)
   end
+
+  def associate_programme_with_policy_areas(programme_name:, policy_area_names:)
+    visit programmes_path
+    click_on programme_name
+
+    policy_area_names.each do |pa_name|
+      select pa_name, from: "Policy areas"
+    end
+
+    click_on "Save"
+  end
+
+  def check_for_programme_association(programme_name:, policy_area_names:)
+    visit policy_areas_path
+
+    policy_area_names.each do |pa_name|
+      policy_area = PolicyArea.find_by_name(pa_name)
+
+      within("#policy_area_#{policy_area.id}") do
+        expect(page).to have_content(programme_name)
+      end
+    end
+  end
 end
 
 World(ProgrammeHelpers)

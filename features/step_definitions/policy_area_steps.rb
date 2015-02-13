@@ -1,4 +1,4 @@
-Given(/^a published policy area exists called "(.*?)"$/) do |policy_area_name|
+Given(/^a (?:published )?policy area exists called "(.*?)"$/) do |policy_area_name|
   stub_publishing_api
   FactoryGirl.create(:policy_area, name: policy_area_name)
 end

@@ -2,5 +2,14 @@
   <%= f.text_field :name %>
   <%= f.text_area :description %>
 
+  <%= f.select :policy_area_ids,
+    options_from_collection_for_select(PolicyArea.order(:name), :id, :name),
+    {
+      label: "Policy areas"
+    },
+    { multiple: true,
+      class: 'select2',
+      data: { placeholder: 'Choose policy areas…' } } %>
+
   <%= f.buttons(cancel_link: programmes_path) %>
 <% end %>
