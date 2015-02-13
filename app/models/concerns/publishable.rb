@@ -11,12 +11,12 @@ module Publishable
       object.content_id = SecureRandom.uuid
     end
 
-    after_save :publish_finder
+    after_save :publish_content_item
   end
 
 private
-  def publish_finder
-    attrs = PolicyAreaContentItemPresenter.new(self).exportable_attributes
+  def publish_content_item
+    attrs = ContentItemPresenter.new(self).exportable_attributes
     publishing_api.put_content_item(attrs["base_path"], attrs)
   end
 
