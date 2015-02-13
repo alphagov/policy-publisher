@@ -19,5 +19,5 @@ Then(/^there should be a policy area called "(.*?)"$/) do |policy_area_name|
 end
 
 Then(/^a policy area called "(.*?)" is published "(.*?)" times$/) do |policy_area_name, times|
-  check_policy_area_is_published_to_publishing_api("/government/policies/#{policy_area_name.to_s.parameterize}", times.to_i)
+  check_content_item_is_published_to_publishing_api("/government/policies/#{policy_area_name.to_s.parameterize}", times.to_i)
 end
