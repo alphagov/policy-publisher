@@ -17,6 +17,5 @@ module PolicyPublisher
   class ServiceNotRegisteredException < Exception; end
 end
 
-## EXAMPLE
-# require 'gds_api/publishing_api'
-# PolicyPublisher.services(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
+require 'gds_api/publishing_api'
+PolicyPublisher.services(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))

@@ -1,6 +1,13 @@
 require "rails_helper"
+require 'gds_api/test_helpers/publishing_api'
 
 RSpec.describe PolicyArea do
+  include GdsApi::TestHelpers::PublishingApi
+
+  before do
+    stub_default_publishing_api_put
+  end
+
   it "automatically adds a slug on creation" do
     policy_area = PolicyArea.create!(name: "Climate change")
 
@@ -39,5 +46,20 @@ RSpec.describe PolicyArea do
     new_global_warming = PolicyArea.new(name: "Global warming")
 
     expect(new_global_warming).not_to be_valid
+  end
+
+  it "publishes a Content Item after save" do
+    policy_area = PolicyArea.create!(name: "Climate change")
+    base_path = "/government/policies/#{policy_area.slug}"
+
+    assert_publishing_api_put_item(
+      base_path,
+      {
+        "base_path" => base_path,
+        "format" => "policy_area",
+        "rendering_app" => "finder-frontend",
+        "publishing_app" => "policy-publisher",
+      }
+    )
   end
 end
