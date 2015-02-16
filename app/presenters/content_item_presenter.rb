@@ -1,7 +1,7 @@
-class PolicyAreaContentItemPresenter
+class ContentItemPresenter
 
-  def initialize(policy_area)
-    @policy_area = policy_area
+  def initialize(policy)
+    @policy = policy
   end
 
   def exportable_attributes
@@ -27,18 +27,18 @@ class PolicyAreaContentItemPresenter
   end
 
 private
-  attr_reader :policy_area
+  attr_reader :policy
 
   def base_path
-    "/government/policies/#{policy_area.slug}"
+    "/government/policies/#{policy.slug}"
   end
 
   def content_id
-    policy_area.content_id
+    policy.content_id
   end
 
   def title
-    policy_area.name
+    policy.name
   end
 
   def description
@@ -46,7 +46,7 @@ private
   end
 
   def public_updated_at
-    policy_area.updated_at
+    policy.updated_at
   end
 
   def routes
@@ -67,10 +67,10 @@ private
       document_noun: "areas",
       email_signup_enabled: false,
       filter: {
-        policies: [policy_area.slug]
+        policies: [policy.slug]
       },
       signup_link: nil,
-      summary: policy_area.description,
+      summary: policy.description,
       show_summaries: false,
       facets: [],
     }

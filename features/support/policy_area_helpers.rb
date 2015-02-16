@@ -28,19 +28,6 @@ module PolicyHelpers
     visit policy_areas_path
     expect(page).to have_content(name)
   end
-
-  def check_policy_area_is_published_to_publishing_api(base_path, times)
-    assert_publishing_api_put_item(
-      base_path,
-      {
-        "base_path" => base_path,
-        "format" => "policy_area",
-        "rendering_app" => "finder-frontend",
-        "publishing_app" => "policy-publisher",
-      },
-      times,
-    )
-  end
 end
 
 World(PolicyHelpers)
