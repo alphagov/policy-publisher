@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.describe ContentItemPresenter do
-
-
   let(:policy) {
     PolicyArea.new(
       name: "Tea and biscuits",
@@ -15,7 +13,6 @@ RSpec.describe ContentItemPresenter do
   let(:presenter) { ContentItemPresenter.new(policy) }
 
   describe "#exportable_attributes" do
-
     it "has fields required by the ContentStore" do
       exported_attrs = presenter.exportable_attributes
       expect(exported_attrs["base_path"]).to eq("/government/policies/#{policy.slug}")
