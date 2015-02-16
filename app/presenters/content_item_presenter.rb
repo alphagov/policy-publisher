@@ -69,10 +69,20 @@ private
       filter: {
         policies: [policy.slug]
       },
+      human_readable_finder_format: human_readable_finder_format,
       signup_link: nil,
       summary: policy.description,
       show_summaries: false,
       facets: [],
     }
+  end
+
+  def human_readable_finder_format
+    case policy
+    when PolicyArea
+      "Policy Area"
+    when Programme
+      "Policy Programme"
+    end
   end
 end
