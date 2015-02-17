@@ -8,8 +8,12 @@ class ProgrammesController < ApplicationController
 
   def create
     if programme.save
+      flash[:notice] = "Successfully created a programme"
+
       redirect_to programmes_path
     else
+      flash[:alert] = "Could not create the programme: #{programme.errors.full_messages.to_sentence.downcase}"
+
       render :new
     end
   end
@@ -18,8 +22,12 @@ class ProgrammesController < ApplicationController
 
   def update
     if programme.save
+      flash[:notice] = "Successfully updated the programme"
+
       redirect_to programmes_path
     else
+      flash[:alert] = "Could not update the programme: #{programme.errors.full_messages.to_sentence.downcase}"
+
       render :new
     end
   end

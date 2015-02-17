@@ -1,0 +1,17 @@
+.flash {
+  text-align: center;
+  padding: 1em;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.flash.alert {
+  background-color: red;
+}
+.flash.notice {
+  background-color: green;
+}
+
+.form-group .error {
+  color: red;
+}
