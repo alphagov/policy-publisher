@@ -11,6 +11,7 @@
     <tr class="table-header">
       <th>Name</th>
       <th>Last updated</th>
+      <th>Programmes</th>
     </tr>
     <tr class="if-no-js-hide table-header-secondary">
       <td colspan="4">
@@ -24,10 +25,17 @@
 
   <tbody>
     <% policy_areas.each do |policy_area| %>
-      <tr>
+      <%= content_tag_for(:tr, policy_area) do %>
         <td><%= link_to policy_area.name, edit_policy_area_path(policy_area) %></td>
         <td><%= policy_area.updated_at.to_s(:govuk_date) %></td>
-      </tr>
+        <td>
+          <ul>
+            <% policy_area.programmes.each do |programme| %>
+              <li><%= link_to programme.name, edit_programme_path(programme) %></li>
+            <% end %>
+          </ul>
+        </td>
+      <% end %>
     <% end %>
   </tbody>
 </table>

@@ -1,4 +1,4 @@
-Feature: Programme creation
+Feature: Programmes
 
 As a content editor
 I need to be able to create and edit programmes
@@ -14,3 +14,10 @@ Scenario: Editing a programme
   When I change the title of programme "CO2 reduction" to "Carbon credits"
   Then there should be a programme called "Carbon credits"
   Then a programme called "CO2 reduction" is published "2" times
+
+Scenario: Associating a programme with policy areas
+  Given a policy area exists called "Climate change"
+  And a policy area exists called "UK industry"
+  And a programme exists called "Carbon credits"
+  When I associate the programme "Carbon credits" with the policy areas "Climate change" and "UK industry"
+  Then the programme "Carbon credits" should be associated with the policy areas "Climate change" and "UK industry"

@@ -32,4 +32,9 @@
   <%= yield %>
 <% end %>
 
+<% content_for :body_end do %>
+  <%= javascript_include_tag "application" %>
+  <%= yield :extra_javascript %>
+<% end %>
+
 <%= render template: 'layouts/govuk_admin_template' %>

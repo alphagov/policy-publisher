@@ -29,7 +29,8 @@ class ProgrammesController < ApplicationController
   def programme_params
     params.require(:programme).permit(
       :name,
-      :description
+      :description,
+      {policy_area_ids: []}
     )
   end
 end

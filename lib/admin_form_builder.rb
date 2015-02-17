@@ -26,6 +26,13 @@ class AdminFormBuilder < GenericFormBuilder
     ))
   end
 
+  def select(field, collection, options = {}, html_options = {})
+    options[:wrapper_html_options] = {class: "form-group"}.merge(options[:wrapper_html_options] || {})
+    html_options[:class] = Array(html_options[:class]) + ["form-control", "input-md-#{field_width(:select)}"]
+
+    super(field, collection, options, html_options)
+  end
+
 private
 
   def field_width(field)
