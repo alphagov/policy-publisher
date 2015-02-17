@@ -15,7 +15,7 @@ RSpec.describe ContentItemPresenter do
   describe "#exportable_attributes" do
     it "has fields required by the ContentStore" do
       exported_attrs = presenter.exportable_attributes
-      expect(exported_attrs["base_path"]).to eq("/government/policies/#{policy.slug}")
+      expect(exported_attrs["routes"].first[:path]).to eq("/government/policies/#{policy.slug}")
       expect(exported_attrs["title"]).to eq(policy.name)
     end
 

@@ -14,7 +14,6 @@ module PublishingAPIHelpers
     assert_publishing_api_put_item(
       base_path,
       {
-        "base_path" => base_path,
         "format" => "policy_area",
         "rendering_app" => "finder-frontend",
         "publishing_app" => "policy-publisher",
