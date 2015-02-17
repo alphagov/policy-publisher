@@ -80,9 +80,9 @@ private
   def human_readable_finder_format
     case policy
     when PolicyArea
-      "Policy Area"
+      "Policy area"
     when Programme
-      "Policy Programme"
+      "Policy programme"
     end
   end
 end

@@ -23,7 +23,7 @@ RSpec.describe ContentItemPresenter do
       details = presenter.exportable_attributes["details"]
 
       expect(details[:filter][:policies]).to match_array([policy.slug])
-      expect(details[:human_readable_finder_format]).to eq("Policy Area")
+      expect(details[:human_readable_finder_format]).to eq("Policy area")
     end
   end
 end
