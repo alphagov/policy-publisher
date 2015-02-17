@@ -31,7 +31,7 @@
         <td>
           <ul>
             <% policy_area.programmes.each do |programme| %>
-              <li><%= link_to programme %></li>
+              <li><%= link_to programme.name, edit_programme_path(programme) %></li>
             <% end %>
           </ul>
         </td>

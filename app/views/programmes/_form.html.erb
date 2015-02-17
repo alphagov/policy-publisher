@@ -3,7 +3,7 @@
   <%= f.text_area :description %>
 
   <%= f.select :policy_area_ids,
-    options_from_collection_for_select(PolicyArea.order(:name), :id, :name),
+    options_from_collection_for_select(PolicyArea.order(:name), :id, :name, programme.policy_area_ids),
     {
       label: "Policy areas"
     },
