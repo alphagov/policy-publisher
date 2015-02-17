@@ -8,8 +8,12 @@ class PolicyAreasController < ApplicationController
 
   def create
     if policy_area.save
+      flash[:notice] = "Successfully created a policy area"
+
       redirect_to policy_areas_path
     else
+      flash[:alert] = "Could not create the policy area: #{policy_area.errors.full_messages.to_sentence.downcase}"
+
       render :new
     end
   end
@@ -18,8 +22,12 @@ class PolicyAreasController < ApplicationController
 
   def update
     if policy_area.save
+      flash[:notice] = "Successfully updated the policy area"
+
       redirect_to policy_areas_path
     else
+      flash[:alert] = "Could not update the policy area: #{policy_area.errors.full_messages.to_sentence.downcase}"
+
       render :new
     end
   end
