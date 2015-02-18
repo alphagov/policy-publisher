@@ -16,8 +16,9 @@ module Publishable
 
 private
   def publish_content_item
-    attrs = ContentItemPresenter.new(self).exportable_attributes
-    publishing_api.put_content_item(attrs["base_path"], attrs)
+    presenter = ContentItemPresenter.new(self)
+    attrs = presenter.exportable_attributes
+    publishing_api.put_content_item(presenter.base_path, attrs)
   end
 
   def publishing_api

@@ -6,7 +6,6 @@ class ContentItemPresenter
 
   def exportable_attributes
     {
-      "base_path" => base_path,
       "format" => "policy_area",
       "content_id" => content_id,
       "title" => title,
@@ -26,12 +25,12 @@ class ContentItemPresenter
     }
   end
 
-private
-  attr_reader :policy
-
   def base_path
     "/government/policies/#{policy.slug}"
   end
+
+private
+  attr_reader :policy
 
   def content_id
     policy.content_id
