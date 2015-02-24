@@ -4,4 +4,11 @@ namespace :publishing_api do
     PolicyArea.all.map(&:save)
     Programme.all.map(&:save)
   end
+
+  desc "Publish the Policies Finder to the Publishing API"
+  task publish_policies_finder: :environment do
+    require "policies_finder_publisher"
+
+    PoliciesFinderPublisher.new.publish
+  end
 end
