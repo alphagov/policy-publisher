@@ -57,6 +57,10 @@ private
       {
         path: "#{base_path}.json",
         type: "exact",
+      },
+      {
+        path: "#{base_path}.atom",
+        type: "exact",
       }
     ]
   end
