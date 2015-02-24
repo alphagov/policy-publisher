@@ -67,7 +67,7 @@ private
 
   def details
     {
-      document_noun: "areas",
+      document_noun: "document",
       email_signup_enabled: false,
       filter: {
         policies: [policy.slug]
