@@ -35,7 +35,13 @@ git merge --no-commit origin/master || git merge --abort
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without development
 bundle exec rake db:reset
 bundle exec rake assets:clean assets:precompile
-bundle exec cucumber && bundle exec rspec spec/
+
+# Clone govuk-content-schemas depedency for tests
+rm -rf tmp/govuk-content-schemas
+git clone git@github.com:alphagov/govuk-content-schemas.git tmp/govuk-content-schemas
+
+RAILS_ENV=test GOVUK_CONTENT_SCHEMAS_PATH=tmp/govuk-content-schemas bundle exec rake
+
 
 export EXIT_STATUS=$?
 
