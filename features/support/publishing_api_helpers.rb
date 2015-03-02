@@ -21,6 +21,11 @@ module PublishingAPIHelpers
       times,
     )
   end
+
+  def assert_valid_against_schema(content_item_hash, format)
+    validator = GovukContentSchema::Validator.new(format, content_item_hash.to_json)
+    validator.valid? || "JSON not valid against #{format} schema: #{validator.errors.to_s}"
+  end
 end
 
 World(PublishingAPIHelpers)

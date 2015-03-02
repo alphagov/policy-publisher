@@ -11,6 +11,7 @@ class ContentItemPresenter
       "title" => title,
       "description" => description,
       "public_updated_at" => public_updated_at,
+      "locale" => "en",
       "update_type" => "major",
       "publishing_app" => "policy-publisher",
       "rendering_app" => "finder-frontend",
