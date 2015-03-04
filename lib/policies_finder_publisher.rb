@@ -1,15 +1,18 @@
-class ContentItemPresenter
+require "gds_api/publishing_api"
 
-  def initialize(policy)
-    @policy = policy
+class PoliciesFinderPublisher
+
+  def publish
+    publishing_api.put_content_item(base_path, exportable_attributes)
   end
 
   def exportable_attributes
     {
-      "format" => "policy_area",
-      "content_id" => content_id,
-      "title" => title,
-      "description" => description,
+      "base_path" => base_path,
+      "format" => "finder",
+      "content_id" => "d6582d48-df19-46b3-bf84-9157192801a6",
+      "title" => "Policies",
+      "description" => "",
       "public_updated_at" => public_updated_at,
       "locale" => "en",
       "update_type" => "major",
@@ -21,32 +24,18 @@ class ContentItemPresenter
         "organisations" => [],
         "topics" => [],
         "related" => [],
-        "part_of" => [],
       },
     }
   end
 
-  def base_path
-    "/government/policies/#{policy.slug}"
-  end
-
 private
-  attr_reader :policy
 
-  def content_id
-    policy.content_id
-  end
-
-  def title
-    policy.name
-  end
-
-  def description
-    ""
+  def base_path
+    "/government/policies"
   end
 
   def public_updated_at
-    policy.updated_at
+    File.mtime(File.dirname(__FILE__))
   end
 
   def routes
@@ -68,25 +57,18 @@ private
 
   def details
     {
-      document_noun: "document",
+      document_noun: "policy",
       email_signup_enabled: false,
       filter: {
-        policies: [policy.slug]
+        format: "policy"
       },
-      human_readable_finder_format: human_readable_finder_format,
-      signup_link: nil,
-      summary: policy.description,
       show_summaries: false,
       facets: [],
     }
   end
 
-  def human_readable_finder_format
-    case policy
-    when PolicyArea
-      "Policy area"
-    when Programme
-      "Policy programme"
-    end
+  def publishing_api
+    @publishing_api ||= PolicyPublisher.services(:publishing_api)
   end
+
 end

@@ -20,4 +20,10 @@ end
 
 Then(/^a policy area called "(.*?)" is published "(.*?)" times$/) do |policy_area_name, times|
   check_content_item_is_published_to_publishing_api("/government/policies/#{policy_area_name.to_s.parameterize}", times.to_i)
+
+  policy_area = PolicyArea.find_by_slug(policy_area_name.to_s.parameterize)
+  assert_valid_against_schema(
+    ContentItemPresenter.new(policy_area).exportable_attributes,
+    "finder"
+  )
 end
