@@ -8,7 +8,6 @@ class PoliciesFinderPublisher
 
   def exportable_attributes
     {
-      "base_path" => base_path,
       "format" => "finder",
       "content_id" => "d6582d48-df19-46b3-bf84-9157192801a6",
       "title" => "Policies",
