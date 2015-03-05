@@ -1,5 +1,3 @@
-require 'gds_api/publishing_api'
-
 module Publishable
   extend ActiveSupport::Concern
 
