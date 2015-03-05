@@ -60,7 +60,7 @@ private
       document_noun: "policy",
       email_signup_enabled: false,
       filter: {
-        format: "policy"
+        document_type: "policy"
       },
       show_summaries: false,
       facets: [],
