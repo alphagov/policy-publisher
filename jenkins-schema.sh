@@ -38,6 +38,7 @@ git checkout $SCHEMA_GIT_COMMIT
 cd ../..
 
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+RAILS_ENV=test bundle exec rake db:reset
 RAILS_ENV=test GOVUK_CONTENT_SCHEMAS_PATH=tmp/govuk-content-schemas time bundle exec rake
 
 EXIT_STATUS=$?
