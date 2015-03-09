@@ -10,7 +10,7 @@ module PublishingAPIHelpers
     WebMock::RequestRegistry.instance.reset!
   end
 
-  def check_content_item_is_published_to_publishing_api(base_path, times)
+  def assert_content_item_is_published_to_publishing_api(base_path)
     assert_publishing_api_put_item(
       base_path,
       {
@@ -18,7 +18,6 @@ module PublishingAPIHelpers
         "rendering_app" => "finder-frontend",
         "publishing_app" => "policy-publisher",
       },
-      times,
     )
   end
 
