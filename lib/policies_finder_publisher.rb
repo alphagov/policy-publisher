@@ -28,7 +28,6 @@ class PoliciesFinderPublisher
       "details" => details,
       "links" => {
         "organisations" => [],
-        "topics" => [],
         "related" => [],
       },
     }
