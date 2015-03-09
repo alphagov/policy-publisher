@@ -35,10 +35,4 @@ end
 
 Then(/^a programme called "(.*?)" is published to publishing API$/) do |programme_name|
   assert_content_item_is_published_to_publishing_api("/government/policies/#{programme_name.to_s.parameterize}")
-
-  programme = Programme.find_by_slug(programme_name.to_s.parameterize)
-  assert_valid_against_schema(
-    ContentItemPresenter.new(programme).exportable_attributes,
-    "finder"
-  )
 end
