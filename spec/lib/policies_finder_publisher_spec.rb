@@ -6,9 +6,7 @@ RSpec.describe PoliciesFinderPublisher do
 
   describe "#exportable_attributes" do
     it "validates against govuk-content-schema" do
-      attrs = publisher.exportable_attributes
-      validator = GovukContentSchema::Validator.new("finder", attrs.to_json)
-      assert validator.valid?, "JSON not valid against finder schema: #{validator.errors.to_s}"
+      assert_valid_against_schema publisher.exportable_attributes.as_json, "finder"
     end
   end
 end

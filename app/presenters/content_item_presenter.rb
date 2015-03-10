@@ -6,7 +6,7 @@ class ContentItemPresenter
 
   def exportable_attributes
     {
-      "format" => "policy_area",
+      "format" => "policy",
       "content_id" => content_id,
       "title" => title,
       "description" => description,
@@ -19,9 +19,7 @@ class ContentItemPresenter
       "details" => details,
       "links" => {
         "organisations" => [],
-        "topics" => [],
         "related" => [],
-        "part_of" => [],
       },
     }
   end
@@ -74,7 +72,7 @@ private
         policies: [policy.slug]
       },
       human_readable_finder_format: 'Policy',
-      signup_link: nil,
+      signup_link: '',
       summary: policy.description,
       show_summaries: false,
       facets: [],

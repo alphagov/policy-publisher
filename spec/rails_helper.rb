@@ -22,4 +22,9 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+
+  def assert_valid_against_schema(content_item, format)
+    validator = GovukContentSchema::Validator.new(format, content_item)
+    assert validator.valid?, "JSON not valid against the '#{format}' schema: #{validator.errors.to_s}"
+  end
 end

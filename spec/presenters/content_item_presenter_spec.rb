@@ -1,29 +1,24 @@
 require "rails_helper"
+require "gds_api/test_helpers/publishing_api"
 
 RSpec.describe ContentItemPresenter do
-  let(:policy) {
-    PolicyArea.new(
-      name: "Tea and biscuits",
-      slug: "tea-and-biscuits",
-      description: "Tea and biscuits are popular among many people who live in the UK.",
-      content_id: "f61106bd-fb70-4003-a85a-71e5d52bea01",
-    )
-  }
+  include GdsApi::TestHelpers::PublishingApi
 
-  let(:presenter) { ContentItemPresenter.new(policy) }
+  before do
+    stub_default_publishing_api_put
+  end
 
   describe "#exportable_attributes" do
-    it "has fields required by the ContentStore" do
-      exported_attrs = presenter.exportable_attributes
-      expect(exported_attrs["routes"].first[:path]).to eq("/government/policies/#{policy.slug}")
-      expect(exported_attrs["title"]).to eq(policy.name)
+    it "validates against the schema with a policy area" do
+      presenter = ContentItemPresenter.new(FactoryGirl.create(:policy_area))
+
+      assert_valid_against_schema(presenter.exportable_attributes.as_json, "policy")
     end
 
-    it "sets details hash" do
-      details = presenter.exportable_attributes["details"]
+    it "validates against the schema with a policy programme" do
+      presenter = ContentItemPresenter.new(FactoryGirl.create(:programme))
 
-      expect(details[:filter][:policies]).to match_array([policy.slug])
-      expect(details[:human_readable_finder_format]).to eq("Policy")
+      assert_valid_against_schema(presenter.exportable_attributes.as_json, "policy")
     end
   end
 end

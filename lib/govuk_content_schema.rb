@@ -6,11 +6,14 @@ class GovukContentSchema
 
   VALID_SCHEMA_NAMES = [
     'finder',
+    'policy'
   ]
 
   def self.schema_path(schema_name)
     if VALID_SCHEMA_NAMES.include? schema_name
       Rails.root.join("#{self.govuk_content_schemas_path}/formats/#{schema_name}/publisher/schema.json").to_s
+    else
+      raise "'#{schema_name}' is not a valid schema name"
     end
   end
 
@@ -24,7 +27,7 @@ class GovukContentSchema
       if !Pathname(@schema_path).dirname.exist?
         raise ImproperlyConfiguredError, "Dependency govuk-content-schemas cannot be found. Ensure it is checked out in the same parent directory as this application (see README.md for more details)."
       elif !File.exists?(@schema_path)
-        raise ImproperlyConfiguredError, "Schema file not found: #{@schema_path}. Mke sure it is present in govuk-content-schemas."
+        raise ImproperlyConfiguredError, "Schema file not found: #{@schema_path}. Make sure it is present in govuk-content-schemas."
       end
       @data = data
     end

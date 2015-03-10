@@ -14,16 +14,11 @@ module PublishingAPIHelpers
     assert_publishing_api_put_item(
       base_path,
       {
-        "format" => "policy_area",
+        "format" => "policy",
         "rendering_app" => "finder-frontend",
         "publishing_app" => "policy-publisher",
       },
     )
-  end
-
-  def assert_valid_against_schema(content_item_hash, format)
-    validator = GovukContentSchema::Validator.new(format, content_item_hash.to_json)
-    validator.valid? || "JSON not valid against #{format} schema: #{validator.errors.to_s}"
   end
 end
 
