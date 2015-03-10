@@ -55,7 +55,7 @@ RSpec.describe PolicyArea do
     assert_publishing_api_put_item(
       base_path,
       {
-        "format" => "policy_area",
+        "format" => "policy",
         "rendering_app" => "finder-frontend",
         "publishing_app" => "policy-publisher",
       }
