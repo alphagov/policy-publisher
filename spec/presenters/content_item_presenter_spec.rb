@@ -19,8 +19,7 @@ RSpec.describe ContentItemPresenter do
 
   describe "#exportable_attributes" do
     it "validates against the schema for a policy" do
-      validator = GovukContentSchema::Validator.new('policy', presenter.exportable_attributes.as_json)
-      assert validator.valid?, "JSON not valid against the 'policy' schema: #{validator.errors.to_s}"
+      assert_valid_against_schema(presenter.exportable_attributes.as_json, "policy")
     end
   end
 end
