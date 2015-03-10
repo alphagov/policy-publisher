@@ -1,6 +1,7 @@
 Given(/^a programme exists called "(.*?)"$/) do |programme_name|
   stub_publishing_api
   FactoryGirl.create(:programme, name: programme_name)
+  reset_remote_requests
 end
 
 When(/^I change the title of programme "(.*?)" to "(.*?)"$/) do |old_name, new_name|
@@ -32,12 +33,6 @@ Then(/^the programme "(.*?)" should be associated with the policy areas "(.*?)" 
   )
 end
 
-Then(/^a programme called "(.*?)" is published "(.*?)" times$/) do |programme_name, times|
-  check_content_item_is_published_to_publishing_api("/government/policies/#{programme_name.to_s.parameterize}", times.to_i)
-
-  programme = Programme.find_by_slug(programme_name.to_s.parameterize)
-  assert_valid_against_schema(
-    ContentItemPresenter.new(programme).exportable_attributes,
-    "finder"
-  )
+Then(/^a programme called "(.*?)" is published to publishing API$/) do |programme_name|
+  assert_content_item_is_published_to_publishing_api("/government/policies/#{programme_name.to_s.parameterize}")
 end

@@ -73,20 +73,11 @@ private
       filter: {
         policies: [policy.slug]
       },
-      human_readable_finder_format: human_readable_finder_format,
+      human_readable_finder_format: 'Policy',
       signup_link: nil,
       summary: policy.description,
       show_summaries: false,
       facets: [],
     }
-  end
-
-  def human_readable_finder_format
-    case policy
-    when PolicyArea
-      "Policy area"
-    when Programme
-      "Policy programme"
-    end
   end
 end

@@ -1,5 +1,12 @@
 require "gds_api/publishing_api"
 
+# This is a utility class for publishing the base-finder for policies to the
+# publishing API. This finder lives at /government/policies.
+#
+# A rake task exists to (re-)publish this to Publishing API:
+#
+#   bundle exec rake publish_policies_finder
+#
 class PoliciesFinderPublisher
 
   def publish
@@ -8,7 +15,6 @@ class PoliciesFinderPublisher
 
   def exportable_attributes
     {
-      "base_path" => base_path,
       "format" => "finder",
       "content_id" => "d6582d48-df19-46b3-bf84-9157192801a6",
       "title" => "Policies",
@@ -22,7 +28,6 @@ class PoliciesFinderPublisher
       "details" => details,
       "links" => {
         "organisations" => [],
-        "topics" => [],
         "related" => [],
       },
     }
