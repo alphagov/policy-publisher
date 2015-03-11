@@ -1,5 +1,6 @@
 Given(/^a (?:published )?policy area exists called "(.*?)"$/) do |policy_area_name|
   stub_publishing_api
+  stub_rummager
   FactoryGirl.create(:policy_area, name: policy_area_name)
   reset_remote_requests
 end
@@ -12,6 +13,7 @@ end
 
 When(/^I create a policy area called "(.*?)"$/) do |policy_area_name|
   stub_publishing_api
+  stub_rummager
   create_policy_area(name: policy_area_name)
 end
 
@@ -21,4 +23,9 @@ end
 
 Then(/^a policy area called "(.*?)" is published to publishing API$/) do |policy_area_name|
   assert_content_item_is_published_to_publishing_api("/government/policies/#{policy_area_name.to_s.parameterize}")
+end
+
+Then(/^a policy area called "(.*?)" is indexed for search$/) do |policy_area_name|
+  policy_area = PolicyArea.find_by_name(policy_area_name)
+  assert_policy_published_to_rummager(policy_area)
 end

@@ -19,3 +19,6 @@ end
 
 require 'gds_api/publishing_api'
 PolicyPublisher.services(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
+
+require 'gds_api/rummager'
+PolicyPublisher.services(:rummager, GdsApi::Rummager.new(Plek.new.find('search')))

@@ -1,5 +1,6 @@
 Given(/^a programme exists called "(.*?)"$/) do |programme_name|
   stub_publishing_api
+  stub_rummager
   FactoryGirl.create(:programme, name: programme_name)
   reset_remote_requests
 end
@@ -12,6 +13,7 @@ end
 
 When(/^I create a programme called "(.*?)"$/) do |programme_name|
   stub_publishing_api
+  stub_rummager
   create_programme(name: programme_name)
 end
 
@@ -35,4 +37,9 @@ end
 
 Then(/^a programme called "(.*?)" is published to publishing API$/) do |programme_name|
   assert_content_item_is_published_to_publishing_api("/government/policies/#{programme_name.to_s.parameterize}")
+end
+
+Then(/^a programme called "(.*?)" is indexed for search$/) do |programme_name|
+  programme = Programme.find_by_name(programme_name)
+  assert_policy_published_to_rummager(programme)
 end

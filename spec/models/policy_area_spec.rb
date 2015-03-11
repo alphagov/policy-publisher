@@ -1,11 +1,14 @@
 require "rails_helper"
 require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/rummager'
 
 RSpec.describe PolicyArea do
   include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::Rummager
 
   before do
     stub_default_publishing_api_put
+    stub_any_rummager_post
   end
 
   it "automatically adds a slug on creation" do
@@ -60,5 +63,21 @@ RSpec.describe PolicyArea do
         "publishing_app" => "policy-publisher",
       }
     )
+  end
+
+  it "adds a Document to Rummager after save" do
+    policy_area = FactoryGirl.create(:policy_area, name: "Climate change")
+
+    expected_json = JSON.parse({
+      title: policy_area.name,
+      description: policy_area.description,
+      link: "/government/policies/#{policy_area.slug}",
+      indexable_content: "",
+      organisations: [],
+      last_update: policy_area.updated_at,
+      _type: "policy",
+      _id: "/government/policies/#{policy_area.slug}",
+    }.to_json)
+    assert_rummager_posted_item(expected_json)
   end
 end

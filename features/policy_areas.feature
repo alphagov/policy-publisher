@@ -14,3 +14,4 @@ Scenario: Editing a policy area
   When I change the title of policy area "Global warming" to "Climate change"
   Then there should be a policy area called "Climate change"
   And a policy area called "Global warming" is published to publishing API
+  Then a policy area called "Climate change" is indexed for search
