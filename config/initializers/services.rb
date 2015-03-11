@@ -1,3 +1,7 @@
+require 'gds_api/publishing_api'
+require 'gds_api/content_register'
+require 'gds_api/rummager'
+
 module PolicyPublisher
   def self.services(name, service = nil)
     @services ||= {}
@@ -17,8 +21,7 @@ module PolicyPublisher
   class ServiceNotRegisteredException < Exception; end
 end
 
-require 'gds_api/publishing_api'
-PolicyPublisher.services(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
 
-require 'gds_api/rummager'
+PolicyPublisher.services(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
 PolicyPublisher.services(:rummager, GdsApi::Rummager.new(Plek.new.find('search')))
+PolicyPublisher.services(:content_register, GdsApi::ContentRegister.new(Plek.new.find('content-register')))
