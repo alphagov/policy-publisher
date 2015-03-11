@@ -90,13 +90,13 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    gds-api-adapters (17.5.0)
+    gds-api-adapters (18.0.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
       plek
       rack-cache
-      rest-client (~> 1.6.3)
+      rest-client (~> 1.7.3)
     gds-sso (10.0.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
@@ -142,6 +142,7 @@ GEM
     multi_test (0.1.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     null_logger (0.0.1)
@@ -199,8 +200,9 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.4.2)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    rest-client (1.7.3)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec-core (3.2.0)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.0)
@@ -276,7 +278,7 @@ DEPENDENCIES
   database_cleaner
   decent_exposure (= 2.3.2)
   factory_girl_rails
-  gds-api-adapters (= 17.5.0)
+  gds-api-adapters (= 18.0.0)
   gds-sso (= 10.0.0)
   generic_form_builder (= 0.13.0)
   govuk_admin_template (= 1.5.1)
