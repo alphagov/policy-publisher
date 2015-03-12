@@ -15,3 +15,8 @@ Scenario: Editing a policy area
   Then there should be a policy area called "Climate change"
   And a policy area called "Global warming" is published to publishing API
   Then a policy area called "Climate change" is indexed for search
+
+Scenario: Associating a policy area with an organisation
+  Given a policy area exists called "Global warming"
+  When I associate the policy area with an organisation
+  Then the policy area should be linked to the organisation when published to publishing API

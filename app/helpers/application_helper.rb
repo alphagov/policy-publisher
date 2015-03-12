@@ -11,4 +11,10 @@ module ApplicationHelper
       end
     end
   end
+
+  # Data container used to generate the options for an organisations select field
+  def organisations_data_container
+    PolicyPublisher.services(:content_register).organisations.
+      map { |org| [org['title'], org['content_id']] }
+  end
 end

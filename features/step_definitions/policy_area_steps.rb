@@ -1,7 +1,7 @@
 Given(/^a (?:published )?policy area exists called "(.*?)"$/) do |policy_area_name|
   stub_publishing_api
   stub_rummager
-  FactoryGirl.create(:policy_area, name: policy_area_name)
+  @policy_area = FactoryGirl.create(:policy_area, name: policy_area_name)
   reset_remote_requests
 end
 
@@ -17,6 +17,14 @@ When(/^I create a policy area called "(.*?)"$/) do |policy_area_name|
   create_policy_area(name: policy_area_name)
 end
 
+When(/^I associate the policy area with an organisation$/) do
+  visit policy_areas_path
+  click_on @policy_area.name
+
+  select 'Organisation 1', from: "Organisations"
+  click_on "Save"
+end
+
 Then(/^there should be a policy area called "(.*?)"$/) do |policy_area_name|
   check_for_policy_area(name: policy_area_name)
 end
@@ -28,4 +36,22 @@ end
 Then(/^a policy area called "(.*?)" is indexed for search$/) do |policy_area_name|
   policy_area = PolicyArea.find_by_name(policy_area_name)
   assert_policy_published_to_rummager(policy_area)
+end
+
+Then(/^the policy area should be linked to the organisation when published to publishing API$/) do
+  base_path = "/government/policies/#{@policy_area.slug}"
+
+  assert_publishing_api_put_item(
+    base_path,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+      "locale" => "en",
+      "links" => {
+        "organisations" => [organisation_1["content_id"]],
+        "related" => [],
+      },
+    }
+  )
 end

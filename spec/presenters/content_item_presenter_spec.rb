@@ -23,5 +23,13 @@ RSpec.describe ContentItemPresenter do
 
       assert_valid_against_schema(presenter.exportable_attributes.as_json, "policy")
     end
+
+    it "includes linked organisations" do
+      content_id = SecureRandom.uuid
+      policy_area = FactoryGirl.create(:policy_area, organisation_content_ids: [content_id])
+      attributes = ContentItemPresenter.new(policy_area).exportable_attributes.as_json
+
+      expect(attributes["links"]["organisations"]).to eq([content_id])
+    end
   end
 end
