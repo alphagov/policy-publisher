@@ -18,4 +18,4 @@ end
 
 PolicyPublisher.register_service(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
 PolicyPublisher.register_service(:rummager, GdsApi::Rummager.new(Plek.new.find('search')))
-PolicyPublisher.register_service(:content_register, GdsApi::ContentRegister.new(Plek.new.find('content-register')))
+PolicyPublisher.register_service(:content_register, ContentRegister.new)
