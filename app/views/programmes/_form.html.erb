@@ -25,5 +25,7 @@
       class: 'select2',
       data: { placeholder: 'Choose policy areas…' } } %>
 
+      <%= render partial: "shared/applicable_nations", locals: {form: f} %>
+
   <%= f.buttons(cancel_link: programmes_path) %>
 <% end %>
