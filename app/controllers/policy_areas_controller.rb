@@ -39,6 +39,14 @@ private
     params.require(:policy_area).permit(
       :name,
       :description,
+      :england,
+      :england_policy_url,
+      :northern_ireland,
+      :northern_ireland_policy_url,
+      :scotland,
+      :scotland_policy_url,
+      :wales,
+      :wales_policy_url,
       organisation_content_ids: [],
       people_content_ids: [],
     )
