@@ -1,7 +1,7 @@
 Given(/^a programme exists called "(.*?)"$/) do |programme_name|
   stub_publishing_api
   stub_rummager
-  FactoryGirl.create(:programme, name: programme_name)
+  @programme = FactoryGirl.create(:programme, name: programme_name)
   reset_remote_requests
 end
 
@@ -15,6 +15,14 @@ When(/^I create a programme called "(.*?)"$/) do |programme_name|
   stub_publishing_api
   stub_rummager
   create_programme(name: programme_name)
+end
+
+When(/^I associate the programme with an organisation$/) do
+  visit programmes_path
+  click_on @programme.name
+
+  select 'Organisation 2', from: 'Organisations'
+  click_on 'Save'
 end
 
 Then(/^there should be a programme called "(.*?)"$/) do |programme_name|
@@ -42,4 +50,22 @@ end
 Then(/^a programme called "(.*?)" is indexed for search$/) do |programme_name|
   programme = Programme.find_by_name(programme_name)
   assert_policy_published_to_rummager(programme)
+end
+
+Then(/^the programme should be linked to the organisation when published to publishing API$/) do
+  base_path = "/government/policies/#{@programme.slug}"
+
+  assert_publishing_api_put_item(
+    base_path,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+      "locale" => "en",
+      "links" => {
+        "organisations" => [organisation_2["content_id"]],
+        "related" => [],
+      },
+    }
+  )
 end

@@ -2,6 +2,13 @@
   <%= f.text_field :name %>
   <%= f.text_area :description %>
 
+  <%= f.select :organisation_content_ids,
+        organisations_data_container,
+        { label: "Organisations" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose organisations…' } } %>
+
   <%= f.select :policy_area_ids,
     options_from_collection_for_select(PolicyArea.order(:name), :id, :name, programme.policy_area_ids),
     {

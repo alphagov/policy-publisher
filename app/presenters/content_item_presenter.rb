@@ -36,7 +36,7 @@ private
   end
 
   def organisation_content_ids
-    policy.is_a?(PolicyArea) ? policy.organisation_content_ids : []
+    policy.organisation_content_ids
   end
 
   def title
