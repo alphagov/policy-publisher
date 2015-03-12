@@ -1,5 +1,6 @@
 class Programme < ActiveRecord::Base
   include Publishable
+  include ApplicableToNations
 
   has_and_belongs_to_many :policy_areas
 

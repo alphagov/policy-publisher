@@ -80,4 +80,19 @@ RSpec.describe PolicyArea do
     }.to_json)
     assert_rummager_posted_item(expected_json)
   end
+
+  it "gets a list of applicable nations" do
+    policy_area = FactoryGirl.create(
+      :policy_area,
+      name: "Rural payments",
+      northern_ireland: false,
+      northern_ireland_policy_url: "https://www.nidirect.gov.uk",
+      scotland: false,
+      scotland_policy_url: "http://www.gov.scot/",
+      wales: false,
+      wales_policy_url: "http://gov.wales/",
+    )
+
+    expect(policy_area.applicable_nations).to eq([:england])
+  end
 end
