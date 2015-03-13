@@ -6,7 +6,7 @@ RSpec.describe PoliciesFinderPublisher do
 
   describe "#exportable_attributes" do
     it "validates against govuk-content-schema" do
-      assert_valid_against_schema publisher.exportable_attributes.as_json, "finder"
+      expect(publisher.exportable_attributes.as_json).to be_valid_against_schema('finder')
     end
   end
 end

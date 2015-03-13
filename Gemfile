@@ -31,5 +31,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'webmock'
   gem 'timecop'
-  gem 'json-schema', '2.5.0'
+  gem 'govuk-content-schema-test-helpers', '1.0.1'
 end

@@ -15,13 +15,13 @@ RSpec.describe ContentItemPresenter do
     it "validates against the schema with a policy area" do
       presenter = ContentItemPresenter.new(FactoryGirl.create(:policy_area))
 
-      assert_valid_against_schema(presenter.exportable_attributes.as_json, "policy")
+      expect(presenter.exportable_attributes.as_json).to be_valid_against_schema('policy')
     end
 
     it "validates against the schema with a policy programme" do
       presenter = ContentItemPresenter.new(FactoryGirl.create(:programme))
 
-      assert_valid_against_schema(presenter.exportable_attributes.as_json, "policy")
+      expect(presenter.exportable_attributes.as_json).to be_valid_against_schema('policy')
     end
   end
 end

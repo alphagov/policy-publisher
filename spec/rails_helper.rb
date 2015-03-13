@@ -4,6 +4,7 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
+require 'govuk-content-schema-test-helpers/rspec_matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -14,6 +15,11 @@ require 'webmock/rspec'
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+GovukContentSchemaTestHelpers.configure do |config|
+  config.schema_type = 'publisher'
+  config.project_root = Rails.root
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -23,8 +29,5 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  def assert_valid_against_schema(content_item, format)
-    validator = GovukContentSchema::Validator.new(format, content_item)
-    assert validator.valid?, "JSON not valid against the '#{format}' schema: #{validator.errors.to_s}"
-  end
+  config.include GovukContentSchemaTestHelpers::RSpecMatchers
 end
