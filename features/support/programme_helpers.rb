@@ -47,6 +47,14 @@ module ProgrammeHelpers
       end
     end
   end
+
+  def associate_programme_with_organisation(programme:, organisation_name:)
+    visit programmes_path
+    click_on programme.name
+
+    select organisation_name, from: "Organisations"
+    click_on "Save"
+  end
 end
 
 World(ProgrammeHelpers)

@@ -16,7 +16,7 @@ gem 'generic_form_builder', '0.13.0'
 gem 'select2-rails', '3.5.9.3'
 gem 'decent_exposure', '2.3.2'
 
-gem 'gds-api-adapters', '17.5.0'
+gem 'gds-api-adapters', '18.1.0'
 
 group :development, :test do
   gem 'byebug'

@@ -28,6 +28,14 @@ module PolicyHelpers
     visit policy_areas_path
     expect(page).to have_content(name)
   end
+
+  def associate_policy_area_with_organisation(policy_area, organisation_name)
+    visit policy_areas_path
+    click_on policy_area.name
+
+    select organisation_name, from: "Organisations"
+    click_on "Save"
+  end
 end
 
 World(PolicyHelpers)

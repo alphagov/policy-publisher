@@ -1,4 +1,5 @@
 class PolicyAreasController < ApplicationController
+  before_filter :clean_blank_parameters, only: [:create, :update]
   expose(:policy_area, attributes: :policy_area_params)
   expose(:policy_areas)
 
@@ -37,7 +38,16 @@ private
   def policy_area_params
     params.require(:policy_area).permit(
       :name,
-      :description
+      :description,
+      organisation_content_ids: []
     )
+  end
+
+  # Rails includes a hidden field for selects on multi-selects so that a value
+  # gets submitted even when nothing is selected. This results in a blank string
+  # being included in the resulting parameter array. We clean this out to prevent
+  # blank strings being stored.
+  def clean_blank_parameters
+    params[:policy_area][:organisation_content_ids].reject! {|id| id.blank? }
   end
 end

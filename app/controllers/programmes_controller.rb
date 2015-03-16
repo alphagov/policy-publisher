@@ -1,4 +1,5 @@
 class ProgrammesController < ApplicationController
+  before_filter :clean_blank_parameters, only: [:create, :update]
   expose(:programme, attributes: :programme_params)
   expose(:programmes)
 
@@ -38,7 +39,16 @@ class ProgrammesController < ApplicationController
     params.require(:programme).permit(
       :name,
       :description,
-      {policy_area_ids: []}
+      policy_area_ids: [],
+      organisation_content_ids: [],
     )
+  end
+
+  # Rails includes a hidden field for selects on multi-selects so that a value
+  # gets submitted even when nothing is selected. This results in a blank string
+  # being included in the resulting parameter array. We clean this out to prevent
+  # blank strings being stored.
+  def clean_blank_parameters
+    params[:programme][:organisation_content_ids].reject! {|id| id.blank? }
   end
 end

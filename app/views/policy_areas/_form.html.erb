@@ -2,5 +2,12 @@
   <%= f.text_field :name %>
   <%= f.text_area :description %>
 
+  <%= f.select :organisation_content_ids,
+        organisations_data_container,
+        { label: "Organisations" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose organisations…' } } %>
+
   <%= f.buttons(cancel_link: policy_areas_path) %>
 <% end %>
