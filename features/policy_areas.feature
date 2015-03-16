@@ -20,3 +20,8 @@ Scenario: Associating a policy area with an organisation
   Given a policy area exists called "Global warming"
   When I associate the policy area with an organisation
   Then the policy area should be linked to the organisation when published to publishing API
+
+Scenario: Associating a policy area with a person
+  Given a policy area exists called "Global warming"
+  When I associate the policy area with a person
+  Then the policy area should be linked to the person when published to publishing API

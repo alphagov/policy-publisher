@@ -9,6 +9,13 @@
           class: 'select2',
           data: { placeholder: 'Choose organisations…' } } %>
 
+  <%= f.select :people_content_ids,
+        people_data_container,
+        { label: "People" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose people…' } } %>
+
   <%= f.select :policy_area_ids,
     options_from_collection_for_select(PolicyArea.order(:name), :id, :name, programme.policy_area_ids),
     {

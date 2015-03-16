@@ -55,6 +55,14 @@ module ProgrammeHelpers
     select organisation_name, from: "Organisations"
     click_on "Save"
   end
+
+  def asociate_programme_with_person(programme:, person_name:)
+    visit programmes_path
+    click_on programme.name
+
+    select person_name, from: "People"
+    click_on "Save"
+  end
 end
 
 World(ProgrammeHelpers)

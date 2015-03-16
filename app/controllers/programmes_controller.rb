@@ -41,6 +41,7 @@ class ProgrammesController < ApplicationController
       :description,
       policy_area_ids: [],
       organisation_content_ids: [],
+      people_content_ids: [],
     )
   end
 
@@ -50,5 +51,6 @@ class ProgrammesController < ApplicationController
   # blank strings being stored.
   def clean_blank_parameters
     params[:programme][:organisation_content_ids].reject! {|id| id.blank? }
+    params[:programme][:people_content_ids].reject! {|id| id.blank? }
   end
 end

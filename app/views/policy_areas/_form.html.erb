@@ -9,5 +9,12 @@
           class: 'select2',
           data: { placeholder: 'Choose organisations…' } } %>
 
+  <%= f.select :people_content_ids,
+        people_data_container,
+        { label: "People" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose people…' } } %>
+
   <%= f.buttons(cancel_link: policy_areas_path) %>
 <% end %>

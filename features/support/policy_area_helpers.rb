@@ -36,6 +36,14 @@ module PolicyHelpers
     select organisation_name, from: "Organisations"
     click_on "Save"
   end
+
+  def asociate_policy_area_with_person(policy_area:, person_name:)
+    visit policy_areas_path
+    click_on policy_area.name
+
+    select person_name, from: "People"
+    click_on "Save"
+  end
 end
 
 World(PolicyHelpers)
