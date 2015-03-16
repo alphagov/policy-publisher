@@ -6,6 +6,4 @@ class PolicyArea < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
   validates :description, presence: true
-
-  serialize :organisation_content_ids, Array
 end

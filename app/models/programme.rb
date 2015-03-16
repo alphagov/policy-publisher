@@ -7,8 +7,6 @@ class Programme < ActiveRecord::Base
   validates :slug, presence: true, uniqueness: true
   validates :description, presence: true
 
-  serialize :organisation_content_ids, Array
-
   def to_s
     name
   end
