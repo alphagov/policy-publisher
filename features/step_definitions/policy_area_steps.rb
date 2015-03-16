@@ -18,11 +18,7 @@ When(/^I create a policy area called "(.*?)"$/) do |policy_area_name|
 end
 
 When(/^I associate the policy area with an organisation$/) do
-  visit policy_areas_path
-  click_on @policy_area.name
-
-  select 'Organisation 1', from: "Organisations"
-  click_on "Save"
+  associate_policy_area_with_organisation(@policy_area, 'Organisation 1')
 end
 
 Then(/^there should be a policy area called "(.*?)"$/) do |policy_area_name|

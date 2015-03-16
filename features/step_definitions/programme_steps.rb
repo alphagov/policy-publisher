@@ -18,11 +18,7 @@ When(/^I create a programme called "(.*?)"$/) do |programme_name|
 end
 
 When(/^I associate the programme with an organisation$/) do
-  visit programmes_path
-  click_on @programme.name
-
-  select 'Organisation 2', from: 'Organisations'
-  click_on 'Save'
+    associate_programme_with_organisation(programme: @programme, organisation_name: 'Organisation 2')
 end
 
 Then(/^there should be a programme called "(.*?)"$/) do |programme_name|
