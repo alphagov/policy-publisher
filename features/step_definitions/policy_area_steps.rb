@@ -18,7 +18,7 @@ When(/^I create a policy area called "(.*?)"$/) do |policy_area_name|
 end
 
 When(/^I associate the policy area with an organisation$/) do
-  associate_policy_area_with_organisation(@policy_area, 'Organisation 1')
+  associate_policy_area_with_organisation(policy_area: @policy_area, organisation_name: 'Organisation 1')
 end
 
 When(/^I associate the policy area with a person$/) do
