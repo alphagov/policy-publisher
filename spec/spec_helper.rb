@@ -16,6 +16,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..')
+$LOAD_PATH << File.join(File.dirname(__FILE__), '../app')
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
