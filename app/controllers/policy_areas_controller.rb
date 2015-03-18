@@ -39,7 +39,8 @@ private
     params.require(:policy_area).permit(
       :name,
       :description,
-      organisation_content_ids: []
+      organisation_content_ids: [],
+      people_content_ids: [],
     )
   end
 
@@ -49,5 +50,6 @@ private
   # blank strings being stored.
   def clean_blank_parameters
     params[:policy_area][:organisation_content_ids].reject! {|id| id.blank? }
+    params[:policy_area][:people_content_ids].reject! {|id| id.blank? }
   end
 end

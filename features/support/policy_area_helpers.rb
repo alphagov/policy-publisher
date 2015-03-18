@@ -29,11 +29,19 @@ module PolicyHelpers
     expect(page).to have_content(name)
   end
 
-  def associate_policy_area_with_organisation(policy_area, organisation_name)
+  def associate_policy_area_with_organisation(policy_area:, organisation_name:)
     visit policy_areas_path
     click_on policy_area.name
 
     select organisation_name, from: "Organisations"
+    click_on "Save"
+  end
+
+  def asociate_policy_area_with_person(policy_area:, person_name:)
+    visit policy_areas_path
+    click_on policy_area.name
+
+    select person_name, from: "People"
     click_on "Save"
   end
 end

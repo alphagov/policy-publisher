@@ -18,7 +18,11 @@ When(/^I create a policy area called "(.*?)"$/) do |policy_area_name|
 end
 
 When(/^I associate the policy area with an organisation$/) do
-  associate_policy_area_with_organisation(@policy_area, 'Organisation 1')
+  associate_policy_area_with_organisation(policy_area: @policy_area, organisation_name: 'Organisation 1')
+end
+
+When(/^I associate the policy area with a person$/) do
+  asociate_policy_area_with_person(policy_area: @policy_area, person_name: 'A Person')
 end
 
 Then(/^there should be a policy area called "(.*?)"$/) do |policy_area_name|
@@ -46,6 +50,26 @@ Then(/^the policy area should be linked to the organisation when published to pu
       "locale" => "en",
       "links" => {
         "organisations" => [organisation_1["content_id"]],
+        "people" => [],
+        "related" => [],
+      },
+    }
+  )
+end
+
+Then(/^the policy area should be linked to the person when published to publishing API$/) do
+  base_path = "/government/policies/#{@policy_area.slug}"
+
+  assert_publishing_api_put_item(
+    base_path,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+      "locale" => "en",
+      "links" => {
+        "organisations" => [],
+        "people" => [person_1["content_id"]],
         "related" => [],
       },
     }

@@ -27,3 +27,8 @@ Scenario: Associating a programme with an organisation
   Given a programme exists called "Carbon credits"
   When I associate the programme with an organisation
   Then the programme should be linked to the organisation when published to publishing API
+
+Scenario: Associating a programme with a person
+  Given a programme exists called "Carbon credits"
+  When I associate the programme with a person
+  Then the programme should be linked to the person when published to publishing API

@@ -19,6 +19,7 @@ class ContentItemPresenter
       "details" => details,
       "links" => {
         "organisations" => organisation_content_ids,
+        "people" => people_content_ids,
         "related" => [],
       },
     }
@@ -37,6 +38,10 @@ private
 
   def organisation_content_ids
     policy.organisation_content_ids || []
+  end
+
+  def people_content_ids
+    policy.people_content_ids || []
   end
 
   def title

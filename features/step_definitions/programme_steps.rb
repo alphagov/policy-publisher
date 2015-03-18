@@ -32,6 +32,10 @@ When(/^I associate the programme "(.*?)" with the policy areas "(.*?)" and "(.*?
   )
 end
 
+When(/^I associate the programme with a person$/) do
+  asociate_programme_with_person(programme: @programme, person_name: 'Another Person')
+end
+
 Then(/^the programme "(.*?)" should be associated with the policy areas "(.*?)" and "(.*?)"$/) do |programme_name, pa_1_name, pa_2_name|
   check_for_programme_association(
     programme_name: programme_name,
@@ -60,6 +64,26 @@ Then(/^the programme should be linked to the organisation when published to publ
       "locale" => "en",
       "links" => {
         "organisations" => [organisation_2["content_id"]],
+        "people" => [],
+        "related" => [],
+      },
+    }
+  )
+end
+
+Then(/^the programme should be linked to the person when published to publishing API$/) do
+  base_path = "/government/policies/#{@programme.slug}"
+
+  assert_publishing_api_put_item(
+    base_path,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+      "locale" => "en",
+      "links" => {
+        "organisations" => [],
+        "people" => [person_2["content_id"]],
         "related" => [],
       },
     }
