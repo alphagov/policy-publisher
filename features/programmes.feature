@@ -32,3 +32,8 @@ Scenario: Associating a programme with a person
   Given a programme exists called "Carbon credits"
   When I associate the programme with a person
   Then the programme should be linked to the person when published to publishing API
+
+@javascript
+Scenario: Creating a programme only associated with one nation
+  When I create a programme called "Rural Payments" that only applies to "England"
+  Then there should be a programme called "Rural Payments" which only applies to "England"
