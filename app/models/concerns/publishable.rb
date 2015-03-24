@@ -14,7 +14,7 @@ module Publishable
 
   def publish!
     publish_content_item!
-    publish_rummager_artefact!
+    add_to_search_index!
   end
 
 private
@@ -28,13 +28,7 @@ private
     @publishing_api ||= PolicyPublisher.services(:publishing_api)
   end
 
-  def publish_rummager_artefact!
-    presenter = IndexablePresenter.new(self)
-    attrs = presenter.indexable_attributes
-    rummager.add_document("policy", presenter.id, attrs)
-  end
-
-  def rummager
-    @rummager ||= PolicyPublisher.services(:rummager)
+  def add_to_search_index!
+    SearchIndexer.new(self).index!
   end
 end
