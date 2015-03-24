@@ -6,14 +6,14 @@ class SearchIndexer
   end
 
   def index!
-    rummager.add_document("policy", "/government/policies/#{policy.slug}", document)
+    rummager.add_document("policy", policy.base_path, document)
   end
 
   def document
     {
       title: policy.name,
       description: policy.description,
-      link: "/government/policies/#{policy.slug}",
+      link: policy.base_path,
       indexable_content: "",
       organisations: [],
       last_update: policy.updated_at,

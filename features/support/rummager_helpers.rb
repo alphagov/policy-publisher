@@ -14,12 +14,12 @@ module RummagerHelpers
     expected_json = JSON.parse({
       title: policy.name,
       description: policy.description,
-      link: "/government/policies/#{policy.slug}",
+      link: policy.base_path,
       indexable_content: "",
       organisations: [],
       last_update: policy.updated_at,
       _type: "policy",
-      _id: "/government/policies/#{policy.slug}",
+      _id: policy.base_path,
     }.to_json)
     assert_rummager_posted_item(expected_json)
   end

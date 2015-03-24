@@ -53,10 +53,9 @@ RSpec.describe PolicyArea do
 
   it "publishes a Content Item after save" do
     policy_area = FactoryGirl.create(:policy_area, name: "Climate change")
-    base_path = "/government/policies/#{policy_area.slug}"
 
     assert_publishing_api_put_item(
-      base_path,
+      policy_area.base_path,
       {
         "format" => "policy",
         "rendering_app" => "finder-frontend",
@@ -71,12 +70,12 @@ RSpec.describe PolicyArea do
     expected_json = JSON.parse({
       title: policy_area.name,
       description: policy_area.description,
-      link: "/government/policies/#{policy_area.slug}",
+      link: policy_area.base_path,
       indexable_content: "",
       organisations: [],
       last_update: policy_area.updated_at,
       _type: "policy",
-      _id: "/government/policies/#{policy_area.slug}",
+      _id: policy_area.base_path,
     }.to_json)
     assert_rummager_posted_item(expected_json)
   end

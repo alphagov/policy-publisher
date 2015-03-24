@@ -26,7 +26,7 @@ class ContentItemPresenter
   end
 
   def base_path
-    "/government/policies/#{policy.slug}"
+    policy.base_path
   end
 
 private

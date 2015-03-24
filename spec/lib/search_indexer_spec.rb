@@ -16,12 +16,12 @@ RSpec.describe SearchIndexer do
     expected_json = {
       title: policy.name,
       description: policy.description,
-      link: "/government/policies/#{policy.slug}",
+      link: policy.base_path,
       indexable_content: "",
       organisations: [],
       last_update: policy.updated_at,
       _type: "policy",
-      _id: "/government/policies/#{policy.slug}",
+      _id: policy.base_path,
     }.as_json
 
     indexer.index!

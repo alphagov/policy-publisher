@@ -17,11 +17,15 @@ module Publishable
     add_to_search_index!
   end
 
+  def base_path
+    "/government/policies/#{slug}"
+  end
+
 private
   def publish_content_item!
     presenter = ContentItemPresenter.new(self)
     attrs = presenter.exportable_attributes
-    publishing_api.put_content_item(presenter.base_path, attrs)
+    publishing_api.put_content_item(base_path, attrs)
   end
 
   def publishing_api
