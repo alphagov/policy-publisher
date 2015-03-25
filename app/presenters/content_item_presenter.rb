@@ -26,7 +26,7 @@ class ContentItemPresenter
   end
 
   def base_path
-    "/government/policies/#{policy.slug}"
+    policy.base_path
   end
 
 private
@@ -78,7 +78,7 @@ private
       document_noun: "document",
       email_signup_enabled: false,
       filter: {
-        policies: [policy.slug]
+        policies: [policy.content_id]
       },
       human_readable_finder_format: 'Policy',
       signup_link: '',

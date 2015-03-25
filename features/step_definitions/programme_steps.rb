@@ -53,10 +53,8 @@ Then(/^a programme called "(.*?)" is indexed for search$/) do |programme_name|
 end
 
 Then(/^the programme should be linked to the organisation when published to publishing API$/) do
-  base_path = "/government/policies/#{@programme.slug}"
-
   assert_publishing_api_put_item(
-    base_path,
+    @programme.base_path,
     {
       "format" => "policy",
       "rendering_app" => "finder-frontend",
@@ -72,10 +70,8 @@ Then(/^the programme should be linked to the organisation when published to publ
 end
 
 Then(/^the programme should be linked to the person when published to publishing API$/) do
-  base_path = "/government/policies/#{@programme.slug}"
-
   assert_publishing_api_put_item(
-    base_path,
+    @programme.base_path,
     {
       "format" => "policy",
       "rendering_app" => "finder-frontend",

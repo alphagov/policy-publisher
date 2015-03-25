@@ -39,10 +39,8 @@ Then(/^a policy area called "(.*?)" is indexed for search$/) do |policy_area_nam
 end
 
 Then(/^the policy area should be linked to the organisation when published to publishing API$/) do
-  base_path = "/government/policies/#{@policy_area.slug}"
-
   assert_publishing_api_put_item(
-    base_path,
+    @policy_area.base_path,
     {
       "format" => "policy",
       "rendering_app" => "finder-frontend",
@@ -58,10 +56,8 @@ Then(/^the policy area should be linked to the organisation when published to pu
 end
 
 Then(/^the policy area should be linked to the person when published to publishing API$/) do
-  base_path = "/government/policies/#{@policy_area.slug}"
-
   assert_publishing_api_put_item(
-    base_path,
+    @policy_area.base_path,
     {
       "format" => "policy",
       "rendering_app" => "finder-frontend",
