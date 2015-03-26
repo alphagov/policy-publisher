@@ -24,6 +24,16 @@ RSpec.describe ContentItemPresenter do
       expect(presenter.exportable_attributes.as_json).to be_valid_against_schema('policy')
     end
 
+    it "includes an appropriate filter to filter by the policy slug" do
+      policy = FactoryGirl.create(:policy_area)
+      presenter = ContentItemPresenter.new(policy)
+      filter = {
+        "policies" => [policy.slug]
+      }
+
+      expect(presenter.exportable_attributes.as_json['details']["filter"]).to eq(filter)
+    end
+
     it "includes linked organisations with a policy area" do
       content_id = SecureRandom.uuid
       policy_area = FactoryGirl.create(:policy_area, organisation_content_ids: [content_id])
