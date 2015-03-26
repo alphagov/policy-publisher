@@ -78,7 +78,7 @@ private
       document_noun: "document",
       email_signup_enabled: false,
       filter: {
-        policies: [policy.content_id]
+        policies: [policy.slug]
       },
       human_readable_finder_format: 'Policy',
       signup_link: '',

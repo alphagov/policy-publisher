@@ -14,7 +14,7 @@ class SearchIndexer
       title: policy.name,
       description: policy.description,
       link: policy.base_path,
-      content_id: policy.content_id,
+      slug: policy.slug,
       indexable_content: "",
       organisations: [],
       last_update: policy.updated_at,
