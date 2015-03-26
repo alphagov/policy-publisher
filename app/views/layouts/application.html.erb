@@ -37,4 +37,6 @@
   <%= yield :extra_javascript %>
 <% end %>
 
+<% content_for :footer_version do %><%= CURRENT_RELEASE_SHA %><% end %>
+
 <%= render template: 'layouts/govuk_admin_template' %>
