@@ -95,4 +95,37 @@ RSpec.describe PolicyArea do
 
     expect(policy_area.applicable_nations).to eq([:england])
   end
+
+  it "doesn't allow invalid alternative policy URLs" do
+    policy_area = FactoryGirl.build(
+      :policy_area,
+      name: "Rural payments",
+      northern_ireland: false,
+      northern_ireland_policy_url: "bad-url",
+    )
+
+    expect(policy_area).not_to be_valid
+    expect(policy_area.errors.messages).to eq({:northern_ireland=>["must have a valid alternative policy URL"]})
+  end
+
+  it "allows valid alternative policy URLs" do
+    policy_area = FactoryGirl.build(
+      :policy_area,
+      name: "Rural payments",
+      northern_ireland: false,
+      northern_ireland_policy_url: "http://example.ni",
+    )
+
+    expect(policy_area).to be_valid
+  end
+
+  it "allows specifying no alternative policy URL" do
+    policy_area = FactoryGirl.build(
+      :policy_area,
+      name: "Rural payments",
+      northern_ireland: false,
+    )
+
+    expect(policy_area).to be_valid
+  end
 end
