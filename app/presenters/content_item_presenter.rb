@@ -1,7 +1,8 @@
 class ContentItemPresenter
 
-  def initialize(policy)
+  def initialize(policy, update_type='major')
     @policy = policy
+    @update_type = update_type
   end
 
   def exportable_attributes
@@ -12,7 +13,7 @@ class ContentItemPresenter
       "description" => description,
       "public_updated_at" => public_updated_at,
       "locale" => "en",
-      "update_type" => "major",
+      "update_type" => update_type,
       "publishing_app" => "policy-publisher",
       "rendering_app" => "finder-frontend",
       "routes" => routes,
@@ -20,7 +21,7 @@ class ContentItemPresenter
       "links" => {
         "organisations" => organisation_content_ids,
         "people" => people_content_ids,
-        "related" => [],
+        "related" => related,
       },
     }
   end
@@ -30,7 +31,7 @@ class ContentItemPresenter
   end
 
 private
-  attr_reader :policy
+  attr_reader :policy, :update_type
 
   def content_id
     policy.content_id
@@ -115,5 +116,13 @@ private
 
   def inapplicable_nations
     policy.possible_nations - policy.applicable_nations || []
+  end
+
+  def related
+    if policy.respond_to?(:programmes)
+      policy.programmes.map(&:content_id)
+    else
+      []
+    end
   end
 end

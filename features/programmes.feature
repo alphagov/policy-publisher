@@ -21,7 +21,8 @@ Scenario: Associating a programme with policy areas
   And a programme exists called "Carbon credits"
   When I associate the programme "Carbon credits" with the policy areas "Climate change" and "UK industry"
   Then the programme "Carbon credits" should be associated with the policy areas "Climate change" and "UK industry"
-  Then a programme called "Carbon credits" is indexed for search
+  And the policy area called "Climate change" is republished with a related link to the programme "Carbon credits"
+  And a programme called "Carbon credits" is indexed for search
 
 Scenario: Associating a programme with an organisation
   Given a programme exists called "Carbon credits"
