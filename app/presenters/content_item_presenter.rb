@@ -21,7 +21,7 @@ class ContentItemPresenter
       "links" => {
         "organisations" => organisation_content_ids,
         "people" => people_content_ids,
-        "related" => [],
+        "related" => related,
       },
     }
   end
@@ -116,5 +116,13 @@ private
 
   def inapplicable_nations
     policy.possible_nations - policy.applicable_nations || []
+  end
+
+  def related
+    if policy.respond_to?(:programmes)
+      policy.programmes.map(&:content_id)
+    else
+      []
+    end
   end
 end
