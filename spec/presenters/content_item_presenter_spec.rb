@@ -96,5 +96,15 @@ RSpec.describe ContentItemPresenter do
       expect(nation_applicability["alternative_policies"].first["nation"]).to eq("northern_ireland")
       expect(nation_applicability["alternative_policies"].first["alt_policy_url"]).to eq("https://www.example.ni")
     end
+
+    it "appropriately sets the update type" do
+      content_id = SecureRandom.uuid
+      programme = FactoryGirl.create(:programme, organisation_content_ids: [content_id])
+      major_attributes = ContentItemPresenter.new(programme).exportable_attributes.as_json
+      minor_attributes = ContentItemPresenter.new(programme, update_type='minor').exportable_attributes.as_json
+
+      expect(major_attributes["update_type"]).to eq("major")
+      expect(minor_attributes["update_type"]).to eq("minor")
+    end
   end
 end
