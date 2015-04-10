@@ -32,4 +32,5 @@ group :test do
   gem 'webmock'
   gem 'timecop'
   gem 'govuk-content-schema-test-helpers', '1.0.2'
+  gem "poltergeist", "1.5.0"
 end

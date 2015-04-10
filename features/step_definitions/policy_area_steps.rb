@@ -11,7 +11,7 @@ When(/^I change the title of policy area "(.*?)" to "(.*?)"$/) do |old_name, new
   })
 end
 
-When(/^I create a policy area called "(.*?)"$/) do |policy_area_name|
+When(/^I create a policy area called "([^"]+?)"$/) do |policy_area_name|
   stub_publishing_api
   stub_rummager
   create_policy_area(name: policy_area_name)
@@ -25,7 +25,7 @@ When(/^I associate the policy area with a person$/) do
   asociate_policy_area_with_person(policy_area: @policy_area, person_name: 'A Person')
 end
 
-Then(/^there should be a policy area called "(.*?)"$/) do |policy_area_name|
+Then(/^there should be a policy area called "([^"]+?)"$/) do |policy_area_name|
   check_for_policy_area(name: policy_area_name)
 end
 
@@ -70,4 +70,29 @@ Then(/^the policy area should be linked to the person when published to publishi
       },
     }
   )
+end
+
+When(/^I create a policy area called "([^"]+?)" that only applies to "([^"]+?)"$/) do |policy_area_name, nation|
+  stub_publishing_api
+  stub_rummager
+  possible_nations = ["England", "Northern Ireland", "Scotland", "Wales"]
+  inapplicable_nations = possible_nations - [nation]
+  alt_policy_urls = {}
+
+  inapplicable_nations.each do |n|
+    alt_policy_urls[n] = "http://www.#{n}policyurl.com"
+  end
+
+  create_policy_area(
+    name: policy_area_name,
+    inapplicable_nations: inapplicable_nations,
+    alt_policy_urls: alt_policy_urls,
+  )
+
+  reset_remote_requests
+end
+
+Then(/^there should be a policy area called "([^"]+?)" which only applies to "([^"]+?)"$/) do |policy_area_name, nation|
+  policy_area = PolicyArea.find_by_name(policy_area_name)
+  check_nation_applicability(policy_area, nation)
 end

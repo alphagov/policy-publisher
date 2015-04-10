@@ -11,7 +11,7 @@ When(/^I change the title of programme "(.*?)" to "(.*?)"$/) do |old_name, new_n
   })
 end
 
-When(/^I create a programme called "(.*?)"$/) do |programme_name|
+When(/^I create a programme called "([^"]+?)"$/) do |programme_name|
   stub_publishing_api
   stub_rummager
   create_programme(name: programme_name)
@@ -21,7 +21,7 @@ When(/^I associate the programme with an organisation$/) do
     associate_programme_with_organisation(programme: @programme, organisation_name: 'Organisation 2')
 end
 
-Then(/^there should be a programme called "(.*?)"$/) do |programme_name|
+Then(/^there should be a programme called "([^"]+?)"$/) do |programme_name|
   check_for_programme(name: programme_name)
 end
 
@@ -84,4 +84,30 @@ Then(/^the programme should be linked to the person when published to publishing
       },
     }
   )
+end
+
+
+When(/^I create a programme called "([^"]+?)" that only applies to "([^"]+?)"$/) do |programme_name, nation|
+  stub_publishing_api
+  stub_rummager
+  possible_nations = ["England", "Northern Ireland", "Scotland", "Wales"]
+  inapplicable_nations = possible_nations - [nation]
+  alt_policy_urls = {}
+
+  inapplicable_nations.each do |n|
+    alt_policy_urls[n] = "http://www.#{n.downcase.gsub(' ', '_')}policyurl.com"
+  end
+
+  create_programme(
+    name: programme_name,
+    inapplicable_nations: inapplicable_nations,
+    alt_policy_urls: alt_policy_urls,
+  )
+
+  reset_remote_requests
+end
+
+Then(/^there should be a programme called "([^"]+?)" which only applies to "([^"]+?)"$/) do |programme_name, nation|
+  programme = Programme.find_by_name(programme_name)
+  check_nation_applicability(programme, nation)
 end

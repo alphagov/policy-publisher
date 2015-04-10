@@ -1,0 +1,15 @@
+<h4>Applicable nations</h4>
+
+<div class="applicable-nations">
+  <% form.object.possible_nations.each do |n| %>
+    <%= form.check_box(n, data: {nation: n}, label: n.to_s.titlecase) %>
+    <%= form.text_field "#{n}_policy_url",
+        label:  "#{n.to_s.titlecase} policy url",
+        wrapper_html_options: {
+          style: form.object.send(n) ? "display: none;" : nil,
+          class: "js-alternative-policy-url",
+          id: n
+        }
+    %>
+  <% end %>
+</div>

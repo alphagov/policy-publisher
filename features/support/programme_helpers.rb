@@ -1,10 +1,15 @@
 module ProgrammeHelpers
-  def create_programme(name:, description: "A programme description")
+  def create_programme(name:, description: "A programme description", inapplicable_nations: [], alt_policy_urls: {})
     visit programmes_path
     click_on "Create a programme"
 
     fill_in "Name", with: name
     fill_in "Description", with: description
+
+    inapplicable_nations.each do |nation|
+      uncheck(nation)
+      fill_in "#{nation} policy url", with: alt_policy_urls[nation]
+    end
 
     click_on "Save"
   end

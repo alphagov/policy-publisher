@@ -1,14 +1,19 @@
 require 'gds_api/test_helpers/publishing_api'
 
-module PolicyHelpers
+module PolicyAreaHelpers
   include GdsApi::TestHelpers::PublishingApi
 
-  def create_policy_area(name:, description: "A policy_area description")
+  def create_policy_area(name:, description: "A policy_area description", inapplicable_nations: [], alt_policy_urls: {})
     visit policy_areas_path
     click_on "Create a policy area"
 
     fill_in "Name", with: name
     fill_in "Description", with: description
+
+    inapplicable_nations.each do |nation|
+      uncheck(nation)
+      fill_in("#{nation} policy url", with: alt_policy_urls[nation])
+    end
 
     click_on "Save"
   end
@@ -46,4 +51,4 @@ module PolicyHelpers
   end
 end
 
-World(PolicyHelpers)
+World(PolicyAreaHelpers)
