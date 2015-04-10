@@ -12,6 +12,11 @@ module Publishable
     after_save :publish!
   end
 
+  def republish!
+    publish_content_item!('minor')
+    add_to_search_index!
+  end
+
   def publish!
     publish_content_item!
     add_to_search_index!
@@ -22,8 +27,8 @@ module Publishable
   end
 
 private
-  def publish_content_item!
-    presenter = ContentItemPresenter.new(self)
+  def publish_content_item!(update_type='major')
+    presenter = ContentItemPresenter.new(self, update_type)
     attrs = presenter.exportable_attributes
     publishing_api.put_content_item(base_path, attrs)
   end

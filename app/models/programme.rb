@@ -8,7 +8,13 @@ class Programme < ActiveRecord::Base
   validates :slug, presence: true, uniqueness: true
   validates :description, presence: true
 
+  after_save :republish_parents!
+
   def to_s
     name
+  end
+
+  def republish_parents!
+    policy_areas.each(&:republish!)
   end
 end

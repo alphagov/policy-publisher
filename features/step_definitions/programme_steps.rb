@@ -52,6 +52,26 @@ Then(/^a programme called "(.*?)" is indexed for search$/) do |programme_name|
   assert_policy_published_to_rummager(programme)
 end
 
+Then(/^the policy area called "(.*?)" is republished with a related link to the programme "(.*?)"$/) do |policy_area_name, programme_name|
+  programme = Programme.find_by_name(programme_name)
+  policy_area = PolicyArea.find_by_name(policy_area_name)
+  assert_publishing_api_put_item(
+    policy_area.base_path,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+      "locale" => "en",
+      "update_type" => "minor",
+      "links" => {
+        "organisations" => [],
+        "people" => [],
+        "related" => [programme["content_id"]],
+      },
+    }
+  )
+end
+
 Then(/^the programme should be linked to the organisation when published to publishing API$/) do
   assert_publishing_api_put_item(
     @programme.base_path,
