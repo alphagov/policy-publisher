@@ -49,6 +49,7 @@ private
       :wales_policy_url,
       organisation_content_ids: [],
       people_content_ids: [],
+      parent_policy_ids: [],
     )
   end
 

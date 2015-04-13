@@ -23,4 +23,8 @@ module ApplicationHelper
     PolicyPublisher.services(:content_register).people.
       map { |org| [org['title'], org['content_id']] }
   end
+
+  def policies_data_container(excluding: [])
+    Policy.where.not(id: excluding.map(&:id)).map { |policy| [policy.name, policy.id] }
+  end
 end

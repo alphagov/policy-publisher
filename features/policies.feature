@@ -17,6 +17,13 @@ Scenario: Editing a policy
   And a policy called "Global warming" is published to publishing API
   And a policy called "Climate change" is indexed for search
 
+Scenario: Creating a policy that is part of another
+  Given a published policy exists called "Global warming"
+  When I create a policy called "CO2 reduction" that is part of a policy called "Global warming"
+  Then there should be a policy called "CO2 reduction" that is part of a policy called "Global warming"
+  And a policy called "CO2 reduction" is published to publishing API
+  And a policy called "CO2 reduction" is indexed for search
+
 Scenario: Associating a policy with an organisation
   Given a policy exists called "Global warming"
   When I associate the policy with an organisation

@@ -80,6 +80,14 @@ RSpec.describe Policy do
     assert_rummager_posted_item(expected_json)
   end
 
+  it "can have a bi-directional relationship with other policies" do
+    related_policy = FactoryGirl.create(:policy)
+    policy = FactoryGirl.create(:policy, related_policies: [related_policy])
+
+    expect([related_policy]).to eq(policy.related_policies)
+    expect([policy]).to eq(related_policy.reload.parent_policies)
+  end
+
   it "gets a list of applicable nations" do
     policy = FactoryGirl.create(
       :policy,

@@ -16,6 +16,13 @@
           class: 'select2',
           data: { placeholder: 'Choose people…' } } %>
 
+  <%= form.select :parent_policy_ids,
+        policies_data_container(excluding: [policy]),
+        { label: "Part of" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose parent policies…' } } %>
+
   <h4>Applicable nations</h4>
 
   <div class="applicable-nations">

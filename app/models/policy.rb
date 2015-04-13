@@ -6,6 +6,12 @@ class Policy < ActiveRecord::Base
   validate :applicable_to_at_least_one_nation
   validate :alternative_urls_are_valid
 
+  has_many :policy_relations
+  has_many :related_policies, class_name: 'Policy', through: :policy_relations, source: :related_policy
+
+  has_many :inverse_policy_relations, class_name: 'PolicyRelation', foreign_key: 'related_policy_id'
+  has_many :parent_policies,  through: :inverse_policy_relations, source: :policy
+
   before_validation on: :create do |object|
     object.slug = object.name.to_s.parameterize
     object.content_id = SecureRandom.uuid
