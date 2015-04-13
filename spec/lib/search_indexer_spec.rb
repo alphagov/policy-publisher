@@ -12,7 +12,7 @@ RSpec.describe SearchIndexer do
   end
 
   it "indexes a a policy with rummager" do
-    policy = FactoryGirl.create(:policy_area)
+    policy = FactoryGirl.create(:policy)
     indexer = SearchIndexer.new(policy)
 
     expected_json = {
