@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20150316133201) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "content_id"
+    t.text     "organisation_content_ids",                   array: true
+    t.text     "people_content_ids",                         array: true
     t.boolean  "england",                     default: true
     t.string   "england_policy_url"
     t.boolean  "northern_ireland",            default: true
@@ -31,8 +33,6 @@ ActiveRecord::Schema.define(version: 20150316133201) do
     t.string   "scotland_policy_url"
     t.boolean  "wales",                       default: true
     t.string   "wales_policy_url"
-    t.text     "organisation_content_ids",                   array: true
-    t.text     "people_content_ids",                         array: true
   end
 
   add_index "policy_areas", ["content_id"], name: "index_policy_areas_on_content_id", unique: true, using: :btree
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20150316133201) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "content_id"
+    t.text     "organisation_content_ids",                   array: true
+    t.text     "people_content_ids",                         array: true
     t.boolean  "england",                     default: true
     t.string   "england_policy_url"
     t.boolean  "northern_ireland",            default: true
@@ -61,8 +63,6 @@ ActiveRecord::Schema.define(version: 20150316133201) do
     t.string   "scotland_policy_url"
     t.boolean  "wales",                       default: true
     t.string   "wales_policy_url"
-    t.text     "organisation_content_ids",                   array: true
-    t.text     "people_content_ids",                         array: true
   end
 
   add_index "programmes", ["content_id"], name: "index_programmes_on_content_id", unique: true, using: :btree
