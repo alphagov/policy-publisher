@@ -88,6 +88,42 @@ RSpec.describe Policy do
     expect([policy]).to eq(related_policy.reload.parent_policies)
   end
 
+  context "when saved with a parent policy" do
+    let!(:parent_policy) { FactoryGirl.create(:policy) }
+    let!(:policy) { FactoryGirl.create(:policy, parent_policies: [parent_policy]) }
+
+    before do
+      WebMock::RequestRegistry.instance.reset!
+      policy.save!
+    end
+
+    it "republishes the parent policy as a minor update when saved" do
+      assert_publishing_api_put_item(
+        parent_policy.base_path,
+        {
+          "format" => "policy",
+          "update_type" => "minor",
+          "rendering_app" => "finder-frontend",
+          "publishing_app" => "policy-publisher",
+        },
+      )
+    end
+
+    it "updates the parent policy in rummager" do
+      expected_json = JSON.parse({
+        title: parent_policy.name,
+        description: parent_policy.description,
+        link: parent_policy.base_path,
+        indexable_content: "",
+        organisations: [],
+        last_update: parent_policy.updated_at,
+        _type: "policy",
+        _id: parent_policy.base_path,
+      }.to_json)
+      assert_rummager_posted_item(expected_json)
+    end
+  end
+
   it "cannot be associated with itself" do
     policy = FactoryGirl.create(:policy)
 

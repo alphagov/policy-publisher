@@ -18,11 +18,18 @@ class Policy < ActiveRecord::Base
   end
 
   after_save :publish!
+  after_save :republish_parents!
 
   def publish!
     publish_content_item!
     add_to_search_index!
   end
+
+  def republish!
+    publish_content_item!('minor')
+    add_to_search_index!
+  end
+
 
   def base_path
     "/government/policies/#{slug}"
@@ -69,8 +76,8 @@ private
     end
   end
 
-  def publish_content_item!
-    presenter = ContentItemPresenter.new(self)
+  def publish_content_item!(update_type='major')
+    presenter = ContentItemPresenter.new(self, update_type)
     attrs = presenter.exportable_attributes
     publishing_api.put_content_item(base_path, attrs)
   end
@@ -81,5 +88,9 @@ private
 
   def add_to_search_index!
     SearchIndexer.new(self).index!
+  end
+
+  def republish_parents!
+    parent_policies.each(&:republish!)
   end
 end
