@@ -85,7 +85,7 @@ private
       signup_link: '',
       summary: policy.description,
       show_summaries: false,
-      facets: [],
+      facets: facets,
     }
 
     details.merge(nation_applicability)
@@ -124,5 +124,20 @@ private
     else
       []
     end
+  end
+
+  def facets
+    [
+      {
+        key: "is_historic",
+        display_as_result_metadata: true,
+        filterable: false,
+      },
+      {
+        key: "government_name",
+        display_as_result_metadata: true,
+        filterable: false,
+      }
+    ]
   end
 end
