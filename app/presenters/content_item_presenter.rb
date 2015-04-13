@@ -119,10 +119,6 @@ private
   end
 
   def related
-    if policy.respond_to?(:programmes)
-      policy.programmes.map(&:content_id)
-    else
-      []
-    end
+    policy.related_policies.map(&:content_id)
   end
 end

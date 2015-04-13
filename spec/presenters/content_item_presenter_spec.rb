@@ -12,20 +12,21 @@ RSpec.describe ContentItemPresenter do
   end
 
   describe "#exportable_attributes" do
-    it "validates against the schema with a policy area" do
-      presenter = ContentItemPresenter.new(FactoryGirl.create(:policy_area))
+    it "validates against the policy schema" do
+      presenter = ContentItemPresenter.new(FactoryGirl.create(:policy))
 
       expect(presenter.exportable_attributes.as_json).to be_valid_against_schema('policy')
     end
 
-    it "validates against the schema with a policy programme" do
-      presenter = ContentItemPresenter.new(FactoryGirl.create(:programme))
+    it "validates against the schema when the policy has a parent policy" do
+      parent_policy = FactoryGirl.create(:policy)
+      presenter = ContentItemPresenter.new(FactoryGirl.create(:policy, parent_policies: [parent_policy]))
 
       expect(presenter.exportable_attributes.as_json).to be_valid_against_schema('policy')
     end
 
     it "includes an appropriate filter to filter by the policy slug" do
-      policy = FactoryGirl.create(:policy_area)
+      policy = FactoryGirl.create(:policy)
       presenter = ContentItemPresenter.new(policy)
       filter = {
         "policies" => [policy.slug]
@@ -34,53 +35,53 @@ RSpec.describe ContentItemPresenter do
       expect(presenter.exportable_attributes.as_json['details']["filter"]).to eq(filter)
     end
 
-    it "includes linked organisations with a policy area" do
+    it "includes linked organisations" do
       content_id = SecureRandom.uuid
-      policy_area = FactoryGirl.create(:policy_area, organisation_content_ids: [content_id])
-      attributes = ContentItemPresenter.new(policy_area).exportable_attributes.as_json
+      policy = FactoryGirl.create(:policy, organisation_content_ids: [content_id])
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
 
       expect(attributes["links"]["organisations"]).to eq([content_id])
     end
 
-    it "includes linked organisations with a policy programme" do
+    it "includes linked people" do
       content_id = SecureRandom.uuid
-      programme = FactoryGirl.create(:programme, organisation_content_ids: [content_id])
-      attributes = ContentItemPresenter.new(programme).exportable_attributes.as_json
-
-      expect(attributes["links"]["organisations"]).to eq([content_id])
-    end
-
-    it "includes linked people with a policy area" do
-      content_id = SecureRandom.uuid
-      policy_area = FactoryGirl.create(:policy_area, people_content_ids: [content_id])
-      attributes = ContentItemPresenter.new(policy_area).exportable_attributes.as_json
+      policy = FactoryGirl.create(:policy, people_content_ids: [content_id])
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
 
       expect(attributes["links"]["people"]).to eq([content_id])
     end
 
+    it "includes related policies" do
+      related_policy = FactoryGirl.create(:policy)
+      policy = FactoryGirl.create(:policy, related_policies: [related_policy])
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
+
+      expect(attributes["links"]["related"]).to eq([related_policy.content_id])
+    end
+
     it "doesn't add nation_applicability if the policy applies to all nations" do
-      policy_area = FactoryGirl.create(:policy_area)
-      attributes = ContentItemPresenter.new(policy_area).exportable_attributes.as_json
+      policy = FactoryGirl.create(:policy)
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
       expect(attributes["details"]).not_to have_key("nation_applicability")
     end
 
     it "returns a list of applicable nations if there are inapplicable nations" do
-      policy_area = FactoryGirl.create(
-        :policy_area,
+      policy = FactoryGirl.create(
+        :policy,
         northern_ireland: false,
         scotland: false,
         wales: false,
       )
 
-      attributes = ContentItemPresenter.new(policy_area).exportable_attributes.as_json
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
       nation_applicability = attributes["details"]["nation_applicability"]
       expect(nation_applicability["applies_to"]).to eq(["england"])
       expect(nation_applicability["alternative_policies"].length).to eq(0)
     end
 
     it "returns a list of alternative policies for other nations if there are alternative policies" do
-      policy_area = FactoryGirl.create(
-        :policy_area,
+      policy = FactoryGirl.create(
+        :policy,
         northern_ireland: false,
         northern_ireland_policy_url: "https://www.example.ni",
         scotland: false,
@@ -89,7 +90,7 @@ RSpec.describe ContentItemPresenter do
         wales_policy_url: "http://example.wales",
       )
 
-      attributes = ContentItemPresenter.new(policy_area).exportable_attributes.as_json
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
       nation_applicability = attributes["details"]["nation_applicability"]
       expect(nation_applicability["applies_to"]).to eq(["england"])
       expect(nation_applicability["alternative_policies"].length).to eq(3)
@@ -97,11 +98,10 @@ RSpec.describe ContentItemPresenter do
       expect(nation_applicability["alternative_policies"].first["alt_policy_url"]).to eq("https://www.example.ni")
     end
 
-    it "appropriately sets the update type" do
-      content_id = SecureRandom.uuid
-      programme = FactoryGirl.create(:programme, organisation_content_ids: [content_id])
-      major_attributes = ContentItemPresenter.new(programme).exportable_attributes.as_json
-      minor_attributes = ContentItemPresenter.new(programme, update_type='minor').exportable_attributes.as_json
+    it "allows the update type to be overridden" do
+      policy = FactoryGirl.create(:policy)
+      major_attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
+      minor_attributes = ContentItemPresenter.new(policy, update_type='minor').exportable_attributes.as_json
 
       expect(major_attributes["update_type"]).to eq("major")
       expect(minor_attributes["update_type"]).to eq("minor")
