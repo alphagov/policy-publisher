@@ -88,6 +88,12 @@ RSpec.describe Policy do
     expect([policy]).to eq(related_policy.reload.parent_policies)
   end
 
+  it "cannot be associated with itself" do
+    policy = FactoryGirl.create(:policy)
+
+    expect { policy.related_policies = [policy] }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
   it "gets a list of applicable nations" do
     policy = FactoryGirl.create(
       :policy,
