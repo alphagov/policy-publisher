@@ -44,7 +44,8 @@ Then(/^there should be a policy called "(.*?)" that is part of a policy called "
 end
 
 Then(/^a policy called "(.*?)" is published to publishing API$/) do |policy_name|
-  assert_content_item_is_published_to_publishing_api("/government/policies/#{policy_name.to_s.parameterize}")
+  policy = Policy.find_by(name: policy_name)
+  assert_content_item_is_published_to_publishing_api(policy.base_path)
 end
 
 Then(/^a policy called "(.*?)" is indexed for search$/) do |policy_name|

@@ -44,7 +44,8 @@ Then(/^the programme "(.*?)" should be associated with the policy areas "(.*?)" 
 end
 
 Then(/^a programme called "(.*?)" is published to publishing API$/) do |programme_name|
-  assert_content_item_is_published_to_publishing_api("/government/policies/#{programme_name.to_s.parameterize}")
+  programme = Programme.find_by(name: programme_name)
+  assert_content_item_is_published_to_publishing_api(programme.base_path)
 end
 
 Then(/^a programme called "(.*?)" is indexed for search$/) do |programme_name|

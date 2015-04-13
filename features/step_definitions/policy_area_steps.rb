@@ -30,7 +30,8 @@ Then(/^there should be a policy area called "([^"]+?)"$/) do |policy_area_name|
 end
 
 Then(/^a policy area called "(.*?)" is published to publishing API$/) do |policy_area_name|
-  assert_content_item_is_published_to_publishing_api("/government/policies/#{policy_area_name.to_s.parameterize}")
+  policy = PolicyArea.find_by(name: policy_area_name)
+  assert_content_item_is_published_to_publishing_api(policy.base_path)
 end
 
 Then(/^a policy area called "(.*?)" is indexed for search$/) do |policy_area_name|

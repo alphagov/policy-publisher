@@ -13,7 +13,7 @@ Scenario: Editing a programme
   Given a programme exists called "CO2 reduction"
   When I change the title of programme "CO2 reduction" to "Carbon credits"
   Then there should be a programme called "Carbon credits"
-  And a programme called "CO2 reduction" is published to publishing API
+  And a programme called "Carbon credits" is published to publishing API
 
 Scenario: Associating a programme with policy areas
   Given a policy area exists called "Climate change"

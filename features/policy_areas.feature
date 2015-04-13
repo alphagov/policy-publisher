@@ -13,7 +13,7 @@ Scenario: Editing a policy area
   Given a published policy area exists called "Global warming"
   When I change the title of policy area "Global warming" to "Climate change"
   Then there should be a policy area called "Climate change"
-  And a policy area called "Global warming" is published to publishing API
+  And a policy area called "Climate change" is published to publishing API
   Then a policy area called "Climate change" is indexed for search
 
 Scenario: Associating a policy area with an organisation
