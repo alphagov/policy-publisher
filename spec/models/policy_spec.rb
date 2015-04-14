@@ -88,6 +88,22 @@ RSpec.describe Policy do
     expect([policy]).to eq(related_policy.reload.parent_policies)
   end
 
+  it "is a programme if it has a parent policy" do
+    parent_policy = FactoryGirl.create(:policy)
+    policy = FactoryGirl.create(:policy)
+
+    expect(policy.programme?).to be(false)
+
+    policy.parent_policies << parent_policy
+    expect(policy.programme?).to be(true)
+  end
+
+  it "has a setter that can identify a new Policy as a programme" do
+    policy = Policy.new(programme: true)
+
+    expect(policy.programme?).to be(true)
+  end
+
   context "when saved with a parent policy" do
     let!(:parent_policy) { FactoryGirl.create(:policy) }
     let!(:policy) { FactoryGirl.create(:policy, parent_policies: [parent_policy]) }

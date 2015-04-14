@@ -12,9 +12,24 @@ module PolicyHelpers
     end
   end
 
-  def create_policy(name:, description: "A policy description", inapplicable_nations: [], alt_policy_urls: {}, parent_policies: [])
+  def create_policy(name:, description: "A policy description", inapplicable_nations: [], alt_policy_urls: {})
     visit policies_path
-    click_on "Create a policy"
+    click_on "New policy area"
+
+    fill_in "Name", with: name
+    fill_in "Description", with: description
+
+    inapplicable_nations.each do |nation|
+      uncheck(nation)
+      fill_in("#{nation} policy url", with: alt_policy_urls[nation])
+    end
+
+    click_on "Save"
+  end
+
+  def create_policy_programme(name:, description: "A policy description", inapplicable_nations: [], alt_policy_urls: {}, parent_policies: [])
+    visit policies_path
+    click_on "New policy programme"
 
     fill_in "Name", with: name
     fill_in "Description", with: description

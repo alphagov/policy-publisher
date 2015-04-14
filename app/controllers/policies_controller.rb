@@ -5,7 +5,9 @@ class PoliciesController < ApplicationController
 
   def index; end
 
-  def new; end
+  def new
+    policy.programme = true if params[:programme]
+  end
 
   def create
     if policy.save
@@ -47,6 +49,7 @@ private
       :scotland_policy_url,
       :wales,
       :wales_policy_url,
+      :programme,
       organisation_content_ids: [],
       people_content_ids: [],
       parent_policy_ids: [],

@@ -1,4 +1,6 @@
 <%= form_for policy do |form| %>
+  <%= form.hidden_field :programme %>
+
   <%= form.text_field :name %>
   <%= form.text_area :description %>
 
@@ -16,12 +18,14 @@
           class: 'select2',
           data: { placeholder: 'Choose people…' } } %>
 
-  <%= form.select :parent_policy_ids,
-        policies_data_container(excluding: [policy]),
-        { label: "Part of" },
-        { multiple: true,
-          class: 'select2',
-          data: { placeholder: 'Choose parent policies…' } } %>
+  <% if policy.programme? %>
+    <%= form.select :parent_policy_ids,
+          policies_data_container(excluding: [policy]),
+          { label: "Part of" },
+          { multiple: true,
+            class: 'select2',
+            data: { placeholder: 'Choose parent policies…' } } %>
+  <% end %>
 
   <h4>Applicable nations</h4>
 

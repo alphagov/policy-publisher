@@ -1,5 +1,5 @@
-<%= content_for :page_title, "Edit a policy" %>
+<%= content_for :page_title, "Edit policy #{policy_type(policy)}" %>
 
-<h1>Edit a policy</h1>
+<h1>Edit <%= policy_type(policy) %> </h1>
 
 <%= render "form" %>

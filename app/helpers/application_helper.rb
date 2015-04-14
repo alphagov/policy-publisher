@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def policy_type(policy)
+    policy.programme? ? 'policy programme' : 'policy area'
+  end
+
   def nav_link(text, link)
     recognized = Rails.application.routes.recognize_path(link)
     if recognized[:controller] == params[:controller] && recognized[:action] == params[:action]

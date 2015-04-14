@@ -3,7 +3,8 @@
 <h1>Policies</h1>
 
 <p>
-  <%= link_to "Create a policy", new_policy_path %>
+  <%= link_to "New policy area", new_policy_path, class: 'btn btn-primary' %>
+  <%= link_to "New policy programme", new_policy_path(programme: 1), class: 'btn btn-primary' %>
 </p>
 
 <table class="table table-striped table-bordered" data-module="filterable-table">

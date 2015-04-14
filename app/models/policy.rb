@@ -20,6 +20,9 @@ class Policy < ActiveRecord::Base
   after_save :publish!
   after_save :republish_parents!
 
+  # Virtual attribute used to identify a new record as a programme
+  attr_writer :programme
+
   def publish!
     publish_content_item!
     add_to_search_index!
@@ -53,6 +56,11 @@ class Policy < ActiveRecord::Base
   def inapplicable_nations
     possible_nations - applicable_nations
   end
+
+  def programme
+    @programme || parent_policies.any?
+  end
+  alias_method :programme?, :programme
 
 private
 
