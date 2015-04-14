@@ -17,6 +17,10 @@ class Policy < ActiveRecord::Base
     object.content_id = SecureRandom.uuid
   end
 
+  scope :areas, -> { joins("LEFT OUTER JOIN policy_relations
+                            ON policies.id = policy_relations.related_policy_id
+                            WHERE policy_relations.related_policy_id IS NULL") }
+
   after_save :publish!
   after_save :republish_parents!
 

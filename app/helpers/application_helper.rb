@@ -28,7 +28,7 @@ module ApplicationHelper
       map { |org| [org['title'], org['content_id']] }
   end
 
-  def policies_data_container(excluding: [])
-    Policy.where.not(id: excluding.map(&:id)).map { |policy| [policy.name, policy.id] }
+  def policies_areas_data_container
+    Policy.areas.map { |policy| [policy.name, policy.id] }
   end
 end
