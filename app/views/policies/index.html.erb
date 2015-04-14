@@ -11,6 +11,7 @@
     <tr class="table-header">
       <th>Name</th>
       <th>Last updated</th>
+      <th>Part of</th>
     </tr>
     <tr class="if-no-js-hide table-header-secondary">
       <td colspan="4">
@@ -27,6 +28,7 @@
       <%= content_tag_for(:tr, policy) do %>
         <td><%= link_to policy.name, edit_policy_path(policy) %></td>
         <td><%= policy.updated_at.to_s(:govuk_date) %></td>
+        <td><%= policy.parent_policies.map(&:name).to_sentence %></td>
       <% end %>
     <% end %>
   </tbody>
