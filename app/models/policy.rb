@@ -26,6 +26,10 @@ class Policy < ActiveRecord::Base
 
   # Virtual attribute used to identify a new record as a programme
   attr_writer :programme
+  def programme
+    @programme || parent_policies.any?
+  end
+  alias_method :programme?, :programme
 
   def publish!
     publish_content_item!
@@ -60,11 +64,6 @@ class Policy < ActiveRecord::Base
   def inapplicable_nations
     possible_nations - applicable_nations
   end
-
-  def programme
-    @programme || parent_policies.any?
-  end
-  alias_method :programme?, :programme
 
 private
 
