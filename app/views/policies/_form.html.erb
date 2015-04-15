@@ -1,0 +1,47 @@
+<%= form_for policy do |form| %>
+  <%= form.hidden_field :programme %>
+
+  <%= form.text_field :name %>
+  <%= form.text_area :description %>
+
+  <%= form.select :organisation_content_ids,
+        organisations_data_container,
+        { label: "Organisations" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose organisations…' } } %>
+
+  <%= form.select :people_content_ids,
+        people_data_container,
+        { label: "People" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose people…' } } %>
+
+  <% if policy.programme? %>
+    <%= form.select :parent_policy_ids,
+          policies_areas_data_container,
+          { label: "Part of" },
+          { multiple: true,
+            class: 'select2',
+            data: { placeholder: 'Choose parent policies…' } } %>
+  <% end %>
+
+  <h4>Applicable nations</h4>
+
+  <div class="applicable-nations">
+    <% form.object.possible_nations.each do |n| %>
+      <%= form.check_box(n, data: {nation: n}, label: n.to_s.titlecase) %>
+      <%= form.text_field "#{n}_policy_url",
+          label:  "#{n.to_s.titlecase} policy url",
+          wrapper_html_options: {
+            style: form.object.send(n) ? "display: none;" : nil,
+            class: "js-alternative-policy-url",
+            id: n
+          }
+      %>
+    <% end %>
+  </div>
+
+  <%= form.buttons(cancel_link: policies_path) %>
+<% end %>

@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def policy_type(policy)
+    policy.programme? ? 'policy programme' : 'policy area'
+  end
+
   def nav_link(text, link)
     recognized = Rails.application.routes.recognize_path(link)
     if recognized[:controller] == params[:controller] && recognized[:action] == params[:action]
@@ -22,5 +26,9 @@ module ApplicationHelper
   def people_data_container
     PolicyPublisher.services(:content_register).people.
       map { |org| [org['title'], org['content_id']] }
+  end
+
+  def policies_areas_data_container
+    Policy.areas.map { |policy| [policy.name, policy.id] }
   end
 end
