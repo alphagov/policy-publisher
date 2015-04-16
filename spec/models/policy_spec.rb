@@ -124,20 +124,6 @@ RSpec.describe Policy do
         },
       )
     end
-
-    it "updates the parent policy in rummager" do
-      expected_json = JSON.parse({
-        title: parent_policy.name,
-        description: parent_policy.description,
-        link: parent_policy.base_path,
-        indexable_content: "",
-        organisations: [],
-        last_update: parent_policy.updated_at,
-        _type: "policy",
-        _id: parent_policy.base_path,
-      }.to_json)
-      assert_rummager_posted_item(expected_json)
-    end
   end
 
   it "cannot be associated with itself" do
