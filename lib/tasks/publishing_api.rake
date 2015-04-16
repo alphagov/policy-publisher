@@ -1,8 +1,7 @@
 namespace :publishing_api do
   desc "Publish all Policies to the Publishing API"
   task publish_policies: :environment do
-    PolicyArea.all.map(&:publish!)
-    Programme.all.map(&:publish!)
+    Policy.all.map(&:publish!)
   end
 
   desc "Publish the Policies Finder to the Publishing API"
