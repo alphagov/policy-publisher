@@ -80,4 +80,28 @@ RSpec.describe Publisher do
       )
     end
   end
+
+
+  context "when future-policies feature flag is off" do
+    let(:policy) { FactoryGirl.create(:policy) }
+    let!(:rummager_request) { stub_any_rummager_post }
+
+    before do
+      ENV.delete('ENABLE_FUTURE_POLICIES')
+      Publisher.new(policy).publish!
+    end
+
+    after do
+      ENV['ENABLE_FUTURE_POLICIES'] = '1'
+    end
+
+    it "pushes a placeholder content item to the Publishing API" do
+      payload = PlaceholderContentItemPresenter.new(policy).exportable_attributes.as_json
+      assert_publishing_api_put_item(policy.base_path, payload)
+    end
+
+    it "does not add the policy to the rummager search index" do
+      assert_not_requested rummager_request
+    end
+  end
 end

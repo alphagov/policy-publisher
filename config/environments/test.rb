@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Turn on temporary feature-flag for future-policies feature during tests
+  ENV['ENABLE_FUTURE_POLICIES'] = '1'
 end

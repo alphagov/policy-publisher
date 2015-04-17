@@ -22,6 +22,10 @@ class Publisher
 private
 
   def publish_actions
-    [ContentItemPublisher, ParentPolicyContentItemRepublisher, SearchIndexer]
+    if PolicyPublisher.future_policies_enabled?
+      [ContentItemPublisher, ParentPolicyContentItemRepublisher, SearchIndexer]
+    else
+      [PlaceholderContentItemPublisher]
+    end
   end
 end
