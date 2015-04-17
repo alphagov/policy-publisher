@@ -28,7 +28,7 @@ RSpec.describe SearchIndexer do
     }.as_json
 
     WebMock::RequestRegistry.instance.reset!
-    indexer.index!
+    indexer.run!
     assert_rummager_posted_item(expected_json)
   end
 end

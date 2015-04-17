@@ -5,7 +5,7 @@ class SearchIndexer
     @policy = policy
   end
 
-  def index!
+  def run!
     rummager.add_document("policy", policy.base_path, document)
   end
 

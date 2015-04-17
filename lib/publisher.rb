@@ -34,7 +34,7 @@ private
   end
 
   def add_to_search_index!
-    SearchIndexer.new(policy).index!
+    SearchIndexer.new(policy).run!
   end
 
   def publishing_api
