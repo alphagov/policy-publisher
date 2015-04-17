@@ -18,8 +18,7 @@ private
   end
 
   def publish_to_publishing_api!
-    payload = ContentItemPresenter.new(policy).exportable_attributes
-    publishing_api.put_content_item(policy.base_path, payload)
+    ContentItemPublisher.new(policy).run!
   end
 
   def republish_parents_to_publishing_api!
