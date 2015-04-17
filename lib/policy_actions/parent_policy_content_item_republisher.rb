@@ -1,3 +1,4 @@
+# Republishes all a policies parent policies to the Publishing API
 class ParentPolicyContentItemRepublisher
   attr_reader :policy
 

@@ -1,3 +1,4 @@
+# Publishes a policy content item to the Publishing API
 class ContentItemPublisher
   attr_reader :policy
 

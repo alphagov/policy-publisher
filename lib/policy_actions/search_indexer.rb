@@ -1,3 +1,4 @@
+# Adds a policy to the search index
 class SearchIndexer
   attr_reader :policy
 
