@@ -6,11 +6,11 @@ class ContentItemPublisher
   end
 
   def run!
-    publishing_api.put_content_item(base_path, content_item_payload('major'))
+    publishing_api.put_content_item(base_path, content_item_payload)
   end
 
-  def content_item_payload(update_type)
-    ContentItemPresenter.new(policy, update_type).exportable_attributes
+  def content_item_payload
+    ContentItemPresenter.new(policy, 'major').exportable_attributes
   end
 
 private
