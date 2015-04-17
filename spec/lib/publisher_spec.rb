@@ -12,10 +12,9 @@ RSpec.describe Publisher do
   end
 
   context "when publishing a policy" do
-    let!(:policy) { FactoryGirl.create(:policy) }
+    let(:policy) { FactoryGirl.create(:policy) }
 
     before do
-      WebMock::RequestRegistry.instance.reset!
       Publisher.new(policy).publish!
     end
 

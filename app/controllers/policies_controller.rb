@@ -11,6 +11,7 @@ class PoliciesController < ApplicationController
 
   def create
     if policy.save
+      Publisher.new(policy).publish!
       flash[:notice] = "Successfully created a policy"
 
       redirect_to policies_path
@@ -25,6 +26,7 @@ class PoliciesController < ApplicationController
 
   def update
     if policy.save
+      Publisher.new(policy).publish!
       flash[:notice] = "Successfully updated the policy"
 
       redirect_to policies_path

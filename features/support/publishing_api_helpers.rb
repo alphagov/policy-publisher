@@ -6,10 +6,6 @@ module PublishingAPIHelpers
     stub_default_publishing_api_put
   end
 
-  def reset_remote_requests
-    WebMock::RequestRegistry.instance.reset!
-  end
-
   def assert_content_item_is_published_to_publishing_api(base_path)
     assert_publishing_api_put_item(
       base_path,

@@ -21,18 +21,12 @@ class Policy < ActiveRecord::Base
                             ON policies.id = policy_relations.related_policy_id
                             WHERE policy_relations.related_policy_id IS NULL") }
 
-  after_save :publish!
-
   # Virtual attribute used to identify a new record as a programme
   attr_writer :programme
   def programme
     @programme || parent_policies.any?
   end
   alias_method :programme?, :programme
-
-  def publish!
-    Publisher.new(self).publish!
-  end
 
   def base_path
     "/government/policies/#{slug}"
