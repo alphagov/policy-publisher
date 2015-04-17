@@ -52,7 +52,7 @@ RSpec.describe Policy do
   end
 
   it "publishes a Content Item after save" do
-    policy = FactoryGirl.create(:policy, name: "Climate change")
+    policy = FactoryGirl.create(:policy)
 
     assert_publishing_api_put_item(
       policy.base_path,
@@ -65,7 +65,7 @@ RSpec.describe Policy do
   end
 
   it "adds a Document to Rummager after save" do
-    policy = FactoryGirl.create(:policy, name: "Climate change")
+    policy = FactoryGirl.create(:policy)
 
     expected_json = JSON.parse({
       title: policy.name,
@@ -135,7 +135,6 @@ RSpec.describe Policy do
   it "gets a list of applicable nations" do
     policy = FactoryGirl.create(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
       northern_ireland_policy_url: "https://www.nidirect.gov.uk",
       scotland: false,
@@ -150,7 +149,6 @@ RSpec.describe Policy do
   it "doesn't allow invalid alternative policy URLs" do
     policy = FactoryGirl.build(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
       northern_ireland_policy_url: "bad-url",
     )
@@ -162,7 +160,6 @@ RSpec.describe Policy do
   it "allows valid alternative policy URLs" do
     policy = FactoryGirl.build(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
       northern_ireland_policy_url: "http://example.ni",
     )
@@ -173,7 +170,6 @@ RSpec.describe Policy do
   it "allows specifying no alternative policy URL" do
     policy = FactoryGirl.build(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
     )
 
