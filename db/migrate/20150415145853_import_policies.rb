@@ -3,7 +3,8 @@ require 'csv'
 class ImportPolicies < ActiveRecord::Migration
   def up
     CSV.foreach(Rails.root.join('db/migrate/policies.csv'), headers: true) do |row|
-      create_policy!(row)
+      policy = create_policy!(row)
+      Publisher.new(policy).publish!
     end
   end
 
