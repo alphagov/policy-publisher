@@ -2,6 +2,7 @@ class Policy < ActiveRecord::Base
   validates :content_id, presence: true, uniqueness: true
   validates :name, :slug, presence: true, uniqueness: true
   validates :description, presence: true
+  validates :email_alert_signup_content_id, presence: true, uniqueness: true
 
   validate :applicable_to_at_least_one_nation
   validate :alternative_urls_are_valid
@@ -15,6 +16,7 @@ class Policy < ActiveRecord::Base
   before_validation on: :create do |object|
     object.slug = object.name.to_s.parameterize
     object.content_id = SecureRandom.uuid
+    object.email_alert_signup_content_id = SecureRandom.uuid
   end
 
   scope :areas, -> { joins("LEFT OUTER JOIN policy_relations
@@ -33,14 +35,15 @@ class Policy < ActiveRecord::Base
 
   def publish!
     publish_content_item!
+    publish_email_alert_signup_content_item!
     add_to_search_index!
   end
 
   def republish!
     publish_content_item!('minor')
+    publish_email_alert_signup_content_item!('minor')
     add_to_search_index!
   end
-
 
   def base_path
     "/government/policies/#{slug}"
@@ -91,6 +94,11 @@ private
     presenter = ContentItemPresenter.new(self, update_type)
     attrs = presenter.exportable_attributes
     publishing_api.put_content_item(base_path, attrs)
+  end
+
+  def publish_email_alert_signup_content_item!(update_type='major')
+    publisher = PolicySignupPagePublisher.new(self, update_type)
+    publisher.publish
   end
 
   def publishing_api

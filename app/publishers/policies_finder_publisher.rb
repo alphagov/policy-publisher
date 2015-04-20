@@ -15,20 +15,20 @@ class PoliciesFinderPublisher
 
   def exportable_attributes
     {
-      "format" => "finder",
-      "content_id" => "d6582d48-df19-46b3-bf84-9157192801a6",
-      "title" => "Policies",
-      "description" => "",
-      "public_updated_at" => public_updated_at,
-      "locale" => "en",
-      "update_type" => "major",
-      "publishing_app" => "policy-publisher",
-      "rendering_app" => "finder-frontend",
-      "routes" => routes,
-      "details" => details,
-      "links" => {
-        "organisations" => [],
-        "related" => [],
+      format: "finder",
+      content_id: "d6582d48-df19-46b3-bf84-9157192801a6",
+      title: "Policies",
+      description: "",
+      public_updated_at: public_updated_at.iso8601,
+      locale: "en",
+      update_type: "major",
+      publishing_app: "policy-publisher",
+      rendering_app: "finder-frontend",
+      routes: routes,
+      details: details,
+      links: {
+        organisations: [],
+        related: [],
       },
     }
   end
