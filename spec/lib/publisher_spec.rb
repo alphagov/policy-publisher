@@ -46,7 +46,6 @@ RSpec.describe Publisher do
     let!(:policy_programme) { FactoryGirl.create(:policy_programme) }
 
     before do
-      WebMock::RequestRegistry.instance.reset!
       Publisher.new(policy_programme).publish!
     end
 
