@@ -2,6 +2,7 @@ class Policy < ActiveRecord::Base
   validates :content_id, presence: true, uniqueness: true
   validates :name, :slug, presence: true, uniqueness: true
   validates :description, presence: true
+  validates :email_alert_signup_content_id, presence: true, uniqueness: true
 
   validate :applicable_to_at_least_one_nation
   validate :alternative_urls_are_valid
@@ -15,6 +16,7 @@ class Policy < ActiveRecord::Base
   before_validation on: :create do |object|
     object.slug = object.name.to_s.parameterize
     object.content_id = SecureRandom.uuid
+    object.email_alert_signup_content_id = SecureRandom.uuid
   end
 
   scope :areas, -> { joins("LEFT OUTER JOIN policy_relations
