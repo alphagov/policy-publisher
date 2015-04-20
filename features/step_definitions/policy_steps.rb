@@ -2,7 +2,6 @@ Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
   stub_publishing_api
   stub_rummager
   @policy = FactoryGirl.create(:policy, name: policy_name)
-  reset_remote_requests
 end
 
 When(/^I change the title of policy "(.*?)" to "(.*?)"$/) do |old_name, new_name|
@@ -109,8 +108,6 @@ When(/^I create a policy called "([^"]+?)" that only applies to "([^"]+?)"$/) do
     inapplicable_nations: inapplicable_nations,
     alt_policy_urls: alt_policy_urls,
   )
-
-  reset_remote_requests
 end
 
 Then(/^there should be a policy called "([^"]+?)" which only applies to "([^"]+?)"$/) do |policy_name, nation|

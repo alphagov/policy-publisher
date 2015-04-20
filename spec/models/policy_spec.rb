@@ -1,16 +1,6 @@
 require "rails_helper"
-require 'gds_api/test_helpers/publishing_api'
-require 'gds_api/test_helpers/rummager'
 
 RSpec.describe Policy do
-  include GdsApi::TestHelpers::PublishingApi
-  include GdsApi::TestHelpers::Rummager
-
-  before do
-    stub_default_publishing_api_put
-    stub_any_rummager_post
-  end
-
   it "automatically generates a slug on creation" do
     policy = FactoryGirl.create(:policy, name: "Climate change")
 
@@ -51,35 +41,6 @@ RSpec.describe Policy do
     expect(new_global_warming).not_to be_valid
   end
 
-  it "publishes a Content Item after save" do
-    policy = FactoryGirl.create(:policy, name: "Climate change")
-
-    assert_publishing_api_put_item(
-      policy.base_path,
-      {
-        "format" => "policy",
-        "rendering_app" => "finder-frontend",
-        "publishing_app" => "policy-publisher",
-      }
-    )
-  end
-
-  it "adds a Document to Rummager after save" do
-    policy = FactoryGirl.create(:policy, name: "Climate change")
-
-    expected_json = JSON.parse({
-      title: policy.name,
-      description: policy.description,
-      link: policy.base_path,
-      indexable_content: "",
-      organisations: [],
-      last_update: policy.updated_at,
-      _type: "policy",
-      _id: policy.base_path,
-    }.to_json)
-    assert_rummager_posted_item(expected_json)
-  end
-
   it "can have a bi-directional relationship with other policies" do
     related_policy = FactoryGirl.create(:policy)
     policy = FactoryGirl.create(:policy, related_policies: [related_policy])
@@ -104,42 +65,6 @@ RSpec.describe Policy do
     expect(policy.programme?).to be(true)
   end
 
-  context "when saved with a parent policy" do
-    let!(:parent_policy) { FactoryGirl.create(:policy) }
-    let!(:policy) { FactoryGirl.create(:policy, parent_policies: [parent_policy]) }
-
-    before do
-      WebMock::RequestRegistry.instance.reset!
-      policy.save!
-    end
-
-    it "republishes the parent policy as a minor update when saved" do
-      assert_publishing_api_put_item(
-        parent_policy.base_path,
-        {
-          "format" => "policy",
-          "update_type" => "minor",
-          "rendering_app" => "finder-frontend",
-          "publishing_app" => "policy-publisher",
-        },
-      )
-    end
-
-    it "updates the parent policy in rummager" do
-      expected_json = JSON.parse({
-        title: parent_policy.name,
-        description: parent_policy.description,
-        link: parent_policy.base_path,
-        indexable_content: "",
-        organisations: [],
-        last_update: parent_policy.updated_at,
-        _type: "policy",
-        _id: parent_policy.base_path,
-      }.to_json)
-      assert_rummager_posted_item(expected_json)
-    end
-  end
-
   it "cannot be associated with itself" do
     policy = FactoryGirl.create(:policy)
 
@@ -149,7 +74,6 @@ RSpec.describe Policy do
   it "gets a list of applicable nations" do
     policy = FactoryGirl.create(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
       northern_ireland_policy_url: "https://www.nidirect.gov.uk",
       scotland: false,
@@ -164,7 +88,6 @@ RSpec.describe Policy do
   it "doesn't allow invalid alternative policy URLs" do
     policy = FactoryGirl.build(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
       northern_ireland_policy_url: "bad-url",
     )
@@ -176,7 +99,6 @@ RSpec.describe Policy do
   it "allows valid alternative policy URLs" do
     policy = FactoryGirl.build(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
       northern_ireland_policy_url: "http://example.ni",
     )
@@ -187,7 +109,6 @@ RSpec.describe Policy do
   it "allows specifying no alternative policy URL" do
     policy = FactoryGirl.build(
       :policy,
-      name: "Rural payments",
       northern_ireland: false,
     )
 

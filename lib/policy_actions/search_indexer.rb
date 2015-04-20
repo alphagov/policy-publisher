@@ -1,3 +1,4 @@
+# Adds a policy to the search index
 class SearchIndexer
   attr_reader :policy
 
@@ -5,7 +6,7 @@ class SearchIndexer
     @policy = policy
   end
 
-  def index!
+  def run!
     rummager.add_document("policy", policy.base_path, document)
   end
 

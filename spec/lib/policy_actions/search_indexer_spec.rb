@@ -1,13 +1,10 @@
 require "rails_helper"
-require 'gds_api/test_helpers/publishing_api'
 require 'gds_api/test_helpers/rummager'
 
 RSpec.describe SearchIndexer do
-  include GdsApi::TestHelpers::PublishingApi
   include GdsApi::TestHelpers::Rummager
 
   before do
-    stub_default_publishing_api_put
     stub_any_rummager_post
   end
 
@@ -27,8 +24,7 @@ RSpec.describe SearchIndexer do
       _id: policy.base_path,
     }.as_json
 
-    WebMock::RequestRegistry.instance.reset!
-    indexer.index!
+    indexer.run!
     assert_rummager_posted_item(expected_json)
   end
 end

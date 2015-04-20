@@ -21,26 +21,12 @@ class Policy < ActiveRecord::Base
                             ON policies.id = policy_relations.related_policy_id
                             WHERE policy_relations.related_policy_id IS NULL") }
 
-  after_save :publish!
-  after_save :republish_parents!
-
   # Virtual attribute used to identify a new record as a programme
   attr_writer :programme
   def programme
     @programme || parent_policies.any?
   end
   alias_method :programme?, :programme
-
-  def publish!
-    publish_content_item!
-    add_to_search_index!
-  end
-
-  def republish!
-    publish_content_item!('minor')
-    add_to_search_index!
-  end
-
 
   def base_path
     "/government/policies/#{slug}"
@@ -85,23 +71,5 @@ private
     nations_with_bad_urls.each do |nation|
       errors.add(nation, "must have a valid alternative policy URL")
     end
-  end
-
-  def publish_content_item!(update_type='major')
-    presenter = ContentItemPresenter.new(self, update_type)
-    attrs = presenter.exportable_attributes
-    publishing_api.put_content_item(base_path, attrs)
-  end
-
-  def publishing_api
-    @publishing_api ||= PolicyPublisher.services(:publishing_api)
-  end
-
-  def add_to_search_index!
-    SearchIndexer.new(self).index!
-  end
-
-  def republish_parents!
-    parent_policies.each(&:republish!)
   end
 end
