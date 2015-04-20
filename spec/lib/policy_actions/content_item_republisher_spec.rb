@@ -7,7 +7,7 @@ RSpec.describe ContentItemRepublisher do
   let(:policy) { FactoryGirl.create(:policy) }
   let(:content_item_publisher) { ContentItemRepublisher.new(policy) }
 
-  describe 'run! method' do
+  describe '#run! method' do
     before do
       stub_default_publishing_api_put
       content_item_publisher.run!

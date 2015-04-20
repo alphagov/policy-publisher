@@ -7,7 +7,7 @@ RSpec.describe PlaceholderContentItemPublisher do
   let(:policy) { FactoryGirl.create(:policy) }
   let(:placeholder_publisher) { PlaceholderContentItemPublisher.new(policy) }
 
-  describe 'run! method' do
+  describe '#run! method' do
     before do
       stub_default_publishing_api_put
       placeholder_publisher.run!
