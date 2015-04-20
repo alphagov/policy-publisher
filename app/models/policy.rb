@@ -35,14 +35,15 @@ class Policy < ActiveRecord::Base
 
   def publish!
     publish_content_item!
+    publish_email_alert_signup_content_item!
     add_to_search_index!
   end
 
   def republish!
     publish_content_item!('minor')
+    publish_email_alert_signup_content_item!('minor')
     add_to_search_index!
   end
-
 
   def base_path
     "/government/policies/#{slug}"
@@ -93,6 +94,11 @@ private
     presenter = ContentItemPresenter.new(self, update_type)
     attrs = presenter.exportable_attributes
     publishing_api.put_content_item(base_path, attrs)
+  end
+
+  def publish_email_alert_signup_content_item!(update_type='major')
+    publisher = PolicySignupPagePublisher.new(self, update_type)
+    publisher.publish
   end
 
   def publishing_api
