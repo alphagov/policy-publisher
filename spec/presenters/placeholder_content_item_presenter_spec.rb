@@ -14,6 +14,7 @@ RSpec.describe PlaceholderContentItemPresenter do
     it "includes the essential policy information" do
       expect(attributes["title"]).to eq(policy.name)
       expect(attributes["content_id"]).to eq(policy.content_id)
+      expect(attributes["format"]).to eq("placeholder_policy")
       expect(attributes["routes"][0]["path"]).to eq(policy.base_path)
       expect(attributes["routes"][0]["type"]).to eq("exact")
     end
