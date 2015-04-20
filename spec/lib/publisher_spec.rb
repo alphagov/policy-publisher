@@ -85,13 +85,14 @@ RSpec.describe Publisher do
     let(:policy) { FactoryGirl.create(:policy) }
     let!(:rummager_request) { stub_any_rummager_post }
 
-    before do
-      ENV.delete('ENABLE_FUTURE_POLICIES')
-      Publisher.new(policy).publish!
+    around do |example|
+      flag_value = ENV.delete('ENABLE_FUTURE_POLICIES')
+      example.run
+      ENV['ENABLE_FUTURE_POLICIES'] = flag_value
     end
 
-    after do
-      ENV['ENABLE_FUTURE_POLICIES'] = '1'
+    before do
+      Publisher.new(policy).publish!
     end
 
     it "pushes a placeholder content item to the Publishing API" do
