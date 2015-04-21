@@ -10,8 +10,8 @@ class EmailAlertSignupContentItemPresenter
       format: "email_alert_signup",
       content_id: policy.email_alert_signup_content_id,
       title: policy.name,
-      description: description,
-      public_updated_at: policy.updated_at.iso8601,
+      description: "",
+      public_updated_at: public_updated_at,
       locale: "en",
       update_type: update_type,
       publishing_app: "policy-publisher",
@@ -22,12 +22,12 @@ class EmailAlertSignupContentItemPresenter
     }
   end
 
-private
-  attr_reader :policy, :update_type
-
   def base_path
     "#{policy.base_path}/email-signup"
   end
+
+private
+  attr_reader :policy, :update_type
 
   def public_updated_at
     policy.updated_at
@@ -44,14 +44,15 @@ private
 
   def details
     {
-      breadcrumbs: [breadcrumbs],
+      breadcrumbs: breadcrumbs,
+      summary: summary,
       tags: {
         policy: [policy.slug],
       },
     }
   end
 
-  def description
+  def summary
     %q[
       You'll get an email each time a document about
       this policy is published or updated.
@@ -59,10 +60,12 @@ private
   end
 
   def breadcrumbs
-    {
-      title: policy.name,
-      link: policy.base_path,
-    }
+    [
+      {
+        title: policy.name,
+        link: policy.base_path,
+      }
+    ]
   end
 
 end
