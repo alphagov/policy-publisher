@@ -52,6 +52,10 @@ Then(/^a policy called "(.*?)" is republished to publishing API$/) do |policy_na
   assert_content_item_is_republished_to_publishing_api(policy.base_path)
 end
 
+Then(/^an email alert signup page for a policy called "(.*?)" is published to publishing API$/) do |policy_name|
+  policy = Policy.find_by(name: policy_name)
+  assert_email_alert_signup_content_item_is_republished_to_publishing_api(policy.base_path)
+end
 
 Then(/^a policy called "(.*?)" is indexed for search$/) do |policy_name|
   policy = Policy.find_by_name(policy_name)
