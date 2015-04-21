@@ -22,6 +22,7 @@ class ContentItemPresenter
         organisations: organisation_content_ids,
         people: people_content_ids,
         related: related,
+        email_alert_signup: email_alert_signup_content_id,
       },
     }
   end
@@ -43,6 +44,10 @@ private
 
   def people_content_ids
     policy.people_content_ids || []
+  end
+
+  def email_alert_signup_content_id
+    [policy.email_alert_signup_content_id]
   end
 
   def title

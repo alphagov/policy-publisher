@@ -49,6 +49,13 @@ RSpec.describe ContentItemPresenter do
       expect(attributes["links"]["related"]).to eq([related_policy.content_id])
     end
 
+    it "includes the linked email alert signup" do
+      policy = FactoryGirl.create(:policy)
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
+
+      expect(attributes["links"]["email_alert_signup"]).to eq([policy.email_alert_signup_content_id])
+    end
+
     it "doesn't add nation_applicability if the policy applies to all nations" do
       policy = FactoryGirl.create(:policy)
       attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
