@@ -17,7 +17,8 @@ class SearchIndexer
       link: policy.base_path,
       slug: policy.slug,
       indexable_content: "",
-      organisations: [],
+      organisations: get_slugs(policy.organisations),
+      people: get_slugs(policy.people),
       last_update: policy.updated_at,
     }
   end
@@ -25,5 +26,9 @@ class SearchIndexer
 private
   def rummager
     @rummager ||= PolicyPublisher.services(:rummager)
+  end
+
+  def get_slugs(content_register_items)
+    content_register_items.map {|cri| cri["base_path"].gsub(%r{.*/([^/]+?)$}, '\1') }
   end
 end
