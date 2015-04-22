@@ -6,9 +6,12 @@ RSpec.describe Publisher do
   include GdsApi::TestHelpers::PublishingApi
   include GdsApi::TestHelpers::Rummager
 
+  let(:indexer) { double(:indexer) }
+
   before do
     stub_default_publishing_api_put
-    stub_any_rummager_post
+    allow(SearchIndexer).to receive(:new).with(policy).and_return(indexer)
+    allow(indexer).to receive(:run!)
   end
 
   context "when publishing a policy" do
@@ -26,53 +29,31 @@ RSpec.describe Publisher do
     end
 
     it "adds the policy to the rummager search index" do
-      expected_json = JSON.parse({
-        title: policy.name,
-        description: policy.description,
-        link: policy.base_path,
-        indexable_content: "",
-        organisations: [],
-        last_update: policy.updated_at,
-        _type: "policy",
-        _id: policy.base_path,
-      }.to_json)
-
-      assert_rummager_posted_item(expected_json)
+      expect(indexer).to have_received(:run!)
     end
   end
 
 
   context "when publishing a policy programme" do
-    let!(:policy_programme) { FactoryGirl.create(:policy_programme) }
+    let!(:policy) { FactoryGirl.create(:policy_programme) }
 
     before do
-      Publisher.new(policy_programme).publish!
+      Publisher.new(policy).publish!
     end
 
     it "publishes the policy programme to the Publishing API" do
       assert_publishing_api_put_item(
-        policy_programme.base_path,
-        ContentItemPresenter.new(policy_programme).exportable_attributes.as_json
+        policy.base_path,
+        ContentItemPresenter.new(policy).exportable_attributes.as_json
       )
     end
 
     it "adds the policy programme to the rummager search index" do
-      expected_json = JSON.parse({
-        title: policy_programme.name,
-        description: policy_programme.description,
-        link: policy_programme.base_path,
-        indexable_content: "",
-        organisations: [],
-        last_update: policy_programme.updated_at,
-        _type: "policy",
-        _id: policy_programme.base_path,
-      }.to_json)
-
-      assert_rummager_posted_item(expected_json)
+      expect(indexer).to have_received(:run!)
     end
 
     it "republishes the parent policies" do
-      parent_policy = policy_programme.parent_policies.first
+      parent_policy = policy.parent_policies.first
       assert_publishing_api_put_item(
         parent_policy.base_path,
         ContentItemPresenter.new(parent_policy, "minor").exportable_attributes.as_json
