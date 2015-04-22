@@ -51,6 +51,18 @@ class Policy < ActiveRecord::Base
     possible_nations - applicable_nations
   end
 
+  def organisations
+    @organisations ||= PolicyPublisher.services(:content_register).organisations.select do |org|
+      organisation_content_ids.include?(org["content_id"])
+    end
+  end
+
+  def people
+    @people ||= PolicyPublisher.services(:content_register).people.select do |org|
+      people_content_ids.include?(org["content_id"])
+    end
+  end
+
 private
 
   def applicable_to_at_least_one_nation
