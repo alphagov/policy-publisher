@@ -28,6 +28,17 @@ module PublishingAPIHelpers
       },
     )
   end
+
+  def assert_email_alert_signup_content_item_is_republished_to_publishing_api(policy_base_path)
+    assert_publishing_api_put_item(
+      "#{policy_base_path}/email-signup",
+      {
+        "format" => "email_alert_signup",
+        "rendering_app" => "email-alert-frontend",
+        "publishing_app" => "policy-publisher",
+      },
+    )
+  end
 end
 
 World(PublishingAPIHelpers)

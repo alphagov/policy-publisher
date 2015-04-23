@@ -7,21 +7,22 @@ class ContentItemPresenter
 
   def exportable_attributes
     {
-      "format" => "policy",
-      "content_id" => content_id,
-      "title" => title,
-      "description" => description,
-      "public_updated_at" => public_updated_at,
-      "locale" => "en",
-      "update_type" => update_type,
-      "publishing_app" => "policy-publisher",
-      "rendering_app" => "finder-frontend",
-      "routes" => routes,
-      "details" => details,
-      "links" => {
-        "organisations" => organisation_content_ids,
-        "people" => people_content_ids,
-        "related" => related,
+      format: "policy",
+      content_id: content_id,
+      title: title,
+      description: description,
+      public_updated_at: public_updated_at,
+      locale: "en",
+      update_type: update_type,
+      publishing_app: "policy-publisher",
+      rendering_app: "finder-frontend",
+      routes: routes,
+      details: details,
+      links: {
+        organisations: organisation_content_ids,
+        people: people_content_ids,
+        related: related,
+        email_alert_signup: email_alert_signup_content_id,
       },
     }
   end
@@ -43,6 +44,10 @@ private
 
   def people_content_ids
     policy.people_content_ids || []
+  end
+
+  def email_alert_signup_content_id
+    [policy.email_alert_signup_content_id]
   end
 
   def title

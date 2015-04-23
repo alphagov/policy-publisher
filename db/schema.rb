@@ -21,20 +21,22 @@ ActiveRecord::Schema.define(version: 20150423092901) do
     t.string   "name"
     t.text     "description"
     t.string   "content_id"
-    t.text     "organisation_content_ids",    default: [],                array: true
-    t.text     "people_content_ids",          default: [],                array: true
-    t.boolean  "england",                     default: true
+    t.text     "organisation_content_ids",      default: [],                array: true
+    t.text     "people_content_ids",            default: [],                array: true
+    t.boolean  "england",                       default: true
     t.string   "england_policy_url"
-    t.boolean  "northern_ireland",            default: true
+    t.boolean  "northern_ireland",              default: true
     t.string   "northern_ireland_policy_url"
-    t.boolean  "scotland",                    default: true
+    t.boolean  "scotland",                      default: true
     t.string   "scotland_policy_url"
-    t.boolean  "wales",                       default: true
+    t.boolean  "wales",                         default: true
     t.string   "wales_policy_url"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "email_alert_signup_content_id"
   end
 
+  add_index "policies", ["email_alert_signup_content_id"], name: "index_policies_on_email_alert_signup_content_id", unique: true, using: :btree
   add_index "policies", ["name"], name: "index_policies_on_name", using: :btree
 
   create_table "policy_relations", force: :cascade do |t|

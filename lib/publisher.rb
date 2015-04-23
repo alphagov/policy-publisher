@@ -32,7 +32,7 @@ private
 
   def publish_actions
     if PolicyPublisher.future_policies_enabled?
-      [ContentItemPublisher, ParentPolicyContentItemRepublisher, SearchIndexer]
+      [ContentItemPublisher, EmailAlertSignupContentItemPublisher, ParentPolicyContentItemRepublisher, SearchIndexer]
     else
       [PlaceholderContentItemPublisher]
     end

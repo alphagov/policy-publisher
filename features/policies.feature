@@ -8,6 +8,7 @@ Scenario: Creating a policy
   When I create a policy called "Climate change"
   Then there should be a policy called "Climate change"
   And a policy called "Climate change" is published to publishing API
+  And an email alert signup page for a policy called "Climate change" is published to publishing API
   And a policy called "Climate change" is indexed for search
 
 Scenario: Editing a policy
@@ -15,6 +16,7 @@ Scenario: Editing a policy
   When I change the title of policy "Global warming" to "Climate change"
   Then there should be a policy called "Climate change"
   And a policy called "Climate change" is published to publishing API
+  And an email alert signup page for a policy called "Climate change" is published to publishing API
   And a policy called "Climate change" is indexed for search
 
 Scenario: Creating a policy programme that is part of another
