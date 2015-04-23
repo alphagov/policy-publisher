@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422100127) do
+ActiveRecord::Schema.define(version: 20150423092901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 20150422100127) do
     t.string   "name"
     t.text     "description"
     t.string   "content_id"
-    t.text     "organisation_content_ids",                                array: true
-    t.text     "people_content_ids",                                      array: true
+    t.text     "organisation_content_ids",    default: [],                array: true
+    t.text     "people_content_ids",          default: [],                array: true
     t.boolean  "england",                     default: true
     t.string   "england_policy_url"
     t.boolean  "northern_ireland",            default: true
