@@ -63,7 +63,6 @@ private
   def details
     {
       document_noun: "policy",
-      email_signup_enabled: false,
       filter: {
         document_type: "policy"
       },
