@@ -141,9 +141,10 @@ private
       {
         key: "public_timestamp",
         short_name: "Updated",
+        name: "Published",
         type: "date",
         display_as_result_metadata: true,
-        filterable: false
+        filterable: true
       },
       {
         key: "organisations",
