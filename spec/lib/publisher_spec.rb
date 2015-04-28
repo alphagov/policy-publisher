@@ -12,6 +12,8 @@ RSpec.describe Publisher do
     stub_default_publishing_api_put
     allow(SearchIndexer).to receive(:new).with(policy).and_return(indexer)
     allow(indexer).to receive(:run!)
+
+    FeatureFlag.create(key: 'future_policies', enabled: true)
   end
 
   context "when publishing a policy" do
@@ -66,13 +68,8 @@ RSpec.describe Publisher do
     let(:policy) { FactoryGirl.create(:policy) }
     let!(:rummager_request) { stub_any_rummager_post }
 
-    around do |example|
-      flag_value = ENV.delete('ENABLE_FUTURE_POLICIES')
-      example.run
-      ENV['ENABLE_FUTURE_POLICIES'] = flag_value
-    end
-
     before do
+      FeatureFlag.set('future_policies', false)
       Publisher.new(policy).publish!
     end
 
