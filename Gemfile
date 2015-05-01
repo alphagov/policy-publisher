@@ -31,6 +31,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'webmock'
   gem 'timecop'
-  gem 'govuk-content-schema-test-helpers', '1.0.2'
+  gem 'govuk-content-schema-test-helpers', '1.3.0'
   gem "poltergeist", "1.5.0"
 end
