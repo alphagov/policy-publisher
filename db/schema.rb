@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20150424083442) do
 
   create_table "feature_flags", force: :cascade do |t|
     t.string  "key"
-    t.boolean "enabled"
+    t.boolean "enabled", default: false
   end
 
   create_table "policies", force: :cascade do |t|
