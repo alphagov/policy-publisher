@@ -12,8 +12,6 @@ RSpec.describe Publisher do
     stub_default_publishing_api_put
     allow(SearchIndexer).to receive(:new).with(policy).and_return(indexer)
     allow(indexer).to receive(:run!)
-
-    FeatureFlag.create(key: 'future_policies', enabled: true)
   end
 
   context "when publishing a policy" do
@@ -60,26 +58,6 @@ RSpec.describe Publisher do
         parent_policy.base_path,
         ContentItemPresenter.new(parent_policy, "minor").exportable_attributes.as_json
       )
-    end
-  end
-
-
-  context "when future-policies feature flag is off" do
-    let(:policy) { FactoryGirl.create(:policy) }
-    let!(:rummager_request) { stub_any_rummager_post }
-
-    before do
-      FeatureFlag.set('future_policies', false)
-      Publisher.new(policy).publish!
-    end
-
-    it "pushes a placeholder content item to the Publishing API" do
-      payload = PlaceholderContentItemPresenter.new(policy).exportable_attributes.as_json
-      assert_publishing_api_put_item(policy.base_path, payload)
-    end
-
-    it "does not add the policy to the rummager search index" do
-      assert_not_requested rummager_request
     end
   end
 end
