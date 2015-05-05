@@ -1,3 +1,4 @@
+@future-policies
 Feature: Policy creation
 
 As a content editor
