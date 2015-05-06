@@ -67,8 +67,28 @@ private
         document_type: "policy"
       },
       show_summaries: false,
-      facets: [],
+      facets: facets,
     }
+  end
+
+  def facets
+    [
+      {
+        key: "public_timestamp",
+        short_name: "Updated",
+        name: "Published",
+        type: "date",
+        display_as_result_metadata: true,
+        filterable: true
+      },
+      {
+        key: "organisations",
+        short_name: "From",
+        type: "text",
+        display_as_result_metadata: true,
+        filterable: false
+      },
+    ]
   end
 
   def publishing_api
