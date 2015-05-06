@@ -151,7 +151,6 @@ private
         short_name: "From",
         type: "text",
         display_as_result_metadata: true,
-        result_metadata_name_key: "title",
         filterable: false
       },
       {
