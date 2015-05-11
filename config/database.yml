@@ -12,11 +12,11 @@ default: &default
 
 development:
   <<: *default
-  database: policy_publisher_development
+  database: policy-publisher_development 
 
 test: &test
   <<: *default
-  database: policy_publisher_test
+  database: policy-publisher_test
 
 cucumber:
   <<: *test
