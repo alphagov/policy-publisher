@@ -31,10 +31,6 @@ class Publisher
 private
 
   def publish_actions
-    if FeatureFlag.enabled?('future_policies')
-      [ContentItemPublisher, EmailAlertSignupContentItemPublisher, ParentPolicyContentItemRepublisher, SearchIndexer]
-    else
-      [PlaceholderContentItemPublisher]
-    end
+    [ContentItemPublisher, EmailAlertSignupContentItemPublisher, ParentPolicyContentItemRepublisher, SearchIndexer]
   end
 end
