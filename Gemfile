@@ -18,6 +18,8 @@ gem 'decent_exposure', '2.3.2'
 
 gem 'gds-api-adapters', '18.1.0'
 
+gem 'govspeak','3.3.0'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
