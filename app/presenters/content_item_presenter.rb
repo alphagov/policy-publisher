@@ -1,3 +1,5 @@
+require 'govspeak'
+
 class ContentItemPresenter
 
   def initialize(policy, update_type='major')
@@ -87,7 +89,7 @@ private
       },
       human_readable_finder_format: 'Policy',
       signup_link: '',
-      summary: policy.description,
+      summary: summary,
       show_summaries: false,
       facets: facets,
     }
@@ -108,6 +110,9 @@ private
     end
   end
 
+  def summary
+    Govspeak::Document.new(policy.description).to_html
+  end
 
   def alternative_policies
     inapplicable_nations_with_urls = inapplicable_nations.select { |nation|

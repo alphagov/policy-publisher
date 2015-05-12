@@ -25,6 +25,16 @@ RSpec.describe ContentItemPresenter do
       expect(presenter.exportable_attributes.as_json['details']["filter"]).to eq(filter)
     end
 
+    it "turns Govspeak to HTML when exporting" do
+      policy = FactoryGirl.create(:policy)
+      policy.description = "_This_ is some [Govspeak](https://www.gov.uk)."
+      presenter = ContentItemPresenter.new(policy)
+
+      expected_html = "<p><em>This</em> is some <a href=\"https://www.gov.uk\">Govspeak</a>.</p>\n"
+
+      expect(presenter.exportable_attributes.as_json["details"]["summary"]).to eq(expected_html)
+    end
+
     it "includes linked organisations" do
       content_id = SecureRandom.uuid
       policy = FactoryGirl.create(:policy, organisation_content_ids: [content_id])
