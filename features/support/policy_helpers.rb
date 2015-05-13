@@ -78,7 +78,6 @@ module PolicyHelpers
     click_on "Save"
   end
 
-
   def associate_policy_with_organisation(policy:, organisation_name:)
     visit policies_path
     click_on policy.name

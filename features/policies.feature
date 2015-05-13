@@ -51,7 +51,6 @@ Scenario: Re-ordering tagged people
   When I set the tagged people to "Another Person" and "A Person"
   Then the policy people should appear in the order "Another Person" and "A Person"
 
-
 @javascript
 Scenario: Creating a policy only associated with one nation
   When I create a policy called "Policing in Northern Ireland" that only applies to "Northern Ireland"

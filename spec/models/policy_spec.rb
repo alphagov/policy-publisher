@@ -120,7 +120,6 @@ RSpec.describe Policy do
     expect(policy.people).to eq([])
   end
 
-
   it "gets a list of applicable nations" do
     policy = FactoryGirl.create(
       :policy,

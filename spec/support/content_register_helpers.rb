@@ -35,7 +35,6 @@ module ContentRegisterHelpers
     }
   end
 
-
   def person_2
     @person_2 ||= {
       "content_id" => SecureRandom.uuid,
