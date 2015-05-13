@@ -14,7 +14,7 @@ gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
 gem 'govuk_admin_template', '1.5.1'
 gem 'generic_form_builder', '0.13.0'
-gem 'selectize-rails', '0.11.2'
+gem 'selectize-rails', github: 'manuelvanrijn/selectize-rails', ref: '636897e59fe29'
 gem 'decent_exposure', '2.3.2'
 
 gem 'gds-api-adapters', '18.1.0'
