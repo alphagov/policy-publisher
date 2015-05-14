@@ -31,6 +31,14 @@ RSpec.describe EmailAlertSignupContentItemPresenter do
       expect(presenter.exportable_attributes.as_json['details']["breadcrumbs"]).to eq(breadcrumbs)
     end
 
+    it "includes the format type" do
+      policy = FactoryGirl.create(:policy)
+      presenter = EmailAlertSignupContentItemPresenter.new(policy)
+
+      expect(presenter.exportable_attributes.as_json["details"]["format_type"]).to eq("policy")
+    end
+
+
     it "allows the update type to be overridden" do
       policy = FactoryGirl.create(:policy)
       major_attributes = EmailAlertSignupContentItemPresenter.new(policy).exportable_attributes.as_json
