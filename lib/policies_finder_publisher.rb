@@ -86,7 +86,10 @@ private
         short_name: "From",
         type: "text",
         display_as_result_metadata: true,
-        filterable: false
+        filterable: true,
+        allowed_values: allowed_organisation_values,
+        preposition: "from",
+        name: "Organisation",
       },
     ]
   end
@@ -95,4 +98,22 @@ private
     @publishing_api ||= PolicyPublisher.services(:publishing_api)
   end
 
+  def allowed_organisation_values
+    allowed_orgs = organiastions_used_by_policies.map do |org|
+      { label: org["title"], value: org["base_path"].split('/').last }
+    end
+    allowed_orgs.sort_by {|org| org[:label]}
+  end
+
+  def organiastions_used_by_policies
+    PolicyPublisher.services(:content_register).organisations.select do |org|
+      all_organisation_content_ids.include?(org["content_id"])
+    end
+  end
+
+  def all_organisation_content_ids
+    @all_organisation_content_ids ||= Policy.all.map do |policy|
+      policy.organisation_content_ids
+    end.flatten.uniq
+  end
 end
