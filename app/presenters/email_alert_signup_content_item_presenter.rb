@@ -49,6 +49,7 @@ private
       tags: {
         policy: [policy.slug],
       },
+      format_type: "policy",
     }
   end
 
