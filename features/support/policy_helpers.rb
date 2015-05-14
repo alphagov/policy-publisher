@@ -62,6 +62,22 @@ module PolicyHelpers
     expect(page).to have_content(name)
   end
 
+  def associate_policy_with_organisations(policy:, organisation_names:)
+    visit policies_path
+    click_on policy.name
+
+    selectize "Organisations", with: organisation_names
+    click_on "Save"
+  end
+
+  def associate_policy_with_people(policy:, people_names:)
+    visit policies_path
+    click_on policy.name
+
+    selectize "People", with: people_names
+    click_on "Save"
+  end
+
   def associate_policy_with_organisation(policy:, organisation_name:)
     visit policies_path
     click_on policy.name

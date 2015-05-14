@@ -31,4 +31,16 @@ module ApplicationHelper
   def policies_areas_data_container
     Policy.areas.map { |policy| [policy.name, policy.id] }
   end
+
+  # Re-orders the data container such that +selected+ ones appear first.
+  def prioritise_data_container(unprioritised_container, selected)
+    selected.reverse.each do |value|
+      if item = unprioritised_container.detect { |item| item[1] == value }
+        unprioritised_container.delete(item)
+        unprioritised_container.unshift(item)
+      end
+    end
+
+    unprioritised_container
+  end
 end

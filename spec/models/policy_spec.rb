@@ -1,6 +1,9 @@
 require "rails_helper"
+require 'spec/support/content_register_helpers'
 
 RSpec.describe Policy do
+  include ContentRegisterHelpers
+
   it "automatically generates a slug on creation" do
     policy = FactoryGirl.create(:policy, name: "Climate change")
 
@@ -69,6 +72,52 @@ RSpec.describe Policy do
     policy = FactoryGirl.create(:policy)
 
     expect { policy.related_policies = [policy] }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  it "maintains the ordering of tagged organisations" do
+    mock_content_register
+
+    policy = FactoryGirl.create(:policy,
+      organisation_content_ids: [
+        organisation_1['content_id'],
+        organisation_2['content_id']
+      ])
+
+    expect(policy.organisations).to eq([organisation_1, organisation_2])
+
+    policy.organisation_content_ids = [organisation_2['content_id'], organisation_1['content_id']]
+
+    expect(policy.organisations).to eq([organisation_2, organisation_1])
+  end
+
+  it "maintains the ordering of tagged people" do
+    mock_content_register
+
+    policy = FactoryGirl.create(:policy,
+      people_content_ids: [
+        person_1['content_id'],
+        person_2['content_id']
+      ])
+
+    expect(policy.people).to eq([person_1, person_2])
+
+    policy.people_content_ids = [person_2['content_id'], person_1['content_id']]
+
+    expect(policy.people).to eq([person_2, person_1])
+  end
+
+  it "ignores non-existent tagged organisations" do
+    mock_content_register
+
+    policy = Policy.new(organisation_content_ids: [SecureRandom.uuid])
+    expect(policy.organisations).to eq([])
+  end
+
+  it "ignores non-existent tagged people" do
+    mock_content_register
+
+    policy = Policy.new(people_content_ids: [SecureRandom.uuid])
+    expect(policy.people).to eq([])
   end
 
   it "gets a list of applicable nations" do

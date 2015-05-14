@@ -5,14 +5,14 @@
   <%= form.text_area :description %>
 
   <%= form.select :organisation_content_ids,
-        organisations_data_container,
+        prioritise_data_container(organisations_data_container, policy.organisation_content_ids),
         { label: "Organisations" },
         { multiple: true,
           class: 'select2',
           data: { placeholder: 'Choose organisations…' } } %>
 
   <%= form.select :people_content_ids,
-        people_data_container,
+        prioritise_data_container(people_data_container, policy.people_content_ids),
         { label: "People" },
         { multiple: true,
           class: 'select2',

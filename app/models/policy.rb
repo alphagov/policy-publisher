@@ -54,18 +54,26 @@ class Policy < ActiveRecord::Base
   end
 
   def organisations
-    @organisations ||= PolicyPublisher.services(:content_register).organisations.select do |org|
-      organisation_content_ids.include?(org["content_id"])
-    end
+    organisation_content_ids.map { |content_id| find_organisation(content_id) }.compact
   end
 
   def people
-    @people ||= PolicyPublisher.services(:content_register).people.select do |org|
-      people_content_ids.include?(org["content_id"])
-    end
+    people_content_ids.map { |content_id| find_person(content_id) }.compact
   end
 
 private
+
+  def content_register
+    PolicyPublisher.services(:content_register)
+  end
+
+  def find_person(content_id)
+    content_register.people.find { |person| person["content_id"] == content_id }
+  end
+
+  def find_organisation(content_id)
+    content_register.organisations.find { |organisation| organisation["content_id"] == content_id }
+  end
 
   def applicable_to_at_least_one_nation
     if applicable_nations.empty?
