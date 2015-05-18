@@ -63,6 +63,7 @@ private
   def details
     {
       document_noun: "policy",
+      default_order: "title",
       filter: {
         document_type: "policy"
       },
@@ -73,14 +74,6 @@ private
 
   def facets
     [
-      {
-        key: "public_timestamp",
-        short_name: "Updated",
-        name: "Published",
-        type: "date",
-        display_as_result_metadata: true,
-        filterable: true
-      },
       {
         key: "organisations",
         short_name: "From",

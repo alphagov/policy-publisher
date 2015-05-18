@@ -26,7 +26,7 @@ RSpec.describe PoliciesFinderPublisher do
 
     it "contains the organisations tagged to policies" do
       policy = FactoryGirl.create(:policy, organisation_content_ids: [org_1["content_id"]])
-      organisation_facet = publisher.exportable_attributes["details"][:facets][1]
+      organisation_facet = publisher.exportable_attributes["details"][:facets][0]
       expect(organisation_facet[:allowed_values]).to match_array([{label: "Organisation 1", value: "organisation-1"}])
     end
 
