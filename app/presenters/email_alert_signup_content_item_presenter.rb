@@ -49,6 +49,7 @@ private
       tags: {
         policy: [policy.slug],
       },
+      govdelivery_title: "#{policy.name} policy",
     }
   end
 
