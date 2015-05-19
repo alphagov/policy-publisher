@@ -91,6 +91,7 @@ Then(/^the policy should be linked to the organisation when published to publish
         "people" => [],
         "related" => [],
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
+        "policy_areas" => [],
       },
     }
   )
@@ -109,6 +110,7 @@ Then(/^the policy should be linked to the person when published to publishing AP
         "people" => [person_1["content_id"]],
         "related" => [],
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
+        "policy_areas" => [],
       },
     }
   )

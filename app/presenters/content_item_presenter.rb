@@ -25,6 +25,7 @@ class ContentItemPresenter
         people: people_content_ids,
         related: related,
         email_alert_signup: email_alert_signup_content_id,
+        policy_areas: policy_areas,
       },
     }
   end
@@ -129,6 +130,10 @@ private
 
   def related
     policy.related_policies.map(&:content_id)
+  end
+
+  def policy_areas
+    policy.parent_policies.map(&:content_id)
   end
 
   def facets
