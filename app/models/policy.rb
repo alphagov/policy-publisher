@@ -61,6 +61,10 @@ class Policy < ActiveRecord::Base
     people_content_ids.map { |content_id| find_person(content_id) }.compact
   end
 
+  def working_groups
+    working_group_content_ids.map { |content_id| find_working_group(content_id) }.compact
+  end
+
 private
 
   def content_register
@@ -73,6 +77,10 @@ private
 
   def find_organisation(content_id)
     content_register.organisations.find { |organisation| organisation["content_id"] == content_id }
+  end
+
+  def find_working_group(content_id)
+    content_register.working_groups.find { |wg| wg["content_id"] == content_id }
   end
 
   def applicable_to_at_least_one_nation
