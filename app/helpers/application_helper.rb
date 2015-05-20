@@ -25,7 +25,7 @@ module ApplicationHelper
   # Data container used to generate the options for a people select field
   def people_data_container
     PolicyPublisher.services(:content_register).people.
-      map { |org| [org['title'], org['content_id']] }
+      map { |person| [person['title'], person['content_id']] }
   end
 
   def policies_areas_data_container

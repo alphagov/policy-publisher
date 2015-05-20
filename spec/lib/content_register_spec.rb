@@ -32,7 +32,7 @@ RSpec.describe ContentRegister do
       "content_id" => SecureRandom.uuid,
       "format" => "person",
       "title" => "A Person",
-      "base_path" => "/government/organisations/a-person",
+      "base_path" => "/government/people/a-person",
     }
   end
 
