@@ -39,6 +39,10 @@ When(/^I associate the policy with a person$/) do
   associate_policy_with_person(policy: @policy, person_name: 'A Person')
 end
 
+When(/^I associate the policy with a working group$/) do
+  associate_policy_with_working_group(policy: @policy, working_group_name: 'A working group')
+end
+
 When(/^I set the tagged organisations to "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
   associate_policy_with_organisations(policy: @policy, organisation_names: [org_name_1, org_name_2])
 end
@@ -89,6 +93,7 @@ Then(/^the policy should be linked to the organisation when published to publish
       "links" => {
         "organisations" => [organisation_1["content_id"]],
         "people" => [],
+        "working_groups" => [],
         "related" => [],
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],
@@ -108,6 +113,27 @@ Then(/^the policy should be linked to the person when published to publishing AP
       "links" => {
         "organisations" => [],
         "people" => [person_1["content_id"]],
+        "working_groups" => [],
+        "related" => [],
+        "email_alert_signup" => [@policy.email_alert_signup_content_id],
+        "policy_areas" => [],
+      },
+    }
+  )
+end
+
+Then(/^the policy should be linked to the working group when published to publishing API$/) do
+  assert_publishing_api_put_item(
+    @policy.base_path,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+      "locale" => "en",
+      "links" => {
+        "organisations" => [],
+        "people" => [],
+        "working_groups" => [working_group_1["content_id"]],
         "related" => [],
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],

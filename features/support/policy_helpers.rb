@@ -86,6 +86,12 @@ module PolicyHelpers
     click_on "Save"
   end
 
+  def associate_policy_with_working_group(policy:, working_group_name:)
+    visit_policy(policy)
+    select working_group_name, from: "Working groups"
+    click_on "Save"
+  end
+
 private
 
   def visit_policy(policy)

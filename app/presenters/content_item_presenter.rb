@@ -23,6 +23,7 @@ class ContentItemPresenter
       links: {
         organisations: organisation_content_ids,
         people: people_content_ids,
+        working_groups: working_group_content_ids,
         related: related,
         email_alert_signup: email_alert_signup_content_id,
         policy_areas: policy_areas,
@@ -47,6 +48,10 @@ private
 
   def people_content_ids
     policy.people_content_ids || []
+  end
+
+  def working_group_content_ids
+    policy.working_group_content_ids
   end
 
   def email_alert_signup_content_id

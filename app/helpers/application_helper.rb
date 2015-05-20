@@ -28,6 +28,11 @@ module ApplicationHelper
       map { |person| [person['title'], person['content_id']] }
   end
 
+  def working_groups_data_container
+    PolicyPublisher.services(:content_register).working_groups.
+      map { |wg| [wg['title'], wg['content_id']] }
+  end
+
   def policies_areas_data_container
     Policy.areas.map { |policy| [policy.name, policy.id] }
   end

@@ -51,6 +51,14 @@ RSpec.describe ContentItemPresenter do
       expect(attributes["links"]["people"]).to eq([content_id])
     end
 
+    it "includes linked working_groups" do
+      content_id = SecureRandom.uuid
+      policy = FactoryGirl.create(:policy, working_group_content_ids: [content_id])
+      attributes = ContentItemPresenter.new(policy).exportable_attributes.as_json
+
+      expect(attributes["links"]["working_groups"]).to eq([content_id])
+    end
+
     it "includes related policies" do
       related_policy = FactoryGirl.create(:policy)
       policy = FactoryGirl.create(:policy, related_policies: [related_policy])

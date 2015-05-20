@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519132107) do
+ActiveRecord::Schema.define(version: 20150520090751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150519132107) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.string   "email_alert_signup_content_id"
+    t.text     "working_group_content_ids",     default: [],                array: true
   end
 
   add_index "policies", ["email_alert_signup_content_id"], name: "index_policies_on_email_alert_signup_content_id", unique: true, using: :btree
