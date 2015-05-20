@@ -6,6 +6,7 @@ module ContentRegisterHelpers
   def mock_content_register
     stub_content_register_entries("organisation", [organisation_1, organisation_2])
     stub_content_register_entries("person", [person_1, person_2])
+    stub_content_register_entries("working_group", [working_group_1, working_group_2])
   end
 
   def organisation_1
@@ -31,7 +32,7 @@ module ContentRegisterHelpers
       "content_id" => SecureRandom.uuid,
       "format" => "person",
       "title" => "A Person",
-      "base_path" => "/government/organisations/a-person",
+      "base_path" => "/government/people/a-person",
     }
   end
 
@@ -40,7 +41,25 @@ module ContentRegisterHelpers
       "content_id" => SecureRandom.uuid,
       "format" => "person",
       "title" => "Another Person",
-      "base_path" => "/government/organisations/another-person",
+      "base_path" => "/government/people/another-person",
+    }
+  end
+
+  def working_group_1
+    @working_group_1 ||= {
+      "content_id" => SecureRandom.uuid,
+      "format" => "working_group",
+      "title" => "A working group",
+      "base_path" => "/government/groups/a-working_group",
+    }
+  end
+
+  def working_group_2
+    @working_group_2 ||= {
+      "content_id" => SecureRandom.uuid,
+      "format" => "working_group",
+      "title" => "Another working group",
+      "base_path" => "/government/groups/another-working_group",
     }
   end
 end

@@ -11,6 +11,10 @@ class ContentRegister
     api_adapter.entries('person').to_a
   end
 
+  def working_groups
+    api_adapter.entries('working_group').to_a
+  end
+
 private
   attr_reader :api_adapter
 end

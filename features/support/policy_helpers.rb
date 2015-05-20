@@ -63,35 +63,40 @@ module PolicyHelpers
   end
 
   def associate_policy_with_organisations(policy:, organisation_names:)
-    visit policies_path
-    click_on policy.name
-
+    visit_policy(policy)
     selectize "Organisations", with: organisation_names
     click_on "Save"
   end
 
   def associate_policy_with_people(policy:, people_names:)
-    visit policies_path
-    click_on policy.name
-
+    visit_policy(policy)
     selectize "People", with: people_names
     click_on "Save"
   end
 
   def associate_policy_with_organisation(policy:, organisation_name:)
-    visit policies_path
-    click_on policy.name
-
+    visit_policy(policy)
     select organisation_name, from: "Organisations"
     click_on "Save"
   end
 
   def associate_policy_with_person(policy:, person_name:)
-    visit policies_path
-    click_on policy.name
-
+    visit_policy(policy)
     select person_name, from: "People"
     click_on "Save"
+  end
+
+  def associate_policy_with_working_group(policy:, working_group_name:)
+    visit_policy(policy)
+    select working_group_name, from: "Working groups"
+    click_on "Save"
+  end
+
+private
+
+  def visit_policy(policy)
+    visit policies_path
+    click_on policy.name
   end
 end
 

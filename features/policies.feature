@@ -37,6 +37,11 @@ Scenario: Associating a policy with a person
   When I associate the policy with a person
   Then the policy should be linked to the person when published to publishing API
 
+Scenario: Associating a policy with a working group
+  Given a policy exists called "Global warming"
+  When I associate the policy with a working group
+  Then the policy should be linked to the working group when published to publishing API
+
 @javascript
 Scenario: Re-ordering tagged organisations
   Given a policy exists called "Global warming"

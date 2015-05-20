@@ -54,6 +54,7 @@ private
       :programme,
       organisation_content_ids: [],
       people_content_ids: [],
+      working_group_content_ids: [],
       parent_policy_ids: [],
     )
   end
@@ -65,5 +66,6 @@ private
   def clean_blank_parameters
     params[:policy][:organisation_content_ids].reject! {|id| id.blank? }
     params[:policy][:people_content_ids].reject! {|id| id.blank? }
+    params[:policy][:working_group_content_ids].reject! {|id| id.blank? }
   end
 end
