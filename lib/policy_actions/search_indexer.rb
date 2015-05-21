@@ -19,6 +19,7 @@ class SearchIndexer
       indexable_content: "",
       organisations: get_slugs(policy.organisations),
       people: get_slugs(policy.people),
+      policy_groups: get_slugs(policy.working_groups),
       last_update: policy.updated_at,
     }
   end

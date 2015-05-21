@@ -106,6 +106,22 @@ RSpec.describe Policy do
     expect(policy.people).to eq([person_2, person_1])
   end
 
+  it "maintains the ordering of tagged groups" do
+    mock_content_register
+
+    policy = FactoryGirl.create(:policy,
+      working_group_content_ids: [
+        working_group_1['content_id'],
+        working_group_2['content_id']
+      ])
+
+    expect(policy.working_groups).to eq([working_group_1, working_group_2])
+
+    policy.working_group_content_ids = [working_group_2['content_id'], working_group_1['content_id']]
+
+    expect(policy.working_groups).to eq([working_group_2, working_group_1])
+  end
+
   it "ignores non-existent tagged organisations" do
     mock_content_register
 
@@ -118,6 +134,13 @@ RSpec.describe Policy do
 
     policy = Policy.new(people_content_ids: [SecureRandom.uuid])
     expect(policy.people).to eq([])
+  end
+
+  it "ignores non-existent tagged working groups" do
+    mock_content_register
+
+    policy = Policy.new(working_group_content_ids: [SecureRandom.uuid])
+    expect(policy.working_groups).to eq([])
   end
 
   it "gets a list of applicable nations" do
