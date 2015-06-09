@@ -169,11 +169,11 @@ private
         filterable: false
       },
       {
-        key: "display_type",
+        key: "detailed_format",
         short_name: "Type",
         type: "text",
         display_as_result_metadata: true,
-        filterable: false
+        filterable: true
       },
     ]
   end
