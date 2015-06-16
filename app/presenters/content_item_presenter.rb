@@ -166,7 +166,7 @@ private
         short_name: "From",
         type: "text",
         display_as_result_metadata: true,
-        filterable: false
+        filterable: true
       },
       {
         key: "display_type",
