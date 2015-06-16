@@ -175,6 +175,13 @@ private
         display_as_result_metadata: true,
         filterable: false
       },
+      {
+        key: "people",
+        name: "People",
+        type: "text",
+        display_as_result_metadata: false,
+        filterable: true
+      },
     ]
   end
 end
