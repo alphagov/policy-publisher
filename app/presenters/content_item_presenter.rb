@@ -163,6 +163,7 @@ private
       },
       {
         key: "organisations",
+        name: "Organisation",
         short_name: "From",
         type: "text",
         display_as_result_metadata: true,
@@ -170,6 +171,7 @@ private
       },
       {
         key: "detailed_format",
+        name: "Type",
         short_name: "Type",
         type: "text",
         display_as_result_metadata: true,
