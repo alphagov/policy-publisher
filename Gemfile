@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.2'
 
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
@@ -12,7 +12,7 @@ gem 'quiet_assets', '1.1.0'
 gem 'gds-sso', '10.0.0'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
-gem 'govuk_admin_template', '2.2.0'
+gem 'govuk_admin_template', '~> 2.3.1'
 gem 'generic_form_builder', '0.13.0'
 gem 'selectize-rails', github: 'manuelvanrijn/selectize-rails', ref: '636897e59fe29'
 gem 'decent_exposure', '2.3.2'
@@ -27,7 +27,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '3.2.0'
+  gem 'rspec-rails', '~> 3.2.0'
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'database_cleaner'
