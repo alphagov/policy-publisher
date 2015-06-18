@@ -182,7 +182,7 @@ private
       {
         key: "people",
         name: "People",
-        short_name: "From"
+        short_name: "From",
         preposition: "from",
         type: "text",
         display_as_result_metadata: false,
