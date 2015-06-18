@@ -165,6 +165,7 @@ private
         key: "organisations",
         name: "Organisation",
         short_name: "From",
+        preposition: "from",
         type: "text",
         display_as_result_metadata: true,
         filterable: true
@@ -173,6 +174,7 @@ private
         key: "detailed_format",
         name: "Type",
         short_name: "Type",
+        preposition: "of type",
         type: "text",
         display_as_result_metadata: true,
         filterable: true
@@ -180,6 +182,7 @@ private
       {
         key: "people",
         name: "People",
+        preposition: "from",
         type: "text",
         display_as_result_metadata: false,
         filterable: true
