@@ -154,23 +154,6 @@ private
         filterable: false,
       },
       {
-        key: "public_timestamp",
-        short_name: "Updated",
-        name: "Published",
-        type: "date",
-        display_as_result_metadata: true,
-        filterable: true
-      },
-      {
-        key: "organisations",
-        name: "Organisation",
-        short_name: "From",
-        preposition: "from",
-        type: "text",
-        display_as_result_metadata: true,
-        filterable: true
-      },
-      {
         key: "detailed_format",
         name: "Type",
         short_name: "Type",
@@ -185,6 +168,23 @@ private
         preposition: "from",
         type: "text",
         display_as_result_metadata: false,
+        filterable: true
+      },
+      {
+        key: "organisations",
+        name: "Organisation",
+        short_name: "From",
+        preposition: "from",
+        type: "text",
+        display_as_result_metadata: true,
+        filterable: true
+      },
+      {
+        key: "public_timestamp",
+        short_name: "Updated",
+        name: "Published",
+        type: "date",
+        display_as_result_metadata: true,
         filterable: true
       },
     ]
