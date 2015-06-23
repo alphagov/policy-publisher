@@ -154,15 +154,6 @@ private
         filterable: false,
       },
       {
-        key: "detailed_format",
-        name: "Type",
-        short_name: "Type",
-        preposition: "of type",
-        type: "text",
-        display_as_result_metadata: true,
-        filterable: true
-      },
-      {
         key: "people",
         name: "People",
         preposition: "from",
