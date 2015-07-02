@@ -17,7 +17,7 @@ gem 'generic_form_builder', '0.13.0'
 gem 'selectize-rails', github: 'manuelvanrijn/selectize-rails', ref: '636897e59fe29'
 gem 'decent_exposure', '2.3.2'
 
-gem 'gds-api-adapters', '18.1.0'
+gem 'gds-api-adapters', '20.1.0'
 
 gem 'govspeak','3.3.0'
 
