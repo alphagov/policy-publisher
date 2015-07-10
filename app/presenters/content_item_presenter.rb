@@ -90,6 +90,7 @@ private
   def details
     details = {
       document_noun: "document",
+      default_documents_per_page: 40,
       filter: {
         policies: [policy.slug]
       },
