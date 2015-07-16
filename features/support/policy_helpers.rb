@@ -14,7 +14,7 @@ module PolicyHelpers
 
   def create_policy(name:, description: "A policy description", inapplicable_nations: [], alt_policy_urls: {})
     visit policies_path
-    click_on "New policy area"
+    click_on "New policy"
 
     fill_in "Name", with: name
     fill_in "Description", with: description
