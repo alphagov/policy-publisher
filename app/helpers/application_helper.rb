@@ -1,6 +1,6 @@
 module ApplicationHelper
   def policy_type(policy)
-    policy.programme? ? 'policy programme' : 'policy area'
+    policy.programme? ? 'sub-policy' : 'policy'
   end
 
   def nav_link(text, link)
