@@ -67,7 +67,7 @@ RSpec.describe ContentItemPresenter do
       expect(attributes["links"]["related"]).to eq([related_policy.content_id])
     end
 
-    it "includes policy areas" do
+    it "includes policies" do
       policy_programme = FactoryGirl.create(:policy_programme)
       policy_area = policy_programme.parent_policies.first
       attributes = ContentItemPresenter.new(policy_programme).exportable_attributes.as_json
