@@ -34,21 +34,21 @@ RSpec.describe Publisher do
   end
 
 
-  context "when publishing a policy programme" do
+  context "when publishing a sub-policy" do
     let!(:policy) { FactoryGirl.create(:policy_programme) }
 
     before do
       Publisher.new(policy).publish!
     end
 
-    it "publishes the policy programme to the Publishing API" do
+    it "publishes the sub-policy to the Publishing API" do
       assert_publishing_api_put_item(
         policy.base_path,
         ContentItemPresenter.new(policy).exportable_attributes.as_json
       )
     end
 
-    it "adds the policy programme to the rummager search index" do
+    it "adds the sub-policy to the rummager search index" do
       expect(indexer).to have_received(:run!)
     end
 
