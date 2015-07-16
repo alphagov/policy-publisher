@@ -27,9 +27,9 @@ module PolicyHelpers
     click_on "Save"
   end
 
-  def create_policy_programme(name:, description: "A policy description", inapplicable_nations: [], alt_policy_urls: {}, parent_policies: [])
+  def create_sub_policy(name:, description: "A policy description", inapplicable_nations: [], alt_policy_urls: {}, parent_policies: [])
     visit policies_path
-    click_on "New policy programme"
+    click_on "New sub-policy"
 
     fill_in "Name", with: name
     fill_in "Description", with: description

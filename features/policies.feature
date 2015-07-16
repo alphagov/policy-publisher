@@ -19,9 +19,9 @@ Scenario: Editing a policy
   And an email alert signup page for a policy called "Climate change" is published to publishing API
   And a policy called "Climate change" is indexed for search
 
-Scenario: Creating a policy programme that is part of another
+Scenario: Creating a sub-policy that is part of another
   Given a published policy exists called "Global warming"
-  When I create a policy programme called "CO2 reduction" that is part of a policy called "Global warming"
+  When I create a sub-policy called "CO2 reduction" that is part of a policy called "Global warming"
   Then there should be a policy called "CO2 reduction" that is part of a policy called "Global warming"
   And a policy called "CO2 reduction" is published to publishing API
   And a policy called "CO2 reduction" is indexed for search

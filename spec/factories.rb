@@ -8,7 +8,7 @@ FactoryGirl.define do
     description "Policy description"
   end
 
-  factory :policy_programme, parent: :policy do
+  factory :sub_policy, parent: :policy do
     parent_policies { [FactoryGirl.create(:policy)] }
   end
 end

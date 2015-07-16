@@ -1,6 +1,6 @@
 # Policy publisher
 
-The policy publisher exists to create and manage policies and policy programmes
+The policy publisher exists to create and manage policies and sub-policies
 through the Publishing 2.0 pipeline.
 
 ## Nomenclature
