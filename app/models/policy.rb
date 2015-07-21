@@ -23,12 +23,12 @@ class Policy < ActiveRecord::Base
                             ON policies.id = policy_relations.related_policy_id
                             WHERE policy_relations.related_policy_id IS NULL") }
 
-  # Virtual attribute used to identify a new record as a programme
-  attr_writer :programme
-  def programme
-    @programme || parent_policies.any?
+  # Virtual attribute used to identify a new record as a sub-policy
+  attr_writer :sub_policy
+  def sub_policy
+    @sub_policy || parent_policies.any?
   end
-  alias_method :programme?, :programme
+  alias_method :sub_policy?, :sub_policy
 
   def base_path
     "/government/policies/#{slug}"

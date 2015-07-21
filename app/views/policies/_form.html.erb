@@ -25,7 +25,7 @@
           class: 'select2',
           data: { placeholder: 'Choose working groups…' } } %>
 
-  <% if policy.programme? %>
+  <% if policy.sub_policy? %>
     <%= form.select :parent_policy_ids,
           policies_areas_data_container,
           { label: "Part of" },

@@ -56,16 +56,16 @@ RSpec.describe Policy do
     parent_policy = FactoryGirl.create(:policy)
     policy = FactoryGirl.create(:policy)
 
-    expect(policy.programme?).to be(false)
+    expect(policy.sub_policy?).to be(false)
 
     policy.parent_policies << parent_policy
-    expect(policy.programme?).to be(true)
+    expect(policy.sub_policy?).to be(true)
   end
 
   it "has a setter that can identify a new Policy as a programme" do
-    policy = Policy.new(programme: true)
+    policy = Policy.new(sub_policy: true)
 
-    expect(policy.programme?).to be(true)
+    expect(policy.sub_policy?).to be(true)
   end
 
   it "cannot be associated with itself" do
