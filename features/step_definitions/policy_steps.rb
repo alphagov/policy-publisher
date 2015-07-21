@@ -18,6 +18,14 @@ When(/^I change the title of policy "(.*?)" to "(.*?)"$/) do |old_name, new_name
   })
 end
 
+When(/^I click on "New policy"$/) do
+  click_on "New policy"
+end
+
+When(/^I click on "New sub-policy"$/) do
+  click_on "New sub-policy"
+end
+
 When(/^I create a policy called "([^"]+?)"$/) do |policy_name|
   stub_publishing_api
   stub_rummager
@@ -49,6 +57,10 @@ end
 
 When(/^I set the tagged people to "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
   associate_policy_with_people(policy: @policy, people_names: [person_name_1, person_name_2])
+end
+
+When(/^I visit the main browse page$/) do
+  visit policies_path
 end
 
 Then(/^there should be a policy called "([^"]+?)"$/) do |policy_name|

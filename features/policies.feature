@@ -5,6 +5,8 @@ I need to be able to create and edit policies
 In order to inform the nation about our government's intentions for a topic.
 
 Scenario: Creating a policy
+  When I visit the main browse page
+  And I click on "New policy"
   When I create a policy called "Climate change"
   Then there should be a policy called "Climate change"
   And a policy called "Climate change" is published to publishing API
@@ -21,6 +23,8 @@ Scenario: Editing a policy
 
 Scenario: Creating a sub-policy that is part of another
   Given a published policy exists called "Global warming"
+  When I visit the main browse page
+  And I click on "New sub-policy"
   When I create a sub-policy called "CO2 reduction" that is part of a policy called "Global warming"
   Then there should be a policy called "CO2 reduction" that is part of a policy called "Global warming"
   And a policy called "CO2 reduction" is published to publishing API
@@ -58,5 +62,7 @@ Scenario: Re-ordering tagged people
 
 @javascript
 Scenario: Creating a policy only associated with one nation
+  When I visit the main browse page
+  And I click on "New policy"
   When I create a policy called "Policing in Northern Ireland" that only applies to "Northern Ireland"
   Then there should be a policy called "Policing in Northern Ireland" which only applies to "Northern Ireland"
