@@ -6,7 +6,7 @@ class PoliciesController < ApplicationController
   def index; end
 
   def new
-    policy.programme = true if params[:programme]
+    policy.sub_policy = true if params[:sub_policy]
   end
 
   def create
@@ -51,7 +51,7 @@ private
       :scotland_policy_url,
       :wales,
       :wales_policy_url,
-      :programme,
+      :sub_policy,
       organisation_content_ids: [],
       people_content_ids: [],
       working_group_content_ids: [],
