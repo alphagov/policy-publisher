@@ -156,7 +156,7 @@ private
       },
       {
         key: "detailed_format",
-        name: "Format",
+        name: "Document type",
         preposition: "of type",
         type: "text",
         display_as_result_metadata: true,
