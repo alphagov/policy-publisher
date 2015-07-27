@@ -155,12 +155,13 @@ private
         filterable: false,
       },
       {
-        key: "people",
-        name: "People",
-        preposition: "from",
+        key: "detailed_format",
+        name: "Document type",
+        preposition: "of type",
         type: "text",
-        display_as_result_metadata: false,
-        filterable: true
+        display_as_result_metadata: true,
+        filterable: true,
+        allowed_values: detailed_format_allowed_values,
       },
       {
         key: "organisations",
@@ -172,13 +173,12 @@ private
         filterable: true
       },
       {
-        key: "detailed_format",
-        name: "Format",
-        preposition: "of type",
+        key: "people",
+        name: "People",
+        preposition: "from",
         type: "text",
-        display_as_result_metadata: true,
-        filterable: true,
-        allowed_values: detailed_format_allowed_values,
+        display_as_result_metadata: false,
+        filterable: true
       },
       {
         key: "public_timestamp",
