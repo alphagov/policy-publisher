@@ -1,9 +1,5 @@
 DETAILED_FORMAT_ALLOWED_VALUES = [
   {
-    label: "Announcement",
-    value: "announcement",
-  },
-  {
     label: "Case study",
     value: "case-study",
   },
@@ -12,7 +8,7 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     value: "closed-consultation",
   },
   {
-    label: "Collection",
+    label: "Document collection",
     value: "collection",
   },
   {
