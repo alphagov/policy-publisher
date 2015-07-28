@@ -20,10 +20,6 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     value: "consultation-outcome",
   },
   {
-    label: "Corporate information",
-    value: "corporate-information",
-  },
-  {
     label: "Corporate report",
     value: "corporate-report",
   },
@@ -38,10 +34,6 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
   {
     label: "Detailed guide",
     value: "detailed-guide",
-  },
-  {
-    label: "Fatality notice",
-    value: "fatality-notice",
   },
   {
     label: "FOI release",
@@ -100,10 +92,6 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     value: "promotional-material",
   },
   {
-    label: "Publication",
-    value: "publication",
-  },
-  {
     label: "Regulation",
     value: "regulation",
   },
@@ -118,10 +106,6 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
   {
     label: "Statement to Parliament",
     value: "statement-to-parliament",
-  },
-  {
-    label: "Statistical data set",
-    value: "statistical-data-set",
   },
   {
     label: "Statistics",
@@ -139,8 +123,4 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     label: "Transparency data",
     value: "transparency-data",
   },
-  {
-    label: "World location news article",
-    value: "world-location-news-article",
-  }
 ]
