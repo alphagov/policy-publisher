@@ -19,6 +19,7 @@ class PolicyFirehoseFinderPublisher
       format: "finder",
       content_id: "ccb6c301-2c64-4a59-88c9-0528d0ffd088",
       title: "All policy content",
+      phase: "alpha",
       description: "",
       public_updated_at: public_updated_at,
       locale: "en",
