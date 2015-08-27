@@ -81,7 +81,7 @@ RSpec.describe SearchIndexer do
       organisations: ["organisation-1", "organisation-2"],
       people: ["person-1", "person-2"],
       policy_groups: ["working-group-1", "working-group-2"],
-      last_update: policy.updated_at,
+      public_timestamp: policy.updated_at,
       _type: "policy",
       _id: policy.base_path,
     }.as_json
