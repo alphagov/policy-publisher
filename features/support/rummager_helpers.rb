@@ -17,7 +17,7 @@ module RummagerHelpers
       link: policy.base_path,
       indexable_content: "",
       organisations: [],
-      last_update: policy.updated_at,
+      public_timestamp: policy.updated_at,
       _type: "policy",
       _id: policy.base_path,
     }.as_json
