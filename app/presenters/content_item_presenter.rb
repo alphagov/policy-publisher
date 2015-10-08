@@ -159,9 +159,14 @@ private
         name: "Document type",
         preposition: "of type",
         type: "text",
-        display_as_result_metadata: true,
+        display_as_result_metadata: false,
         filterable: true,
         allowed_values: detailed_format_allowed_values,
+      },
+      {
+        key: "display_type",
+        display_as_result_metadata: true,
+        filterable: false,
       },
       {
         key: "organisations",
