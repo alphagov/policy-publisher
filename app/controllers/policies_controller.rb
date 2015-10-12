@@ -1,7 +1,7 @@
 class PoliciesController < ApplicationController
   before_filter :clean_blank_parameters, only: [:create, :update]
   expose(:policy, attributes: :policy_params)
-  expose(:policies) { Policy.order(:name) }
+  expose(:policies) { Policy.includes(:parent_policies).order(:name) }
 
   def index; end
 
