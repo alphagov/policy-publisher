@@ -98,6 +98,7 @@ private
       },
       {
         key: "display_type",
+        type: "text",
         display_as_result_metadata: true,
         filterable: false,
       },
