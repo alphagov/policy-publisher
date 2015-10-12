@@ -68,12 +68,20 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     value: "map",
   },
   {
+    label: "National statistics",
+    value: "statistics-national-statistics",
+  },
+  {
     label: "News story",
     value: "news-story",
   },
   {
     label: "Notice",
     value: "notice",
+  },
+  {
+    label: "Official statistics",
+    value: "statistics",
   },
   {
     label: "Open consultation",
@@ -106,14 +114,6 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
   {
     label: "Statement to Parliament",
     value: "statement-to-parliament",
-  },
-  {
-    label: "Statistics",
-    value: "statistics",
-  },
-  {
-    label: "Statistics - national statistics",
-    value: "statistics-national-statistics",
   },
   {
     label: "Statutory guidance",
