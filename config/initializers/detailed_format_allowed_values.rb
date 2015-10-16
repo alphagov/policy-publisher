@@ -68,7 +68,7 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     value: "map",
   },
   {
-    label: "National statistics",
+    label: "National Statistics",
     value: "statistics-national-statistics",
   },
   {
@@ -80,7 +80,7 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     value: "notice",
   },
   {
-    label: "Official statistics",
+    label: "Official Statistics",
     value: "statistics",
   },
   {
