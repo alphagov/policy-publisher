@@ -18,7 +18,7 @@ class EmailAlertSignupContentItemPresenter
       rendering_app: "email-alert-frontend",
       routes: routes,
       details: details,
-      links: {},
+      links: { parent: [policy.content_id] },
     }
   end
 
