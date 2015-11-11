@@ -44,6 +44,7 @@ private
 
   def details
     {
+      email_alert_type: "policies",
       breadcrumbs: breadcrumbs,
       summary: summary,
       tags: {
