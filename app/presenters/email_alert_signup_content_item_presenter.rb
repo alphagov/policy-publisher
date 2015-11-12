@@ -48,7 +48,7 @@ private
       breadcrumbs: breadcrumbs,
       summary: summary,
       tags: {
-        policy: [policy.slug],
+        policies: [policy.slug],
       },
       govdelivery_title: "#{policy.name} policy",
     }
