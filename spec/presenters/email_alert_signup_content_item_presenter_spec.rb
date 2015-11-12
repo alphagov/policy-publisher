@@ -12,7 +12,7 @@ RSpec.describe EmailAlertSignupContentItemPresenter do
       policy = FactoryGirl.create(:policy)
       presenter = EmailAlertSignupContentItemPresenter.new(policy)
       tags = {
-        "policy" => [policy.slug]
+        "policies" => [policy.slug]
       }
 
       expect(presenter.exportable_attributes.as_json['details']["tags"]).to eq(tags)
