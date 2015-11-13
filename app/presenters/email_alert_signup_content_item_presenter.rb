@@ -47,8 +47,8 @@ private
       email_alert_type: "policies",
       breadcrumbs: breadcrumbs,
       summary: summary,
-      tags: {
-        policy: [policy.slug],
+      signup_tags: {
+        policies: [policy.slug],
       },
       govdelivery_title: "#{policy.name} policy",
     }
