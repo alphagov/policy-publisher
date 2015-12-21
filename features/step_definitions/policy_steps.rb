@@ -200,15 +200,15 @@ Then(/^the policy should be linked to the working group when published to publis
 end
 
 Then(/^the policy organisations should appear in the order "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  first_org = PolicyPublisher.services(:content_register).organisations.find { |organisation| organisation["title"] == org_name_1 }
-  second_org = PolicyPublisher.services(:content_register).organisations.find { |organisation| organisation["title"] == org_name_2 }
+  first_org = Services.content_register.organisations.find { |organisation| organisation["title"] == org_name_1 }
+  second_org = Services.content_register.organisations.find { |organisation| organisation["title"] == org_name_2 }
 
   expect(@policy.reload.organisations).to eq([first_org, second_org])
 end
 
 Then(/^the policy people should appear in the order "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  first_person = PolicyPublisher.services(:content_register).people.find { |person| person["title"] == person_name_1 }
-  second_person = PolicyPublisher.services(:content_register).people.find { |person| person["title"] == person_name_2 }
+  first_person = Services.content_register.people.find { |person| person["title"] == person_name_1 }
+  second_person = Services.content_register.people.find { |person| person["title"] == person_name_2 }
 
   expect(@policy.reload.people).to eq([first_person, second_person])
 end

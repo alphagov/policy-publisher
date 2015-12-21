@@ -149,6 +149,6 @@ private
   end
 
   def publishing_api
-    @publishing_api ||= PolicyPublisher.services(:publishing_api)
+    @publishing_api ||= Services.publishing_api
   end
 end

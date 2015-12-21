@@ -11,8 +11,8 @@ class PoliciesFinderPublisher
   CONTENT_ID = "d6582d48-df19-46b3-bf84-9157192801a6"
 
   def publish
-    publishing_api.put_content(CONTENT_ID, exportable_attributes)
-    publishing_api.publish(CONTENT_ID, "major")
+    Services.publishing_api.put_content(CONTENT_ID, exportable_attributes)
+    Services.publishing_api.publish(CONTENT_ID, "major")
   end
 
   def exportable_attributes
@@ -77,9 +77,5 @@ private
         name: "Organisation",
       },
     ]
-  end
-
-  def publishing_api
-    @publishing_api ||= PolicyPublisher.services(:publishing_api)
   end
 end

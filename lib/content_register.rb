@@ -1,3 +1,5 @@
+require 'gds_api/content_register'
+
 class ContentRegister
   def initialize
     @api_adapter = GdsApi::ContentRegister.new(Plek.new.find('content-register'))

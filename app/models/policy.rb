@@ -66,21 +66,16 @@ class Policy < ActiveRecord::Base
   end
 
 private
-
-  def content_register
-    PolicyPublisher.services(:content_register)
-  end
-
   def find_person(content_id)
-    content_register.people.find { |person| person["content_id"] == content_id }
+    Services.content_register.people.find { |person| person["content_id"] == content_id }
   end
 
   def find_organisation(content_id)
-    content_register.organisations.find { |organisation| organisation["content_id"] == content_id }
+    Services.content_register.organisations.find { |organisation| organisation["content_id"] == content_id }
   end
 
   def find_working_group(content_id)
-    content_register.working_groups.find { |wg| wg["content_id"] == content_id }
+    Services.content_register.working_groups.find { |wg| wg["content_id"] == content_id }
   end
 
   def applicable_to_at_least_one_nation
