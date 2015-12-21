@@ -7,7 +7,7 @@ class SearchIndexer
   end
 
   def run!
-    rummager.add_document("policy", policy.base_path, document)
+    Services.rummager.add_document("policy", policy.base_path, document)
   end
 
   def document
@@ -25,10 +25,6 @@ class SearchIndexer
   end
 
 private
-  def rummager
-    @rummager ||= PolicyPublisher.services(:rummager)
-  end
-
   def get_slugs(content_register_items)
     content_register_items.map {|cri| cri["base_path"].gsub(%r{.*/([^/]+?)$}, '\1') }
   end

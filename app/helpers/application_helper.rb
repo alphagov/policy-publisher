@@ -18,18 +18,18 @@ module ApplicationHelper
 
   # Data container used to generate the options for an organisations select field
   def organisations_data_container
-    PolicyPublisher.services(:content_register).organisations.
+    Services.content_register.organisations.
       map { |org| [org['title'], org['content_id']] }
   end
 
   # Data container used to generate the options for a people select field
   def people_data_container
-    PolicyPublisher.services(:content_register).people.
+    Services.content_register.people.
       map { |person| [person['title'], person['content_id']] }
   end
 
   def working_groups_data_container
-    PolicyPublisher.services(:content_register).working_groups.
+    Services.content_register.working_groups.
       map { |wg| [wg['title'], wg['content_id']] }
   end
 
