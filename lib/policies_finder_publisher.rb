@@ -8,28 +8,25 @@ require "gds_api/publishing_api"
 #   bundle exec rake publish_policies_finder
 #
 class PoliciesFinderPublisher
+  CONTENT_ID = "d6582d48-df19-46b3-bf84-9157192801a6"
 
   def publish
-    publishing_api.put_content_item(base_path, exportable_attributes)
+    publishing_api.put_content(CONTENT_ID, exportable_attributes)
+    publishing_api.publish(CONTENT_ID, "major")
   end
 
   def exportable_attributes
     {
+      "base_path" => base_path,
       "format" => "finder",
-      "content_id" => "d6582d48-df19-46b3-bf84-9157192801a6",
       "title" => "Policies",
       "description" => "",
       "public_updated_at" => public_updated_at,
       "locale" => "en",
-      "update_type" => "major",
       "publishing_app" => "policy-publisher",
       "rendering_app" => "finder-frontend",
       "routes" => routes,
       "details" => details,
-      "links" => {
-        "organisations" => [],
-        "related" => [],
-      },
     }
   end
 

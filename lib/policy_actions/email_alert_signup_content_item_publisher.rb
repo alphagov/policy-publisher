@@ -7,16 +7,21 @@ class EmailAlertSignupContentItemPublisher
   end
 
   def run!
-    publishing_api.put_content_item(content_item_payload.base_path, content_item_payload.exportable_attributes)
+    InstantPublisher.publish(
+      content_id: policy.email_alert_signup_content_id,
+      content_payload: content_payload,
+      links_payload: links_payload,
+      update_type: 'major',
+    )
   end
 
-  def content_item_payload
-    EmailAlertSignupContentItemPresenter.new(policy, 'major')
+  def content_payload
+    EmailAlertSignupContentItemPresenter.new(policy).exportable_attributes
   end
 
-private
-
-  def publishing_api
-    @publishing_api ||= PolicyPublisher.services(:publishing_api)
+  def links_payload
+    {
+      links: { parent: [policy.content_id] }
+    }
   end
 end

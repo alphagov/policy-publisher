@@ -1,4 +1,4 @@
-require 'gds_api/publishing_api'
+require 'gds_api/publishing_api_v2'
 require 'gds_api/content_register'
 require 'gds_api/rummager'
 
@@ -16,6 +16,6 @@ module PolicyPublisher
   class ServiceNotRegisteredException < Exception; end
 end
 
-PolicyPublisher.register_service(:publishing_api, GdsApi::PublishingApi.new(Plek.new.find('publishing-api')))
+PolicyPublisher.register_service(:publishing_api, GdsApi::PublishingApiV2.new(Plek.new.find('publishing-api')))
 PolicyPublisher.register_service(:rummager, GdsApi::Rummager.new(Plek.new.find('search')))
 PolicyPublisher.register_service(:content_register, ContentRegister.new)

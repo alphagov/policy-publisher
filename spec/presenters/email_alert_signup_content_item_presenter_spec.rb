@@ -37,14 +37,5 @@ RSpec.describe EmailAlertSignupContentItemPresenter do
 
       expect(presenter.exportable_attributes.as_json["details"]["govdelivery_title"]).to eq("Employment policy")
     end
-
-    it "allows the update type to be overridden" do
-      policy = FactoryGirl.create(:policy)
-      major_attributes = EmailAlertSignupContentItemPresenter.new(policy).exportable_attributes.as_json
-      minor_attributes = EmailAlertSignupContentItemPresenter.new(policy, update_type='minor').exportable_attributes.as_json
-
-      expect(major_attributes["update_type"]).to eq("major")
-      expect(minor_attributes["update_type"]).to eq("minor")
-    end
   end
 end

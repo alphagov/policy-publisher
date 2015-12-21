@@ -1,5 +1,5 @@
 Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
-  stub_publishing_api
+  stub_any_publishing_api_call
   stub_rummager
   @policy = FactoryGirl.create(:policy, name: policy_name)
 end
@@ -27,13 +27,13 @@ When(/^I click on "New sub-policy"$/) do
 end
 
 When(/^I create a policy called "([^"]+?)"$/) do |policy_name|
-  stub_publishing_api
+  stub_any_publishing_api_call
   stub_rummager
   create_policy(name: policy_name)
 end
 
 When(/^I create a sub-policy called "(.*?)" that is part of a policy called "(.*?)"$/) do |policy_name, part_of_policy_name|
-  stub_publishing_api
+  stub_any_publishing_api_call
   stub_rummager
 
   create_sub_policy(name: policy_name, parent_policies: [part_of_policy_name])
@@ -76,17 +76,44 @@ end
 
 Then(/^a policy called "(.*?)" is published to publishing API$/) do |policy_name|
   policy = Policy.find_by(name: policy_name)
-  assert_content_item_is_published_to_publishing_api(policy.base_path)
+  assert_publishing_api_put_content(
+    policy.content_id,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+    },
+  )
 end
 
 Then(/^a policy called "(.*?)" is republished to publishing API$/) do |policy_name|
   policy = Policy.find_by(name: policy_name)
-  assert_content_item_is_republished_to_publishing_api(policy.base_path)
+  assert_publishing_api_put_content(
+    policy.content_id,
+    {
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+    },
+  )
+
+  assert_publishing_api_publish(
+    policy.content_id,
+    {
+      "update_type" => "minor",
+    },
+  )
 end
 
 Then(/^an email alert signup page for a policy called "(.*?)" is published to publishing API$/) do |policy_name|
   policy = Policy.find_by(name: policy_name)
-  assert_email_alert_signup_content_item_is_republished_to_publishing_api(policy.base_path)
+  assert_publishing_api_put_content(
+    policy.email_alert_signup_content_id,
+    {
+      "format" => "email_alert_signup",
+      "rendering_app" => "email-alert-frontend",
+      "publishing_app" => "policy-publisher",
+    },
+  )
 end
 
 Then(/^a policy called "(.*?)" is indexed for search$/) do |policy_name|
@@ -95,13 +122,19 @@ Then(/^a policy called "(.*?)" is indexed for search$/) do |policy_name|
 end
 
 Then(/^the policy should be linked to the organisation when published to publishing API$/) do
-  assert_publishing_api_put_item(
-    @policy.base_path,
+  assert_publishing_api_put_content(
+    @policy.content_id,
     {
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
       "locale" => "en",
+    }
+  )
+
+  assert_publishing_api_put_links(
+    @policy.content_id,
+    {
       "links" => {
         "organisations" => [organisation_1["content_id"]],
         "people" => [],
@@ -115,13 +148,19 @@ Then(/^the policy should be linked to the organisation when published to publish
 end
 
 Then(/^the policy should be linked to the person when published to publishing API$/) do
-  assert_publishing_api_put_item(
-    @policy.base_path,
+  assert_publishing_api_put_content(
+    @policy.content_id,
     {
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
       "locale" => "en",
+    }
+  )
+
+  assert_publishing_api_put_links(
+    @policy.content_id,
+    {
       "links" => {
         "organisations" => [],
         "people" => [person_1["content_id"]],
@@ -129,19 +168,25 @@ Then(/^the policy should be linked to the person when published to publishing AP
         "related" => [],
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],
-      },
+      }
     }
   )
 end
 
 Then(/^the policy should be linked to the working group when published to publishing API$/) do
-  assert_publishing_api_put_item(
-    @policy.base_path,
+  assert_publishing_api_put_content(
+    @policy.content_id,
     {
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
       "locale" => "en",
+    }
+  )
+
+  assert_publishing_api_put_links(
+    @policy.content_id,
+    {
       "links" => {
         "organisations" => [],
         "people" => [],
@@ -149,7 +194,7 @@ Then(/^the policy should be linked to the working group when published to publis
         "related" => [],
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],
-      },
+      }
     }
   )
 end
@@ -169,7 +214,7 @@ Then(/^the policy people should appear in the order "(.*?)" and "(.*?)"$/) do |p
 end
 
 When(/^I create a policy called "([^"]+?)" that only applies to "([^"]+?)"$/) do |policy_name, nation|
-  stub_publishing_api
+  stub_any_publishing_api_call
   stub_rummager
   possible_nations = ["England", "Northern Ireland", "Scotland", "Wales"]
   inapplicable_nations = possible_nations - [nation]

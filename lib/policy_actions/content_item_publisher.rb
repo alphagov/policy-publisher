@@ -1,26 +1,26 @@
 # Publishes a policy content item to the Publishing API
 class ContentItemPublisher
-  attr_reader :policy
+  attr_reader :policy, :update_type
 
-  def initialize(policy)
+  def initialize(policy, update_type: "major")
     @policy = policy
+    @update_type = update_type
   end
 
   def run!
-    publishing_api.put_content_item(base_path, content_item_payload)
+    InstantPublisher.publish(
+      content_id: policy.content_id,
+      content_payload: content_payload,
+      links_payload: links_payload,
+      update_type: update_type,
+    )
   end
 
-  def content_item_payload
-    ContentItemPresenter.new(policy, 'major').exportable_attributes
+  def content_payload
+    ContentItemPresenter.new(policy).exportable_attributes
   end
 
-private
-
-  def base_path
-    policy.base_path
-  end
-
-  def publishing_api
-    @publishing_api ||= PolicyPublisher.services(:publishing_api)
+  def links_payload
+    LinksPresenter.new(policy).exportable_attributes
   end
 end
