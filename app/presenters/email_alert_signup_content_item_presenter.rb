@@ -1,24 +1,21 @@
 class EmailAlertSignupContentItemPresenter
 
-  def initialize(policy, update_type="major")
+  def initialize(policy)
     @policy = policy
-    @update_type = update_type
   end
 
   def exportable_attributes
     {
+      base_path: base_path,
       format: "email_alert_signup",
-      content_id: policy.email_alert_signup_content_id,
       title: policy.name,
       description: "",
       public_updated_at: public_updated_at,
       locale: "en",
-      update_type: update_type,
       publishing_app: "policy-publisher",
       rendering_app: "email-alert-frontend",
       routes: routes,
       details: details,
-      links: { parent: [policy.content_id] },
     }
   end
 

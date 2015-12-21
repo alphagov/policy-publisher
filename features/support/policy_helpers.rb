@@ -1,7 +1,7 @@
-require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/publishing_api_v2'
 
 module PolicyHelpers
-  include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::PublishingApiV2
 
   def check_nation_applicability(policy, nation)
     nation = nation.downcase.gsub(' ', '_')

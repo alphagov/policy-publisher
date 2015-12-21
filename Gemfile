@@ -17,7 +17,7 @@ gem 'generic_form_builder', '0.13.0'
 gem 'selectize-rails', github: 'manuelvanrijn/selectize-rails', ref: '636897e59fe29'
 gem 'decent_exposure', '2.3.2'
 
-gem 'gds-api-adapters', '20.1.0'
+gem 'gds-api-adapters', '~> 26.6'
 
 gem 'govspeak','3.3.0'
 
@@ -34,6 +34,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'webmock'
   gem 'timecop'
-  gem 'govuk-content-schema-test-helpers', '1.3.0'
+  gem 'govuk-content-schema-test-helpers', '~> 1.4'
   gem "poltergeist", "1.5.0"
 end

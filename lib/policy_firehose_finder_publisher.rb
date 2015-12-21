@@ -9,30 +9,26 @@ require "gds_api/publishing_api"
 #   bundle exec rake publishing_api:publish_policies_firehose_finder
 #
 class PolicyFirehoseFinderPublisher
+  CONTENT_ID = "ccb6c301-2c64-4a59-88c9-0528d0ffd088"
 
   def publish
-    publishing_api.put_content_item(base_path, exportable_attributes)
+    publishing_api.put_content(CONTENT_ID, exportable_attributes)
+    publishing_api.publish(CONTENT_ID, 'major')
   end
 
   def exportable_attributes
     {
+      base_path: base_path,
       format: "finder",
-      content_id: "ccb6c301-2c64-4a59-88c9-0528d0ffd088",
       title: "All policy content",
       phase: "alpha",
       description: "",
       public_updated_at: public_updated_at,
       locale: "en",
-      update_type: "major",
       publishing_app: "policy-publisher",
       rendering_app: "finder-frontend",
       routes: routes,
       details: details,
-      links: {
-        organisations: [],
-        related: [],
-        email_alert_signup: [],
-      },
     }
   end
 

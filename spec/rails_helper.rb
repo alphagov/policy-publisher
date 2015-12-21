@@ -16,7 +16,7 @@ require 'govuk-content-schema-test-helpers/rspec_matchers'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 GovukContentSchemaTestHelpers.configure do |config|
-  config.schema_type = 'publisher'
+  config.schema_type = 'publisher_v2'
   config.project_root = Rails.root
 end
 
@@ -30,4 +30,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include GovukContentSchemaTestHelpers::RSpecMatchers
+  config.include FactoryGirl::Syntax::Methods
 end

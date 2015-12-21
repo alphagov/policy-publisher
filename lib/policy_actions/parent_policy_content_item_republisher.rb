@@ -8,7 +8,7 @@ class ParentPolicyContentItemRepublisher
 
   def run!
     policy.parent_policies.each do |parent_policy|
-      ContentItemRepublisher.new(parent_policy).run!
+      ContentItemPublisher.new(parent_policy, update_type: "minor").run!
     end
   end
 end
