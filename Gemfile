@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
@@ -12,9 +12,9 @@ gem 'quiet_assets', '1.1.0'
 gem 'gds-sso', '10.0.0'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
-gem 'govuk_admin_template', '3.0.0'
+gem 'govuk_admin_template', '~> 3.5'
 gem 'generic_form_builder', '0.13.0'
-gem 'selectize-rails', github: 'manuelvanrijn/selectize-rails', ref: '636897e59fe29'
+gem 'selectize-rails', '~> 0.12.1'
 gem 'decent_exposure', '2.3.2'
 
 gem 'gds-api-adapters', '~> 26.6'

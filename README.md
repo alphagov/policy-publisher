@@ -10,13 +10,11 @@ through the Publishing 2.0 pipeline.
 
 ## Technical documentation
 
-PostgreSQL-backed Rails 4 "Publishing 2.0" application.  It is
-expected to be used by departmental editors.
+PostgreSQL-backed Rails 4 "Publishing 2.0" application. It is used by departmental editors.
 
 ### Dependencies
 
 - PostgreSQL
-- More to come during development
 
 ### Getting set up
 
@@ -28,6 +26,7 @@ expected to be used by departmental editors.
 - Run `./startup.sh`.  This will start the application on port 3098.
 
 ### Running the tests
+
 - Run `bundle exec rake`
 
 ### Licence
