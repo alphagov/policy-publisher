@@ -25,7 +25,7 @@ class SearchIndexer
   end
 
 private
-  def get_slugs(content_register_items)
-    content_register_items.map {|cri| cri["base_path"].gsub(%r{.*/([^/]+?)$}, '\1') }
+  def get_slugs(items)
+    items.map { |cri| cri["base_path"].gsub(%r{.*/([^/]+?)$}, '\1') }
   end
 end

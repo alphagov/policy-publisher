@@ -67,15 +67,15 @@ class Policy < ActiveRecord::Base
 
 private
   def find_person(content_id)
-    Services.content_register.people.find { |person| person["content_id"] == content_id }
+    ContentItemFetcher.people.find { |person| person["content_id"] == content_id }
   end
 
   def find_organisation(content_id)
-    Services.content_register.organisations.find { |organisation| organisation["content_id"] == content_id }
+    ContentItemFetcher.organisations.find { |organisation| organisation["content_id"] == content_id }
   end
 
   def find_working_group(content_id)
-    Services.content_register.working_groups.find { |wg| wg["content_id"] == content_id }
+    ContentItemFetcher.working_groups.find { |wg| wg["content_id"] == content_id }
   end
 
   def applicable_to_at_least_one_nation

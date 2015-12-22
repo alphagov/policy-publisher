@@ -9,8 +9,4 @@ module Services
   def self.rummager
     @rummager ||= GdsApi::Rummager.new(Plek.new.find('search'))
   end
-
-  def self.content_register
-    @content_register ||= ContentRegister.new
-  end
 end
