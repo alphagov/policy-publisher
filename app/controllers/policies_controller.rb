@@ -12,11 +12,11 @@ class PoliciesController < ApplicationController
   def create
     if policy.save
       Publisher.new(policy).publish!
-      flash[:notice] = "Successfully created a policy"
+      flash[:success] = "Successfully created a policy"
 
       redirect_to policies_path
     else
-      flash[:alert] = "Could not create the policy : #{policy.errors.full_messages.to_sentence.downcase}"
+      flash[:danger] = "Could not create the policy : #{policy.errors.full_messages.to_sentence.downcase}"
 
       render :new
     end
@@ -27,11 +27,11 @@ class PoliciesController < ApplicationController
   def update
     if policy.save
       Publisher.new(policy).publish!
-      flash[:notice] = "Successfully updated the policy"
+      flash[:success] = "Successfully updated the policy"
 
       redirect_to policies_path
     else
-      flash[:alert] = "Could not update the policy: #{policy.errors.full_messages.to_sentence.downcase}"
+      flash[:danger] = "Could not update the policy: #{policy.errors.full_messages.to_sentence.downcase}"
 
       render :new
     end
