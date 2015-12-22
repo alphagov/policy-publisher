@@ -1,15 +1,17 @@
 class PoliciesController < ApplicationController
   before_filter :clean_blank_parameters, only: [:create, :update]
-  expose(:policy, attributes: :policy_params)
-  expose(:policies) { Policy.includes(:parent_policies).order(:name) }
 
-  def index; end
+  def index
+    @policies = Policy.includes(:parent_policies).order(:name)
+  end
 
   def new
-    policy.sub_policy = true if params[:sub_policy]
+    @policy = Policy.new
+    @policy.sub_policy = true if params[:sub_policy]
   end
 
   def create
+    policy = Policy.new(policy_params)
     if policy.save
       Publisher.new(policy).publish!
       flash[:success] = "Successfully created a policy"
@@ -18,14 +20,18 @@ class PoliciesController < ApplicationController
     else
       flash[:danger] = "Could not create the policy : #{policy.errors.full_messages.to_sentence.downcase}"
 
+      @policy = policy
       render :new
     end
   end
 
-  def edit; end
+  def edit
+    @policy = Policy.find(params[:id])
+  end
 
   def update
-    if policy.save
+    policy = Policy.find(params[:id])
+    if policy.update_attributes(policy_params)
       Publisher.new(policy).publish!
       flash[:success] = "Successfully updated the policy"
 
@@ -33,6 +39,7 @@ class PoliciesController < ApplicationController
     else
       flash[:danger] = "Could not update the policy: #{policy.errors.full_messages.to_sentence.downcase}"
 
+      @policy = policy
       render :new
     end
   end
