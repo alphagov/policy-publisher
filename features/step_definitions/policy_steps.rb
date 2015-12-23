@@ -1,5 +1,5 @@
 Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
-  stub_any_publishing_api_call
+  stub_any_publishing_api_write
   stub_rummager
   @policy = FactoryGirl.create(:policy, name: policy_name)
 end
@@ -27,13 +27,13 @@ When(/^I click on "New sub-policy"$/) do
 end
 
 When(/^I create a policy called "([^"]+?)"$/) do |policy_name|
-  stub_any_publishing_api_call
+  stub_any_publishing_api_write
   stub_rummager
   create_policy(name: policy_name)
 end
 
 When(/^I create a sub-policy called "(.*?)" that is part of a policy called "(.*?)"$/) do |policy_name, part_of_policy_name|
-  stub_any_publishing_api_call
+  stub_any_publishing_api_write
   stub_rummager
 
   create_sub_policy(name: policy_name, parent_policies: [part_of_policy_name])
@@ -200,21 +200,21 @@ Then(/^the policy should be linked to the working group when published to publis
 end
 
 Then(/^the policy organisations should appear in the order "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  first_org = Services.content_register.organisations.find { |organisation| organisation["title"] == org_name_1 }
-  second_org = Services.content_register.organisations.find { |organisation| organisation["title"] == org_name_2 }
+  first_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_1 }
+  second_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_2 }
 
   expect(@policy.reload.organisations).to eq([first_org, second_org])
 end
 
 Then(/^the policy people should appear in the order "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  first_person = Services.content_register.people.find { |person| person["title"] == person_name_1 }
-  second_person = Services.content_register.people.find { |person| person["title"] == person_name_2 }
+  first_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_1 }
+  second_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_2 }
 
   expect(@policy.reload.people).to eq([first_person, second_person])
 end
 
 When(/^I create a policy called "([^"]+?)" that only applies to "([^"]+?)"$/) do |policy_name, nation|
-  stub_any_publishing_api_call
+  stub_any_publishing_api_write
   stub_rummager
   possible_nations = ["England", "Northern Ireland", "Scotland", "Wales"]
   inapplicable_nations = possible_nations - [nation]

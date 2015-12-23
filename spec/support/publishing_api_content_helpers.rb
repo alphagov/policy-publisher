@@ -1,12 +1,23 @@
-require 'gds_api/test_helpers/content_register'
+require 'gds_api/test_helpers/publishing_api_v2'
 
-module ContentRegisterHelpers
-  include GdsApi::TestHelpers::ContentRegister
+module PublishingApiContentHelpers
+  include GdsApi::TestHelpers::PublishingApiV2
 
-  def mock_content_register
-    stub_content_register_entries("organisation", [organisation_1, organisation_2])
-    stub_content_register_entries("person", [person_1, person_2])
-    stub_content_register_entries("working_group", [working_group_1, working_group_2])
+  def stub_any_publishing_api_write
+    stub_any_publishing_api_put_content
+    stub_any_publishing_api_put_links
+    stub_any_publishing_api_publish
+  end
+
+  def stub_any_publishing_api_publish
+    stub_request(:post, %r{\A#{PUBLISHING_API_V2_ENDPOINT}/content/})
+  end
+
+  def stub_content_calls_from_publishing_api
+    fields = %w(content_id format title base_path)
+    publishing_api_has_fields_for_format("organisation", [organisation_1, organisation_2], fields)
+    publishing_api_has_fields_for_format("person", [person_1, person_2], fields)
+    publishing_api_has_fields_for_format("working_group", [working_group_1, working_group_2], fields)
   end
 
   def organisation_1

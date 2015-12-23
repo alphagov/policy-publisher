@@ -1,16 +1,18 @@
 require "rails_helper"
 require 'gds_api/test_helpers/rummager'
-require 'gds_api/test_helpers/content_register'
+require 'gds_api/test_helpers/publishing_api_v2'
 
 RSpec.describe SearchIndexer do
   include GdsApi::TestHelpers::Rummager
-  include GdsApi::TestHelpers::ContentRegister
+  include GdsApi::TestHelpers::PublishingApiV2
 
   before do
     stub_any_rummager_post
-    stub_content_register_entries("organisation", organisations)
-    stub_content_register_entries("person", people)
-    stub_content_register_entries("working_group", working_groups)
+
+    fields = %w(content_id format title base_path)
+    publishing_api_has_fields_for_format("organisation", organisations, fields)
+    publishing_api_has_fields_for_format("person", people, fields)
+    publishing_api_has_fields_for_format("working_group", working_groups, fields)
   end
 
   let(:organisations) do

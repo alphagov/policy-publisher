@@ -1,8 +1,8 @@
 require "rails_helper"
-require 'spec/support/content_register_helpers'
+require 'spec/support/publishing_api_content_helpers'
 
 RSpec.describe Policy do
-  include ContentRegisterHelpers
+  include PublishingApiContentHelpers
 
   it "automatically generates a slug on creation" do
     policy = FactoryGirl.create(:policy, name: "Climate change")
@@ -75,7 +75,7 @@ RSpec.describe Policy do
   end
 
   it "maintains the ordering of tagged organisations" do
-    mock_content_register
+    stub_content_calls_from_publishing_api
 
     policy = FactoryGirl.create(:policy,
       organisation_content_ids: [
@@ -91,7 +91,7 @@ RSpec.describe Policy do
   end
 
   it "maintains the ordering of tagged people" do
-    mock_content_register
+    stub_content_calls_from_publishing_api
 
     policy = FactoryGirl.create(:policy,
       people_content_ids: [
@@ -107,7 +107,7 @@ RSpec.describe Policy do
   end
 
   it "maintains the ordering of tagged groups" do
-    mock_content_register
+    stub_content_calls_from_publishing_api
 
     policy = FactoryGirl.create(:policy,
       working_group_content_ids: [
@@ -123,21 +123,21 @@ RSpec.describe Policy do
   end
 
   it "ignores non-existent tagged organisations" do
-    mock_content_register
+    stub_content_calls_from_publishing_api
 
     policy = Policy.new(organisation_content_ids: [SecureRandom.uuid])
     expect(policy.organisations).to eq([])
   end
 
   it "ignores non-existent tagged people" do
-    mock_content_register
+    stub_content_calls_from_publishing_api
 
     policy = Policy.new(people_content_ids: [SecureRandom.uuid])
     expect(policy.people).to eq([])
   end
 
   it "ignores non-existent tagged working groups" do
-    mock_content_register
+    stub_content_calls_from_publishing_api
 
     policy = Policy.new(working_group_content_ids: [SecureRandom.uuid])
     expect(policy.working_groups).to eq([])
