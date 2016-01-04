@@ -9,7 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'quiet_assets', '1.1.0'
 
-gem 'gds-sso', '10.0.0'
+gem 'gds-sso', '~> 11.2'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
 gem 'govuk_admin_template', '~> 3.5'
