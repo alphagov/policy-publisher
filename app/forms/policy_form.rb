@@ -18,7 +18,7 @@ class PolicyForm
     parent_policy_ids
   ]
 
-  attr_accessor *ATTRIBUTES
+  attr_accessor(*ATTRIBUTES)
   attr_accessor :policy
 
   include ActiveModel::Model
@@ -45,7 +45,7 @@ class PolicyForm
   end
 
   def self.from_existing(policy)
-    form = new(policy.as_json.slice(*ATTRIBUTES))
+    form = new(policy.as_json(only: ATTRIBUTES))
     form.policy = policy
     form
   end
@@ -56,7 +56,7 @@ class PolicyForm
   end
 
   def save
-    attributes = as_json.slice(*ATTRIBUTES)
+    attributes = as_json(only: ATTRIBUTES)
     policy.update_attributes(attributes) && publish!
   end
 
@@ -78,6 +78,18 @@ class PolicyForm
 
   def sub_policy?
     sub_policy
+  end
+
+  def organisation_content_ids
+    policy.organisation_content_ids
+  end
+
+  def people_content_ids
+    policy.people_content_ids
+  end
+
+  def working_group_content_ids
+    policy.working_group_content_ids
   end
 
 private

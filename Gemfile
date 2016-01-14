@@ -21,7 +21,7 @@ gem 'gds-api-adapters', '~> 26.6'
 gem 'govspeak','3.3.0'
 
 group :development, :test do
-  gem 'byebug'
+  gem 'pry-byebug'
   gem 'web-console', '~> 2.0'
 end
 

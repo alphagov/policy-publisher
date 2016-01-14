@@ -45,6 +45,8 @@ private
 
   def policy
     @policy ||= Policy.find(params[:id])
+    @policy.fetch_links!
+    @policy
   end
 
   def policy_params

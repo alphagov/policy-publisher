@@ -11,7 +11,7 @@ class Policy < ActiveRecord::Base
   has_many :related_policies, class_name: 'Policy', through: :policy_relations, source: :related_policy
 
   has_many :inverse_policy_relations, class_name: 'PolicyRelation', foreign_key: 'related_policy_id'
-  has_many :parent_policies,  through: :inverse_policy_relations, source: :policy
+  has_many :parent_policies, through: :inverse_policy_relations, source: :policy
 
   before_validation on: :create do |object|
     object.slug = object.name.to_s.parameterize
@@ -30,6 +30,16 @@ class Policy < ActiveRecord::Base
   end
   alias_method :sub_policy?, :sub_policy
 
+  attr_accessor :organisation_content_ids
+  attr_accessor :people_content_ids
+  attr_accessor :working_group_content_ids
+
+  after_initialize do
+    self.organisation_content_ids = []
+    self.people_content_ids = []
+    self.working_group_content_ids = []
+  end
+
   def base_path
     "/government/policies/#{slug}"
   end
@@ -44,9 +54,7 @@ class Policy < ActiveRecord::Base
   end
 
   def applicable_nations
-    applicable_nations = possible_nations.select { |n|
-      self.send(n) == true
-    }
+    possible_nations.select { |n| self.send(n) == true }
   end
 
   def inapplicable_nations
@@ -64,6 +72,18 @@ class Policy < ActiveRecord::Base
   def working_groups
     working_group_content_ids.map { |content_id| find_working_group(content_id) }.compact
   end
+
+  # Fetch links from the publisher-api
+  def fetch_links!
+    if content_id.nil?
+      return
+    end
+    links = Services.publishing_api.get_links(content_id)["links"]
+    self.organisation_content_ids = links["organisations"] || []
+    self.people_content_ids = links["people"] || []
+    self.working_group_content_ids = links["working_groups"] || []
+  end
+
 
 private
   def find_person(content_id)
