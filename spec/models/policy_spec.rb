@@ -74,7 +74,7 @@ RSpec.describe Policy do
     expect { policy.related_policies = [policy] }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it "maintains the ordering of tagged organisations" do
+  it "caches tagged organisations" do
     stub_content_calls_from_publishing_api
 
     policy = FactoryGirl.create(:policy,
@@ -87,10 +87,14 @@ RSpec.describe Policy do
 
     policy.organisation_content_ids = [organisation_2['content_id'], organisation_1['content_id']]
 
-    expect(policy.organisations).to eq([organisation_2, organisation_1])
+    expect(policy.organisations).to eq([organisation_1, organisation_2])
+
+    first_read = policy.organisations.object_id
+    second_read = policy.organisations.object_id
+    expect(first_read).to eq(second_read)
   end
 
-  it "maintains the ordering of tagged people" do
+  it "caches tagged people" do
     stub_content_calls_from_publishing_api
 
     policy = FactoryGirl.create(:policy,
@@ -103,10 +107,14 @@ RSpec.describe Policy do
 
     policy.people_content_ids = [person_2['content_id'], person_1['content_id']]
 
-    expect(policy.people).to eq([person_2, person_1])
+    expect(policy.people).to eq([person_1, person_2])
+
+    first_read = policy.people.object_id
+    second_read = policy.people.object_id
+    expect(first_read).to eq(second_read)
   end
 
-  it "maintains the ordering of tagged groups" do
+  it "caches tagged groups" do
     stub_content_calls_from_publishing_api
 
     policy = FactoryGirl.create(:policy,
@@ -119,7 +127,11 @@ RSpec.describe Policy do
 
     policy.working_group_content_ids = [working_group_2['content_id'], working_group_1['content_id']]
 
-    expect(policy.working_groups).to eq([working_group_2, working_group_1])
+    expect(policy.working_groups).to eq([working_group_1, working_group_2])
+
+    first_read = policy.working_groups.object_id
+    second_read = policy.working_groups.object_id
+    expect(first_read).to eq(second_read)
   end
 
   it "ignores non-existent tagged organisations" do

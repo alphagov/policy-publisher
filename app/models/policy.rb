@@ -61,16 +61,16 @@ class Policy < ActiveRecord::Base
     possible_nations - applicable_nations
   end
 
-  def organisations
-    organisation_content_ids.map { |content_id| find_organisation(content_id) }.compact
+  def organisations(fetcher = ContentItemFetcher.new)
+    @fetched_organisations ||= organisation_content_ids.map { |content_id| fetcher.find_organisation(content_id) }.compact
   end
 
-  def people
-    people_content_ids.map { |content_id| find_person(content_id) }.compact
+  def people(fetcher = ContentItemFetcher.new)
+    @fetched_people ||= people_content_ids.map { |content_id| fetcher.find_person(content_id) }.compact
   end
 
-  def working_groups
-    working_group_content_ids.map { |content_id| find_working_group(content_id) }.compact
+  def working_groups(fetcher = ContentItemFetcher.new)
+    @fetched_working_groups ||= working_group_content_ids.map { |content_id| fetcher.find_working_group(content_id) }.compact
   end
 
   # Fetch links from the publisher-api
@@ -86,18 +86,6 @@ class Policy < ActiveRecord::Base
 
 
 private
-  def find_person(content_id)
-    ContentItemFetcher.people.find { |person| person["content_id"] == content_id }
-  end
-
-  def find_organisation(content_id)
-    ContentItemFetcher.organisations.find { |organisation| organisation["content_id"] == content_id }
-  end
-
-  def find_working_group(content_id)
-    ContentItemFetcher.working_groups.find { |wg| wg["content_id"] == content_id }
-  end
-
   def applicable_to_at_least_one_nation
     if applicable_nations.empty?
       errors.add(:applicability, "must have at least one nation")
