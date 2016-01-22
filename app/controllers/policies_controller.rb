@@ -11,7 +11,7 @@ class PoliciesController < ApplicationController
   end
 
   def create
-    policy_form = PolicyForm.from_form(policy_params)
+    policy_form = PolicyForm.new(policy_params)
 
     if policy_form.save
       flash[:success] = "Successfully created a policy"

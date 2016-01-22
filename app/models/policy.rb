@@ -75,9 +75,8 @@ class Policy < ActiveRecord::Base
 
   # Fetch links from the publisher-api
   def fetch_links!
-    if content_id.nil?
-      return
-    end
+    return if content_id.nil?
+
     links = Services.publishing_api.get_links(content_id)["links"]
     self.organisation_content_ids = links["organisations"] || []
     self.people_content_ids = links["people"] || []

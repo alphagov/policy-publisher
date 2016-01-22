@@ -40,10 +40,6 @@ class PolicyForm
     )
   end
 
-  def self.from_form(policy_params)
-    new(policy_params)
-  end
-
   def self.from_existing(policy)
     form = new(policy.as_json(only: ATTRIBUTES))
     form.policy = policy
