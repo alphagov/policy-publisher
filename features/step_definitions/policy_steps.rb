@@ -5,14 +5,6 @@ Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
   stub_publishing_api_links(@policy.content_id)
 end
 
-Given(/^the policy is associated with the organisations "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  associate_policy_with_organisations(policy: @policy, organisation_names: [org_name_1, org_name_2])
-end
-
-Given(/^the policy is associated with the people "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  associate_policy_with_people(policy: @policy, people_names: [person_name_1, person_name_2])
-end
-
 Given(/^it is associated with two organisations, two people and two working groups$/) do
   stub_publishing_api_links(
     @policy.content_id,
@@ -241,20 +233,6 @@ Then(/^the policy links should remain unchanged$/) do
       }
     }
   )
-end
-
-Then(/^the policy organisations should appear in the order "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  first_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_1 }
-  second_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_2 }
-
-  expect(@policy.reload.organisations).to eq([first_org, second_org])
-end
-
-Then(/^the policy people should appear in the order "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  first_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_1 }
-  second_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_2 }
-
-  expect(@policy.reload.people).to eq([first_person, second_person])
 end
 
 When(/^I create a policy called "([^"]+?)" that only applies to "([^"]+?)"$/) do |policy_name, nation|

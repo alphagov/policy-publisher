@@ -1,31 +1,38 @@
-<%= form_for policy do |form| %>
+<%= form_for policy_form do |form| %>
   <%= form.hidden_field :sub_policy %>
 
   <%= form.text_field :name %>
   <%= form.text_area :description %>
 
-  <%= form.select :organisation_content_ids,
-        prioritise_data_container(organisations_data_container, policy.organisation_content_ids),
-        { label: "Organisations" },
+  <%= form.select :lead_organisation_content_ids,
+        prioritise_data_container(organisations_data_container, policy_form.lead_organisation_content_ids),
+        { label: "Lead organisations" },
         { multiple: true,
           class: 'select2',
-          data: { placeholder: 'Choose organisations…' } } %>
+          data: { placeholder: 'Choose lead organisations…' } } %>
+
+  <%= form.select :supporting_organisation_content_ids,
+        prioritise_data_container(organisations_data_container, policy_form.supporting_organisation_content_ids),
+        { label: "Supporting organisations" },
+        { multiple: true,
+          class: 'select2',
+          data: { placeholder: 'Choose supporting organisations…' } } %>
 
   <%= form.select :people_content_ids,
-        prioritise_data_container(people_data_container, policy.people_content_ids),
+        prioritise_data_container(people_data_container, policy_form.people_content_ids),
         { label: "People" },
         { multiple: true,
           class: 'select2',
           data: { placeholder: 'Choose people…' } } %>
 
   <%= form.select :working_group_content_ids,
-        prioritise_data_container(working_groups_data_container, policy.working_group_content_ids),
+        prioritise_data_container(working_groups_data_container, policy_form.working_group_content_ids),
         { label: "Working groups" },
         { multiple: true,
           class: 'select2',
           data: { placeholder: 'Choose working groups…' } } %>
 
-  <% if policy.sub_policy? %>
+  <% if policy_form.sub_policy? %>
     <%= form.select :parent_policy_ids,
           policies_areas_data_container,
           { label: "Part of" },

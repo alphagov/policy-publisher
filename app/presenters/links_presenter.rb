@@ -9,6 +9,7 @@ class LinksPresenter
     {
       links: {
         organisations: organisation_content_ids,
+        lead_organisations: lead_organisation_content_ids,
         people: people_content_ids,
         working_groups: working_group_content_ids,
         related: related,
@@ -22,6 +23,10 @@ private
 
   def organisation_content_ids
     policy.organisation_content_ids || []
+  end
+
+  def lead_organisation_content_ids
+    policy.lead_organisation_content_ids || []
   end
 
   def people_content_ids

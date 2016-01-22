@@ -52,21 +52,6 @@ Scenario: Preserving links while editing a policy
   When I change the title of policy "Global warming" to "Climate change"
   Then the policy links should remain unchanged
 
-# TODO: ordering is not currently preserved by the publishing-api
-#@javascript
-#Scenario: Re-ordering tagged organisations
-#  Given a policy exists called "Global warming"
-#  And the policy is associated with the organisations "Organisation 1" and "Organisation 2"
-#  When I set the tagged organisations to "Organisation 2" and "Organisation 1"
-#  Then the policy organisations should appear in the order "Organisation 2" and "Organisation 1"
-#
-#@javascript
-#Scenario: Re-ordering tagged people
-#  Given a policy exists called "Global warming"
-#  And the policy is associated with the people "A Person" and "Another Person"
-#  When I set the tagged people to "Another Person" and "A Person"
-#  Then the policy people should appear in the order "Another Person" and "A Person"
-
 @javascript
 Scenario: Creating a policy only associated with one nation
   When I visit the main browse page
