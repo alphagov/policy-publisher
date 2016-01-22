@@ -85,7 +85,7 @@ RSpec.describe Policy do
 
     expect(policy.organisations).to eq([organisation_1, organisation_2])
 
-    policy.organisation_content_ids = [organisation_2['content_id'], organisation_1['content_id']]
+    policy.organisation_content_ids = {lead: [organisation_2['content_id'], supporting: organisation_1['content_id']] }
 
     expect(policy.organisations).to eq([organisation_1, organisation_2])
 

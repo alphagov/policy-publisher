@@ -5,18 +5,11 @@ Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
   stub_publishing_api_links(@policy.content_id)
 end
 
-Given(/^the policy is associated with the organisations "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  associate_policy_with_organisations(policy: @policy, organisation_names: [org_name_1, org_name_2])
-end
-
-Given(/^the policy is associated with the people "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  associate_policy_with_people(policy: @policy, people_names: [person_name_1, person_name_2])
-end
-
 Given(/^it is associated with two organisations, two people and two working groups$/) do
   stub_publishing_api_links(
     @policy.content_id,
     organisations: [@organisation_1, @organisation_2].map {|org| org["content_id"]},
+    lead_organisations: [@organisation_1["content_id"]],
     people: [@person_1, @person_2].map {|person| person["content_id"]},
     working_groups: [@working_group_1, @working_group_2].map {|working_group| working_group["content_id"]}
   )
@@ -154,6 +147,7 @@ Then(/^the policy should be linked to the organisation when published to publish
     {
       "links" => {
         "organisations" => [organisation_1["content_id"]],
+        "lead_organisations" => [organisation_1["content_id"]],
         "people" => [],
         "working_groups" => [],
         "related" => [],
@@ -180,6 +174,7 @@ Then(/^the policy should be linked to the person when published to publishing AP
     {
       "links" => {
         "organisations" => [],
+        "lead_organisations" => [],
         "people" => [person_1["content_id"]],
         "working_groups" => [],
         "related" => [],
@@ -206,6 +201,7 @@ Then(/^the policy should be linked to the working group when published to publis
     {
       "links" => {
         "organisations" => [],
+        "lead_organisations" => [],
         "people" => [],
         "working_groups" => [working_group_1["content_id"]],
         "related" => [],
@@ -233,6 +229,7 @@ Then(/^the policy links should remain unchanged$/) do
     {
       "links" => {
         "organisations" => [organisation_1["content_id"], organisation_2["content_id"]],
+        "lead_organisations" => [organisation_1["content_id"]],
         "people" => [person_1["content_id"], person_2["content_id"]],
         "working_groups" => [working_group_1["content_id"], working_group_2["content_id"]],
         "related" => [],
@@ -241,20 +238,6 @@ Then(/^the policy links should remain unchanged$/) do
       }
     }
   )
-end
-
-Then(/^the policy organisations should appear in the order "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  first_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_1 }
-  second_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_2 }
-
-  expect(@policy.reload.organisations).to eq([first_org, second_org])
-end
-
-Then(/^the policy people should appear in the order "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  first_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_1 }
-  second_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_2 }
-
-  expect(@policy.reload.people).to eq([first_person, second_person])
 end
 
 When(/^I create a policy called "([^"]+?)" that only applies to "([^"]+?)"$/) do |policy_name, nation|

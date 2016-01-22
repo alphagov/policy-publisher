@@ -29,4 +29,18 @@ RSpec.describe ContentItemPublisher do
       )
     end
   end
+
+  describe '#content_payload' do
+    it "publishes lead organisations and organisations in the links hash" do
+      lead       = [SecureRandom.uuid]
+      supporting = [SecureRandom.uuid, SecureRandom.uuid]
+      policy.set_organisation_priority(lead, supporting)
+
+      links_payload = content_item_publisher.links_payload
+
+      expect(links_payload).to_not be_empty
+      expect(links_payload[:links][:organisations]).to eql(lead + supporting)
+      expect(links_payload[:links][:lead_organisations]).to eql(lead)
+    end
+  end
 end

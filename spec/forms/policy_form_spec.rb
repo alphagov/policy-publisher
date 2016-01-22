@@ -1,0 +1,123 @@
+require 'rails_helper'
+
+RSpec.describe PolicyForm do
+
+  context 'validations' do
+    context 'when organisations' do
+      let(:attributes) do
+        {
+          lead_organisation_content_ids: [],
+          supporting_organisation_content_ids: [],
+        }
+      end
+
+      it 'should not have lead organisations that are also supporting organisations' do
+        set_organisation_attributes([1], [1,2,3])
+
+        policy_form = PolicyForm.new(attributes)
+        policy_form.save
+
+        expect(policy_form.valid?).to be_falsey
+        expect(policy_form.errors.full_messages.first).to match(/Supporting organisation/)
+      end
+
+      it 'valid to have different lead and supporting organisations' do
+        set_organisation_attributes([1], [2,3])
+
+        policy_form = PolicyForm.new(attributes)
+        policy_form.save
+
+        expect(policy_form.valid?).to be_truthy
+      end
+
+      it 'valid to have lead organisations without supporting organisations' do
+        set_organisation_attributes([1])
+
+        policy_form = PolicyForm.new(attributes)
+        policy_form.save
+
+        expect(policy_form.valid?).to be_truthy
+      end
+
+      it 'not valid to have supporting organisations without lead organisations' do
+        set_organisation_attributes([], [1])
+
+        policy_form = PolicyForm.new(attributes)
+        policy_form.save
+
+        expect(policy_form.valid?).to be_falsey
+        expect(policy_form.errors.full_messages.first).to match(/Lead organisation/)
+      end
+
+      it 'valid to have no organisations' do
+        policy_form = PolicyForm.new(attributes)
+        policy_form.save
+
+        expect(policy_form.valid?).to be_truthy
+      end
+
+    private 
+      def set_organisation_attributes(lead = [], supporting = [])
+        attributes.merge!(
+          lead_organisation_content_ids: lead,
+          supporting_organisation_content_ids: supporting)
+      end
+    end
+  end
+
+  describe '.from_existing' do
+    let(:policy) { FactoryGirl.create(:policy, name: "Climate change") }
+
+    it 'loads active record attributes from the policy model' do
+      policy_form = PolicyForm.from_existing(policy)
+
+      expect(policy_form.name).to eql "Climate change"
+    end
+
+    it 'loads organisation ids from the policy model' do
+      policy.organisation_content_ids = [1, 2, 3]
+      policy.lead_organisation_content_ids = [1]
+      policy_form = PolicyForm.from_existing(policy)
+
+      expect(policy_form.lead_organisation_content_ids).to eql [1]
+      expect(policy_form.supporting_organisation_content_ids).to eql [2, 3]
+    end
+
+    it 'loads people ids from the policy model' do
+      policy.people_content_ids = [1, 2, 3]
+      policy_form = PolicyForm.from_existing(policy)
+
+      expect(policy_form.people_content_ids).to eql [1, 2, 3]
+    end
+  end
+
+  describe '#save' do
+    it 'passes through people content ids to the model' do
+      policy_form = PolicyForm.new(people_content_ids: [1, 2, 3])
+      policy_form.save
+
+      expect(policy_form.policy.people_content_ids).to eql [1, 2, 3]
+    end
+
+    it 'passes through name to the model' do
+      policy_name = "Free ice cream"
+      policy_form = PolicyForm.new(name: policy_name)
+      policy_form.save
+
+      expect(policy_form.policy.name).to eql policy_name
+    end
+
+    it 'combines lead and supporting organisations into organisations on the policy model' do
+      attributes = {
+        lead_organisation_content_ids: [1, 2],
+        supporting_organisation_content_ids: [3, 4],
+      }
+
+      policy_form = PolicyForm.new(attributes)
+      policy_form.save
+      policy = policy_form.policy
+
+      expect(policy.organisation_content_ids).to eql [1,2,3,4]
+    end
+  end
+end

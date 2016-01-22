@@ -6,8 +6,8 @@ class PoliciesController < ApplicationController
   end
 
   def new
-    @policy = PolicyForm.new_with_defaults
-    @policy.sub_policy = true if params[:sub_policy]
+    @policy_form = PolicyForm.new
+    @policy_form.sub_policy = true if params[:sub_policy]
   end
 
   def create
@@ -18,13 +18,13 @@ class PoliciesController < ApplicationController
       redirect_to policies_path
     else
       flash[:danger] = "Could not create the policy : #{policy_form.error_message}"
-      @policy = policy_form
+      @policy_form = policy_form
       render :new
     end
   end
 
   def edit
-    @policy = PolicyForm.from_existing(policy)
+    @policy_form = PolicyForm.from_existing(policy)
   end
 
   def update
@@ -36,7 +36,7 @@ class PoliciesController < ApplicationController
     else
       flash[:danger] = "Could not update the policy: #{policy.errors.full_messages.to_sentence.downcase}"
 
-      @policy = policy_form
+      @policy_form = policy_form
       render :new
     end
   end
@@ -60,7 +60,8 @@ private
   # being included in the resulting parameter array. We clean this out to prevent
   # blank strings being stored.
   def clean_blank_parameters
-    params[:policy][:organisation_content_ids].reject! {|id| id.blank? }
+    params[:policy][:lead_organisation_content_ids].reject! {|id| id.blank? }
+    params[:policy][:supporting_organisation_content_ids].reject! {|id| id.blank? }
     params[:policy][:people_content_ids].reject! {|id| id.blank? }
     params[:policy][:working_group_content_ids].reject! {|id| id.blank? }
   end

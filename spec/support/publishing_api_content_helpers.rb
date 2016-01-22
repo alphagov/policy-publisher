@@ -74,11 +74,12 @@ module PublishingApiContentHelpers
     }
   end
 
-  def stub_publishing_api_links(content_id, organisations: [], people: [], working_groups: [])
+  def stub_publishing_api_links(content_id, organisations: [], lead_organisations: [], people: [], working_groups: [])
     url = PUBLISHING_API_V2_ENDPOINT + "/links/" + content_id
     links = {
       links: {
         organisations: organisations,
+        lead_organisations: lead_organisations,
         people: people,
         working_groups: working_groups,
         related: [],

@@ -12,47 +12,80 @@ class PolicyForm
     scotland_policy_url
     wales
     wales_policy_url
-    organisation_content_ids
-    people_content_ids
-    working_group_content_ids
     parent_policy_ids
   ]
 
+  LINK_ATTRIBUTES = %w[
+    lead_organisation_content_ids
+    supporting_organisation_content_ids
+    people_content_ids
+    working_group_content_ids
+  ]
+
   attr_accessor(*ATTRIBUTES)
+  attr_accessor(*LINK_ATTRIBUTES)
   attr_accessor :policy
 
   include ActiveModel::Model
+
+  validate :validate_organisations
+
+  def validate_organisations
+    lead       = self.lead_organisation_content_ids.to_set
+    supporting = self.supporting_organisation_content_ids.to_set
+
+    return if lead.empty? && supporting.empty?
+
+    if lead.intersect?(supporting)
+      errors.add(:supporting_organisation_content_ids, "An organisation cannot be tagged as both a lead organisation and a supporting organisation. Please remove the duplicate tags to continue.")
+    elsif supporting && lead.empty?
+      errors.add(:lead_organisation_content_ids, "There are supporting organisations but no lead organisations. Did you mean to add the organisation as a lead organisation?")
+    end
+  end
 
   def self.model_name
     ActiveModel::Name.new(Policy)
   end
 
-  def self.new_with_defaults
-    new(
+  def initialize(attributes = {})
+    defaults = {
       england: true,
       scotland: true,
       wales: true,
       northern_ireland: true,
-      organisation_content_ids: [],
+      lead_organisation_content_ids: [],
+      supporting_organisation_content_ids: [],
       people_content_ids: [],
       working_group_content_ids: [],
       parent_policy_ids: [],
-    )
+    }
+
+    super defaults.merge(attributes)
   end
 
   def self.from_existing(policy)
     form = new(policy.as_json(only: ATTRIBUTES))
     form.policy = policy
+    form.lead_organisation_content_ids = policy.lead_organisation_content_ids
+    form.supporting_organisation_content_ids = policy.supporting_organisation_content_ids
+    form.people_content_ids = policy.people_content_ids
+    form.working_group_content_ids = policy.working_group_content_ids
     form
   end
 
   def update(attrs)
     attrs.each { |k, v| self.send("#{k}=", v) }
-    save
+
+    save if self.valid?
   end
 
   def save
     attributes = as_json(only: ATTRIBUTES)
+
+    policy.set_organisation_priority(@lead_organisation_content_ids, @supporting_organisation_content_ids)
+    policy.people_content_ids = @people_content_ids
+    policy.working_group_content_ids = @working_group_content_ids
+
     policy.update_attributes(attributes) && publish!
   end
 
@@ -74,18 +107,6 @@ class PolicyForm
 
   def sub_policy?
     sub_policy
-  end
-
-  def organisation_content_ids
-    policy.organisation_content_ids
-  end
-
-  def people_content_ids
-    policy.people_content_ids
-  end
-
-  def working_group_content_ids
-    policy.working_group_content_ids
   end
 
 private
