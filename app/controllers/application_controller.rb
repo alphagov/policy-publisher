@@ -5,8 +5,4 @@ class ApplicationController < ActionController::Base
 
   include GDS::SSO::ControllerMethods
   before_filter :require_signin_permission!
-
-  decent_configuration do
-    strategy DecentExposure::StrongParametersStrategy
-  end
 end

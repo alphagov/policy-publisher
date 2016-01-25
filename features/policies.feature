@@ -46,19 +46,11 @@ Scenario: Associating a policy with a working group
   When I associate the policy with a working group
   Then the policy should be linked to the working group when published to publishing API
 
-@javascript
-Scenario: Re-ordering tagged organisations
+Scenario: Preserving links while editing a policy
   Given a policy exists called "Global warming"
-  And the policy is associated with the organisations "Organisation 1" and "Organisation 2"
-  When I set the tagged organisations to "Organisation 2" and "Organisation 1"
-  Then the policy organisations should appear in the order "Organisation 2" and "Organisation 1"
-
-@javascript
-Scenario: Re-ordering tagged people
-  Given a policy exists called "Global warming"
-  And the policy is associated with the people "A Person" and "Another Person"
-  When I set the tagged people to "Another Person" and "A Person"
-  Then the policy people should appear in the order "Another Person" and "A Person"
+  And it is associated with two organisations, two people and two working groups
+  When I change the title of policy "Global warming" to "Climate change"
+  Then the policy links should remain unchanged
 
 @javascript
 Scenario: Creating a policy only associated with one nation

@@ -1,62 +1,58 @@
 class PoliciesController < ApplicationController
   before_filter :clean_blank_parameters, only: [:create, :update]
-  expose(:policy, attributes: :policy_params)
-  expose(:policies) { Policy.includes(:parent_policies).order(:name) }
 
-  def index; end
+  def index
+    @policies = Policy.includes(:parent_policies).order(:name)
+  end
 
   def new
-    policy.sub_policy = true if params[:sub_policy]
+    @policy_form = PolicyForm.new
+    @policy_form.sub_policy = true if params[:sub_policy]
   end
 
   def create
-    if policy.save
-      Publisher.new(policy).publish!
-      flash[:success] = "Successfully created a policy"
+    policy_form = PolicyForm.new(policy_params)
 
+    if policy_form.save
+      flash[:success] = "Successfully created a policy"
       redirect_to policies_path
     else
-      flash[:danger] = "Could not create the policy : #{policy.errors.full_messages.to_sentence.downcase}"
-
+      flash[:danger] = "Could not create the policy : #{policy_form.error_message}"
+      @policy_form = policy_form
       render :new
     end
   end
 
-  def edit; end
+  def edit
+    @policy_form = PolicyForm.from_existing(policy)
+  end
 
   def update
-    if policy.save
-      Publisher.new(policy).publish!
+    policy_form = PolicyForm.from_existing(policy)
+    if policy_form.update(policy_params)
       flash[:success] = "Successfully updated the policy"
 
       redirect_to policies_path
     else
       flash[:danger] = "Could not update the policy: #{policy.errors.full_messages.to_sentence.downcase}"
 
+      @policy_form = policy_form
       render :new
     end
   end
 
 private
 
+  def policy
+    @policy ||= Policy.find(params[:id])
+    @policy.fetch_links!
+    @policy
+  end
+
   def policy_params
-    params.require(:policy).permit(
-      :name,
-      :description,
-      :england,
-      :england_policy_url,
-      :northern_ireland,
-      :northern_ireland_policy_url,
-      :scotland,
-      :scotland_policy_url,
-      :wales,
-      :wales_policy_url,
-      :sub_policy,
-      organisation_content_ids: [],
-      people_content_ids: [],
-      working_group_content_ids: [],
-      parent_policy_ids: [],
-    )
+    # We don't need to validate here because our forms will only forward
+    # whitelisted attributes.
+    params.require(:policy).permit!
   end
 
   # Rails includes a hidden field for selects on multi-selects so that a value
@@ -64,7 +60,8 @@ private
   # being included in the resulting parameter array. We clean this out to prevent
   # blank strings being stored.
   def clean_blank_parameters
-    params[:policy][:organisation_content_ids].reject! {|id| id.blank? }
+    params[:policy][:lead_organisation_content_ids].reject! {|id| id.blank? }
+    params[:policy][:supporting_organisation_content_ids].reject! {|id| id.blank? }
     params[:policy][:people_content_ids].reject! {|id| id.blank? }
     params[:policy][:working_group_content_ids].reject! {|id| id.blank? }
   end
