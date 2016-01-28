@@ -73,4 +73,20 @@ module PublishingApiContentHelpers
       "base_path" => "/government/groups/another-working_group",
     }
   end
+
+  def stub_publishing_api_links(content_id, organisations: [], lead_organisations: [], people: [], working_groups: [])
+    url = PUBLISHING_API_V2_ENDPOINT + "/links/" + content_id
+    links = {
+      links: {
+        organisations: organisations,
+        lead_organisations: lead_organisations,
+        people: people,
+        working_groups: working_groups,
+        related: [],
+        email_alert_signup: [
+        ]
+      }
+    }
+    stub_request(:get, url).to_return(status: 200, body: links.to_json, headers: {})
+  end
 end

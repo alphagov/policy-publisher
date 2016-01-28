@@ -76,7 +76,7 @@ module PolicyHelpers
 
   def associate_policy_with_organisation(policy:, organisation_name:)
     visit_policy(policy)
-    select organisation_name, from: "Organisations"
+    select organisation_name, from: "Lead organisations"
     click_on "Save"
   end
 

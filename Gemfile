@@ -15,14 +15,13 @@ gem 'airbrake', '4.1.0'
 gem 'govuk_admin_template', '~> 3.5'
 gem 'generic_form_builder', '0.13.0'
 gem 'selectize-rails', '~> 0.12.1'
-gem 'decent_exposure', '2.3.2'
 
 gem 'gds-api-adapters', '~> 26.6'
 
 gem 'govspeak','3.3.0'
 
 group :development, :test do
-  gem 'byebug'
+  gem 'pry-byebug'
   gem 'web-console', '~> 2.0'
 end
 

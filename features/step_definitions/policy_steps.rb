@@ -2,14 +2,22 @@ Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
   stub_any_publishing_api_write
   stub_rummager
   @policy = FactoryGirl.create(:policy, name: policy_name)
+  stub_publishing_api_links(@policy.content_id)
 end
 
-Given(/^the policy is associated with the organisations "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  associate_policy_with_organisations(policy: @policy, organisation_names: [org_name_1, org_name_2])
-end
+Given(/^it is associated with two organisations, two people and two working groups$/) do
+  stub_publishing_api_links(
+    @policy.content_id,
+    organisations: [@organisation_1, @organisation_2].map {|org| org["content_id"]},
+    lead_organisations: [@organisation_1["content_id"]],
+    people: [@person_1, @person_2].map {|person| person["content_id"]},
+    working_groups: [@working_group_1, @working_group_2].map {|working_group| working_group["content_id"]}
+  )
 
-Given(/^the policy is associated with the people "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  associate_policy_with_people(policy: @policy, people_names: [person_name_1, person_name_2])
+  items = [organisation_1, organisation_2, person_1, person_2, working_group_1, working_group_2]
+  items.each do |item|
+    publishing_api_has_item(item)
+  end
 end
 
 When(/^I change the title of policy "(.*?)" to "(.*?)"$/) do |old_name, new_name|
@@ -39,6 +47,8 @@ When(/^I create a sub-policy called "(.*?)" that is part of a policy called "(.*
   create_sub_policy(name: policy_name, parent_policies: [part_of_policy_name])
 end
 
+# NB: if the publishing-api has not been stubbed in another step,
+# these steps will act like the policy is not linked to anything before we edit it.
 When(/^I associate the policy with an organisation$/) do
   associate_policy_with_organisation(policy: @policy, organisation_name: 'Organisation 1')
 end
@@ -137,6 +147,7 @@ Then(/^the policy should be linked to the organisation when published to publish
     {
       "links" => {
         "organisations" => [organisation_1["content_id"]],
+        "lead_organisations" => [organisation_1["content_id"]],
         "people" => [],
         "working_groups" => [],
         "related" => [],
@@ -163,6 +174,7 @@ Then(/^the policy should be linked to the person when published to publishing AP
     {
       "links" => {
         "organisations" => [],
+        "lead_organisations" => [],
         "people" => [person_1["content_id"]],
         "working_groups" => [],
         "related" => [],
@@ -189,6 +201,7 @@ Then(/^the policy should be linked to the working group when published to publis
     {
       "links" => {
         "organisations" => [],
+        "lead_organisations" => [],
         "people" => [],
         "working_groups" => [working_group_1["content_id"]],
         "related" => [],
@@ -199,18 +212,32 @@ Then(/^the policy should be linked to the working group when published to publis
   )
 end
 
-Then(/^the policy organisations should appear in the order "(.*?)" and "(.*?)"$/) do |org_name_1, org_name_2|
-  first_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_1 }
-  second_org = ContentItemFetcher.organisations.find { |organisation| organisation["title"] == org_name_2 }
+# The links we put to the publisher-api should match the links we got
+Then(/^the policy links should remain unchanged$/) do
+  assert_publishing_api_put_content(
+    @policy.content_id,
+    {
+      "format" => "policy",
+      "rendering_app" => "finder-frontend",
+      "publishing_app" => "policy-publisher",
+      "locale" => "en",
+    }
+  )
 
-  expect(@policy.reload.organisations).to eq([first_org, second_org])
-end
-
-Then(/^the policy people should appear in the order "(.*?)" and "(.*?)"$/) do |person_name_1, person_name_2|
-  first_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_1 }
-  second_person = ContentItemFetcher.people.find { |person| person["title"] == person_name_2 }
-
-  expect(@policy.reload.people).to eq([first_person, second_person])
+  assert_publishing_api_put_links(
+    @policy.content_id,
+    {
+      "links" => {
+        "organisations" => [organisation_1["content_id"], organisation_2["content_id"]],
+        "lead_organisations" => [organisation_1["content_id"]],
+        "people" => [person_1["content_id"], person_2["content_id"]],
+        "working_groups" => [working_group_1["content_id"], working_group_2["content_id"]],
+        "related" => [],
+        "email_alert_signup" => [@policy.email_alert_signup_content_id],
+        "policy_areas" => [],
+      }
+    }
+  )
 end
 
 When(/^I create a policy called "([^"]+?)" that only applies to "([^"]+?)"$/) do |policy_name, nation|

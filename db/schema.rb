@@ -21,8 +21,6 @@ ActiveRecord::Schema.define(version: 20160104161439) do
     t.string   "name"
     t.text     "description"
     t.string   "content_id"
-    t.text     "organisation_content_ids",      default: [],                array: true
-    t.text     "people_content_ids",            default: [],                array: true
     t.boolean  "england",                       default: true
     t.string   "england_policy_url"
     t.boolean  "northern_ireland",              default: true
@@ -34,6 +32,8 @@ ActiveRecord::Schema.define(version: 20160104161439) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.string   "email_alert_signup_content_id"
+    t.text     "organisation_content_ids",      default: [],                array: true
+    t.text     "people_content_ids",            default: [],                array: true
     t.text     "working_group_content_ids",     default: [],                array: true
   end
 
