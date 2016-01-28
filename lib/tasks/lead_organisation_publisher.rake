@@ -3,13 +3,15 @@ namespace :publishing_api do
   task publish_lead_organisations: :environment do
     Policy.find_each do |policy|
 
+      organisations_from_db = policy[:organisation_content_ids]
+
       links_payload = {
         links: {
-          organisations: policy.organisation_content_ids
+          organisations: organisations_from_db
         }
       }
 
-      lead_organisation = policy.organisation_content_ids.first
+      lead_organisation = organisations_from_db.first
 
       if lead_organisation
         links_payload[:links][:lead_organisations] = [ lead_organisation ]
