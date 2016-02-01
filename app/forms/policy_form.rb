@@ -29,6 +29,7 @@ class PolicyForm
   include ActiveModel::Model
 
   validate :validate_organisations
+  validates_presence_of :lead_organisation_content_ids, :name, :description
 
   def validate_organisations
     lead       = self.lead_organisation_content_ids.to_set
@@ -80,6 +81,8 @@ class PolicyForm
   end
 
   def save
+    return unless self.policy.valid? || valid?
+
     attributes = as_json(only: ATTRIBUTES)
 
     policy.set_organisation_priority(@lead_organisation_content_ids, @supporting_organisation_content_ids)
@@ -89,8 +92,8 @@ class PolicyForm
     policy.update_attributes(attributes) && publish!
   end
 
-  def error_message
-    policy.errors.full_messages.to_sentence.downcase
+  def error_messages
+    errors.full_messages.to_sentence.downcase.sub('lead organisation content ids', 'organisations')
   end
 
   def policy
