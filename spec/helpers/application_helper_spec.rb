@@ -28,5 +28,11 @@ RSpec.describe ApplicationHelper, type: :helper do
         helper.prioritise_data_container(unprioritised_container, selected)
       ).to eq(expected)
     end
+
+    it 'returns the unprioritised_container without selected' do
+      expect(
+        helper.prioritise_data_container(unprioritised_container, [])
+      ).to eq(unprioritised_container)
+    end
   end
 end

@@ -40,30 +40,20 @@ module ApplicationHelper
     Policy.areas.map { |policy| [policy.name, policy.id] }
   end
 
-  # Re-orders the data container such that +selected+ ones appear first.
+  # Re-orders the data container such that +selected+ ones appear first.
+  # and both in alphabetical order
   def prioritise_data_container(unprioritised_container, selected)
+    selected_items = []
 
-    # extract selected names
-    # don't follow this approach as select is more expensive in a big list (compared to detect)
-    selected_orgs = unprioritised_container.select { |item| selected.include?(item[1]) }.map(&:first)
-
-    # sort them
-    selected_orgs.sort!
-
-
-    # put them in the beggining of the list
-    # the problem is that you need to remove the selected ones from the
-    # unprioritised_container before adding them to the begginning of the list
-
-    selected.reverse.each do |value|
-      if item = unprioritised_container.detect { |item| item[1] == value }
-        unprioritised_container.delete(item)
-        unprioritised_container.unshift(item)
+    unselected_items = unprioritised_container.each do |item|
+      selected.each do |selected_item|
+        if item[1] == selected_item
+          selected_items << item
+          unprioritised_container.delete(item)
+        end
       end
     end
 
-
-
-    unprioritised_container
+    (selected_items.sort + unselected_items)
   end
 end
