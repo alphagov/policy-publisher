@@ -28,8 +28,8 @@ class PolicyForm
 
   include ActiveModel::Model
 
+  validates_presence_of :name, :description
   validate :validate_organisations
-  validates_presence_of :lead_organisation_content_ids, :name, :description
 
   def validate_organisations
     lead       = self.lead_organisation_content_ids.to_set

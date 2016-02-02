@@ -42,12 +42,27 @@ module ApplicationHelper
 
   # Re-orders the data container such that +selected+ ones appear first.
   def prioritise_data_container(unprioritised_container, selected)
+
+    # extract selected names
+    # don't follow this approach as select is more expensive in a big list (compared to detect)
+    selected_orgs = unprioritised_container.select { |item| selected.include?(item[1]) }.map(&:first)
+
+    # sort them
+    selected_orgs.sort!
+
+
+    # put them in the beggining of the list
+    # the problem is that you need to remove the selected ones from the
+    # unprioritised_container before adding them to the begginning of the list
+
     selected.reverse.each do |value|
       if item = unprioritised_container.detect { |item| item[1] == value }
         unprioritised_container.delete(item)
         unprioritised_container.unshift(item)
       end
     end
+
+
 
     unprioritised_container
   end
