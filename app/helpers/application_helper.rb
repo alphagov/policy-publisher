@@ -15,45 +15,4 @@ module ApplicationHelper
       end
     end
   end
-
-  # Data container used to generate the options for an organisations select field
-  def organisations_data_container
-    ContentItemFetcher.new.organisations
-      .sort_by { |organisation| organisation['title'] }
-      .map { |org| [org['title'], org['content_id']] }
-  end
-
-  # Data container used to generate the options for a people select field
-  def people_data_container
-    ContentItemFetcher.new.people
-      .sort_by { |person| person['title'] }
-      .map { |person| [person['title'], person['content_id']] }
-  end
-
-  def working_groups_data_container
-    ContentItemFetcher.new.working_groups
-      .sort_by { |working_group| working_group['title'] }
-      .map { |wg| [wg['title'], wg['content_id']] }
-  end
-
-  def policies_areas_data_container
-    Policy.areas.map { |policy| [policy.name, policy.id] }
-  end
-
-  # Re-orders the data container such that +selected+ ones appear first.
-  # and both in alphabetical order
-  def prioritise_data_container(unprioritised_container, selected)
-    selected_items = []
-
-    unselected_items = unprioritised_container.each do |item|
-      selected.each do |selected_item|
-        if item[1] == selected_item
-          selected_items << item
-          unprioritised_container.delete(item)
-        end
-      end
-    end
-
-    (selected_items.sort + unselected_items)
-  end
 end

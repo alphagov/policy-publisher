@@ -24,7 +24,7 @@ class PolicyForm
 
   attr_accessor(*ATTRIBUTES)
   attr_accessor(*LINK_ATTRIBUTES)
-  attr_accessor :policy
+  attr_writer :policy
 
   include ActiveModel::Model
 
@@ -81,7 +81,7 @@ class PolicyForm
   end
 
   def save
-    return unless self.policy.valid? || valid?
+    return unless valid?
 
     attributes = as_json(only: ATTRIBUTES)
 
