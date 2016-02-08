@@ -1,21 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe PolicyForm do
+  include PublishingApiContentHelpers
+
+  before do
+    stub_content_calls_from_publishing_api
+    stub_any_publishing_api_write
+    stub_any_publishing_api_publish
+    stub_post_to_search
+  end
+
+  let(:policy_attributes) do
+    {
+      name: 'A Policy',
+      description: 'A Policy description',
+      lead_organisation_content_ids: [],
+      supporting_organisation_content_ids: [],
+    }
+  end
+
+  def set_organisation_attributes(lead = [], supporting = [])
+    policy_attributes.merge!(
+      lead_organisation_content_ids: lead,
+      supporting_organisation_content_ids: supporting)
+  end
 
   context 'validations' do
     context 'when organisations' do
-      let(:attributes) do
-        {
-          lead_organisation_content_ids: [],
-          supporting_organisation_content_ids: [],
-        }
-      end
-
       it 'should not have lead organisations that are also supporting organisations' do
         set_organisation_attributes([1], [1,2,3])
 
-        policy_form = PolicyForm.new(attributes)
-        policy_form.save
+        policy_form = PolicyForm.new(policy_attributes)
 
         expect(policy_form.valid?).to be_falsey
         expect(policy_form.errors.full_messages.first).to match(/Supporting organisation/)
@@ -24,8 +39,7 @@ RSpec.describe PolicyForm do
       it 'valid to have different lead and supporting organisations' do
         set_organisation_attributes([1], [2,3])
 
-        policy_form = PolicyForm.new(attributes)
-        policy_form.save
+        policy_form = PolicyForm.new(policy_attributes)
 
         expect(policy_form.valid?).to be_truthy
       end
@@ -33,7 +47,7 @@ RSpec.describe PolicyForm do
       it 'valid to have lead organisations without supporting organisations' do
         set_organisation_attributes([1])
 
-        policy_form = PolicyForm.new(attributes)
+        policy_form = PolicyForm.new(policy_attributes)
         policy_form.save
 
         expect(policy_form.valid?).to be_truthy
@@ -42,25 +56,16 @@ RSpec.describe PolicyForm do
       it 'not valid to have supporting organisations without lead organisations' do
         set_organisation_attributes([], [1])
 
-        policy_form = PolicyForm.new(attributes)
-        policy_form.save
+        policy_form = PolicyForm.new(policy_attributes)
 
         expect(policy_form.valid?).to be_falsey
         expect(policy_form.errors.full_messages.first).to match(/Lead organisation/)
       end
 
       it 'valid to have no organisations' do
-        policy_form = PolicyForm.new(attributes)
-        policy_form.save
+        policy_form = PolicyForm.new(policy_attributes)
 
         expect(policy_form.valid?).to be_truthy
-      end
-
-    private 
-      def set_organisation_attributes(lead = [], supporting = [])
-        attributes.merge!(
-          lead_organisation_content_ids: lead,
-          supporting_organisation_content_ids: supporting)
       end
     end
   end
@@ -93,7 +98,7 @@ RSpec.describe PolicyForm do
 
   describe '#save' do
     it 'passes through people content ids to the model' do
-      policy_form = PolicyForm.new(people_content_ids: [1, 2, 3])
+      policy_form = PolicyForm.new(policy_attributes.merge(people_content_ids: [1, 2, 3]))
       policy_form.save
 
       expect(policy_form.policy.people_content_ids).to eql [1, 2, 3]
@@ -101,19 +106,16 @@ RSpec.describe PolicyForm do
 
     it 'passes through name to the model' do
       policy_name = "Free ice cream"
-      policy_form = PolicyForm.new(name: policy_name)
+      policy_form = PolicyForm.new(policy_attributes.merge(name: policy_name))
       policy_form.save
 
       expect(policy_form.policy.name).to eql policy_name
     end
 
     it 'combines lead and supporting organisations into organisations on the policy model' do
-      attributes = {
-        lead_organisation_content_ids: [1, 2],
-        supporting_organisation_content_ids: [3, 4],
-      }
+      set_organisation_attributes([1, 2], [3, 4])
 
-      policy_form = PolicyForm.new(attributes)
+      policy_form = PolicyForm.new(policy_attributes)
       policy_form.save
       policy = policy_form.policy
 

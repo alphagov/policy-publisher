@@ -17,7 +17,7 @@ class PoliciesController < ApplicationController
       flash[:success] = "Successfully created a policy"
       redirect_to policies_path
     else
-      flash[:danger] = "Could not create the policy : #{policy_form.error_message}"
+      flash[:danger] = "Could not create the policy : #{policy_form.error_messages}"
       @policy_form = policy_form
       render :new
     end
@@ -34,7 +34,7 @@ class PoliciesController < ApplicationController
 
       redirect_to policies_path
     else
-      flash[:danger] = "Could not update the policy: #{policy.errors.full_messages.to_sentence.downcase}"
+      flash[:danger] = "Could not update the policy: #{policy_form.error_messages}"
 
       @policy_form = policy_form
       render :new

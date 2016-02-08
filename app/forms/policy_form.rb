@@ -24,10 +24,11 @@ class PolicyForm
 
   attr_accessor(*ATTRIBUTES)
   attr_accessor(*LINK_ATTRIBUTES)
-  attr_accessor :policy
+  attr_writer :policy
 
   include ActiveModel::Model
 
+  validates_presence_of :name, :description
   validate :validate_organisations
 
   def validate_organisations
@@ -80,6 +81,8 @@ class PolicyForm
   end
 
   def save
+    return unless valid?
+
     attributes = as_json(only: ATTRIBUTES)
 
     policy.set_organisation_priority(@lead_organisation_content_ids, @supporting_organisation_content_ids)
@@ -89,8 +92,8 @@ class PolicyForm
     policy.update_attributes(attributes) && publish!
   end
 
-  def error_message
-    policy.errors.full_messages.to_sentence.downcase
+  def error_messages
+    errors.full_messages.to_sentence.downcase.sub('lead organisation content ids', 'organisations')
   end
 
   def policy

@@ -6,10 +6,10 @@
 
   <%= form.select :lead_organisation_content_ids,
         prioritise_data_container(organisations_data_container, policy_form.lead_organisation_content_ids),
-        { label: "Lead organisations" },
+        { label: "Organisations" },
         { multiple: true,
           class: 'select2',
-          data: { placeholder: 'Choose lead organisations…' } } %>
+          data: { placeholder: 'Choose organisations…' } } %>
 
   <%= form.select :supporting_organisation_content_ids,
         prioritise_data_container(organisations_data_container, policy_form.supporting_organisation_content_ids),
