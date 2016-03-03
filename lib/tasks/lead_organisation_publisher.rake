@@ -18,7 +18,7 @@ namespace :publishing_api do
       end
 
       puts "Publishing '#{policy.name}' orgs to publishing-api"
-      Services.publishing_api.put_links(policy.content_id, links_payload)
+      Services.publishing_api.patch_links(policy.content_id, links_payload)
     end
   end
 end

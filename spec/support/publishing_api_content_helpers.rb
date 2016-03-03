@@ -5,7 +5,7 @@ module PublishingApiContentHelpers
 
   def stub_any_publishing_api_write
     stub_any_publishing_api_put_content
-    stub_any_publishing_api_put_links
+    stub_any_publishing_api_patch_links
     stub_any_publishing_api_publish
   end
 

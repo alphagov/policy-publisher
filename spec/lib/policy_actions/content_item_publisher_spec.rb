@@ -24,7 +24,7 @@ RSpec.describe ContentItemPublisher do
         update_type: 'major'
       )
 
-      assert_publishing_api_put_links(
+      assert_publishing_api_patch_links(
         policy.content_id
       )
     end

@@ -142,7 +142,7 @@ Then(/^the policy should be linked to the organisation when published to publish
     )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {
@@ -169,7 +169,7 @@ Then(/^the policy should be linked to the person when published to publishing AP
     )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {
@@ -196,7 +196,7 @@ Then(/^the policy should be linked to the working group when published to publis
     )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {
@@ -224,7 +224,7 @@ Then(/^the policy links should remain unchanged$/) do
     )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {
