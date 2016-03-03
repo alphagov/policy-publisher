@@ -73,5 +73,13 @@ RSpec.describe ContentItemPresenter do
       expect(nation_applicability["alternative_policies"].first["nation"]).to eq("northern_ireland")
       expect(nation_applicability["alternative_policies"].first["alt_policy_url"]).to eq("https://www.example.ni")
     end
+
+    it "includes the internal name if the policy is a sub-policy" do
+      policy = FactoryGirl.create(:policy)
+      expect(ContentItemPresenter.new(policy).exportable_attributes[:details]).not_to have_key(:internal_name)
+
+      sub_policy = FactoryGirl.create(:sub_policy, parent_policies: [policy])
+      expect(ContentItemPresenter.new(sub_policy).exportable_attributes[:details][:internal_name]).to eq("#{sub_policy.name}: #{policy.name}")
+    end
   end
 end
