@@ -10,22 +10,20 @@ RSpec.describe SearchIndexer do
     stub_any_rummager_post
 
     fields = %w(content_id format title base_path)
-    publishing_api_has_fields_for_format("organisation", organisations, fields)
-    publishing_api_has_fields_for_format("person", people, fields)
-    publishing_api_has_fields_for_format("working_group", working_groups, fields)
+    publishing_api_has_linkables(organisations, format: "organisation")
+    publishing_api_has_linkables(people, format: "person")
+    publishing_api_has_linkables(working_groups, format: "working_group")
   end
 
   let(:organisations) do
     [
       {
         "content_id" => SecureRandom.uuid,
-        "format" => "organisation",
         "title" => "Organisation 1",
         "base_path" => "/government/organisations/organisation-1",
       },
       {
         "content_id" => SecureRandom.uuid,
-        "format" => "organisation",
         "title" => "Organisation 2",
         "base_path" => "/government/organisations/organisation-2",
       },
@@ -36,13 +34,11 @@ RSpec.describe SearchIndexer do
     [
       {
         "content_id" => SecureRandom.uuid,
-        "format" => "person",
         "title" => "Person 1",
         "base_path" => "/government/people/person-1",
       },
       {
         "content_id" => SecureRandom.uuid,
-        "format" => "person",
         "title" => "Person 2",
         "base_path" => "/government/people/person-2",
       },
@@ -53,13 +49,11 @@ RSpec.describe SearchIndexer do
     [
       {
         "content_id" => SecureRandom.uuid,
-        "format" => "working_group",
         "title" => "Working group 1",
         "base_path" => "/government/groups/working-group-1",
       },
       {
         "content_id" => SecureRandom.uuid,
-        "format" => "working_group",
         "title" => "Working group 2",
         "base_path" => "/government/groups/working-group-2",
       },
