@@ -18,11 +18,10 @@ module PublishingApiContentHelpers
   end
 
   def stub_content_calls_from_publishing_api
-    fields = %w(content_id format title base_path)
-    publishing_api_has_linkables([lead_organisation_1, lead_organisation_2], format: "lead_organisation")
-    publishing_api_has_linkables([organisation_1, organisation_2], format: "organisation")
-    publishing_api_has_linkables([person_1, person_2], format: "person")
-    publishing_api_has_linkables([working_group_1, working_group_2], format: "working_group")
+    publishing_api_has_linkables([lead_organisation_1, lead_organisation_2], document_type: "lead_organisation")
+    publishing_api_has_linkables([organisation_1, organisation_2], document_type: "organisation")
+    publishing_api_has_linkables([person_1, person_2], document_type: "person")
+    publishing_api_has_linkables([working_group_1, working_group_2], document_type: "working_group")
   end
 
   def lead_organisation_1

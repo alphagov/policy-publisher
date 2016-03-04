@@ -8,11 +8,9 @@ RSpec.describe SearchIndexer do
 
   before do
     stub_any_rummager_post
-
-    fields = %w(content_id format title base_path)
-    publishing_api_has_linkables(organisations, format: "organisation")
-    publishing_api_has_linkables(people, format: "person")
-    publishing_api_has_linkables(working_groups, format: "working_group")
+    publishing_api_has_linkables(organisations, document_type: "organisation")
+    publishing_api_has_linkables(people, document_type: "person")
+    publishing_api_has_linkables(working_groups, document_type: "working_group")
   end
 
   let(:organisations) do

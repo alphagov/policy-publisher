@@ -1,15 +1,15 @@
 # Content items from the publishing-api
 class ContentItemFetcher
   def organisations
-    @organisations ||= Services.publishing_api.get_linkables(format: 'organisation')
+    @organisations ||= Services.publishing_api.get_linkables(document_type: 'organisation')
   end
 
   def people
-    @people ||= Services.publishing_api.get_linkables(format: 'person')
+    @people ||= Services.publishing_api.get_linkables(document_type: 'person')
   end
 
   def working_groups
-    @working_groups ||= Services.publishing_api.get_linkables(format: 'working_group')
+    @working_groups ||= Services.publishing_api.get_linkables(document_type: 'working_group')
   end
 
   def find_person(content_id)
