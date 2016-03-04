@@ -1,26 +1,15 @@
 # Content items from the publishing-api
 class ContentItemFetcher
-  FIELDS = %w(content_id format title base_path)
-
   def organisations
-    @organisations ||= Services.publishing_api.get_content_items(
-      content_format: 'organisation',
-      fields: FIELDS
-    )
+    @organisations ||= Services.publishing_api.get_linkables(document_type: 'organisation')
   end
 
   def people
-    @people ||= Services.publishing_api.get_content_items(
-      content_format: 'person',
-      fields: FIELDS
-    )
+    @people ||= Services.publishing_api.get_linkables(document_type: 'person')
   end
 
   def working_groups
-    @working_groups ||= Services.publishing_api.get_content_items(
-      content_format: 'working_group',
-      fields: FIELDS
-    )
+    @working_groups ||= Services.publishing_api.get_linkables(document_type: 'working_group')
   end
 
   def find_person(content_id)

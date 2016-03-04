@@ -88,11 +88,11 @@ Then(/^a policy called "(.*?)" is published to publishing API$/) do |policy_name
   policy = Policy.find_by(name: policy_name)
   assert_publishing_api_put_content(
     policy.content_id,
-    {
+    request_json_includes(
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
-    },
+    ),
   )
 end
 
@@ -100,10 +100,10 @@ Then(/^a policy called "(.*?)" is republished to publishing API$/) do |policy_na
   policy = Policy.find_by(name: policy_name)
   assert_publishing_api_put_content(
     policy.content_id,
-    {
+    request_json_includes(
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
-    },
+    ),
   )
 
   assert_publishing_api_publish(
@@ -118,11 +118,11 @@ Then(/^an email alert signup page for a policy called "(.*?)" is published to pu
   policy = Policy.find_by(name: policy_name)
   assert_publishing_api_put_content(
     policy.email_alert_signup_content_id,
-    {
+    request_json_includes(
       "format" => "email_alert_signup",
       "rendering_app" => "email-alert-frontend",
       "publishing_app" => "policy-publisher",
-    },
+    ),
   )
 end
 
@@ -134,15 +134,15 @@ end
 Then(/^the policy should be linked to the organisation when published to publishing API$/) do
   assert_publishing_api_put_content(
     @policy.content_id,
-    {
+    request_json_includes(
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
       "locale" => "en",
-    }
+    )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {
@@ -161,15 +161,15 @@ end
 Then(/^the policy should be linked to the person when published to publishing API$/) do
   assert_publishing_api_put_content(
     @policy.content_id,
-    {
+    request_json_includes(
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
       "locale" => "en",
-    }
+    )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {
@@ -188,15 +188,15 @@ end
 Then(/^the policy should be linked to the working group when published to publishing API$/) do
   assert_publishing_api_put_content(
     @policy.content_id,
-    {
+    request_json_includes(
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
       "locale" => "en",
-    }
+    )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {
@@ -216,15 +216,15 @@ end
 Then(/^the policy links should remain unchanged$/) do
   assert_publishing_api_put_content(
     @policy.content_id,
-    {
+    request_json_includes(
       "format" => "policy",
       "rendering_app" => "finder-frontend",
       "publishing_app" => "policy-publisher",
       "locale" => "en",
-    }
+    )
   )
 
-  assert_publishing_api_put_links(
+  assert_publishing_api_patch_links(
     @policy.content_id,
     {
       "links" => {

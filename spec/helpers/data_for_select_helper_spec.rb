@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe DataForSelectHelper, type: :helper do
   def stub_publishing_api(status:, body:)
-    stub_request(:get, %r{#{Plek.find('publishing-api')}/v2/content}).
+    stub_request(:get, %r{#{Plek.find('publishing-api')}/v2/linkables}).
       to_return(status: status, body: body)
   end
 

@@ -5,7 +5,7 @@ module PublishingApiContentHelpers
 
   def stub_any_publishing_api_write
     stub_any_publishing_api_put_content
-    stub_any_publishing_api_put_links
+    stub_any_publishing_api_patch_links
     stub_any_publishing_api_publish
   end
 
@@ -18,17 +18,15 @@ module PublishingApiContentHelpers
   end
 
   def stub_content_calls_from_publishing_api
-    fields = %w(content_id format title base_path)
-    publishing_api_has_fields_for_format("lead_organisation", [lead_organisation_1, lead_organisation_2], fields)
-    publishing_api_has_fields_for_format("organisation", [organisation_1, organisation_2], fields)
-    publishing_api_has_fields_for_format("person", [person_1, person_2], fields)
-    publishing_api_has_fields_for_format("working_group", [working_group_1, working_group_2], fields)
+    publishing_api_has_linkables([lead_organisation_1, lead_organisation_2], document_type: "lead_organisation")
+    publishing_api_has_linkables([organisation_1, organisation_2], document_type: "organisation")
+    publishing_api_has_linkables([person_1, person_2], document_type: "person")
+    publishing_api_has_linkables([working_group_1, working_group_2], document_type: "working_group")
   end
 
   def lead_organisation_1
     @lead_organisation_1 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "lead_organisation",
       "title" => "Lead Organisation 1",
       "base_path" => "/government/organisations/lead-organisation-1",
     }
@@ -37,7 +35,6 @@ module PublishingApiContentHelpers
   def lead_organisation_2
     @lead_organisation_2 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "lead_organisation",
       "title" => "Lead Organisation 2",
       "base_path" => "/government/organisations/lead-organisation-1",
     }
@@ -47,7 +44,6 @@ module PublishingApiContentHelpers
   def organisation_1
     @organisation_1 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "organisation",
       "title" => "Organisation 1",
       "base_path" => "/government/organisations/organisation-1",
     }
@@ -56,7 +52,6 @@ module PublishingApiContentHelpers
   def organisation_2
     @organisation_2 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "organisation",
       "title" => "Organisation 2",
       "base_path" => "/government/organisations/organisation-2",
     }
@@ -65,7 +60,6 @@ module PublishingApiContentHelpers
   def person_1
     @person_1 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "person",
       "title" => "A Person",
       "base_path" => "/government/people/a-person",
     }
@@ -74,7 +68,6 @@ module PublishingApiContentHelpers
   def person_2
     @person_2 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "person",
       "title" => "Another Person",
       "base_path" => "/government/people/another-person",
     }
@@ -83,7 +76,6 @@ module PublishingApiContentHelpers
   def working_group_1
     @working_group_1 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "working_group",
       "title" => "A working group",
       "base_path" => "/government/groups/a-working_group",
     }
@@ -92,7 +84,6 @@ module PublishingApiContentHelpers
   def working_group_2
     @working_group_2 ||= {
       "content_id" => SecureRandom.uuid,
-      "format" => "working_group",
       "title" => "Another working group",
       "base_path" => "/government/groups/another-working_group",
     }

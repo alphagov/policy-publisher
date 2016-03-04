@@ -75,7 +75,7 @@ private
       facets: facets,
     }
 
-    details.merge(nation_applicability)
+    details.merge(nation_applicability).merge(internal_name)
   end
 
   def nation_applicability
@@ -85,6 +85,16 @@ private
           applies_to: policy.applicable_nations,
           alternative_policies: alternative_policies,
         }
+      }
+    else
+      {}
+    end
+  end
+
+  def internal_name
+    if policy.sub_policy? && policy.parent_policies.any?
+      {
+        internal_name: "#{policy.name}: #{policy.parent_policies.first.name}"
       }
     else
       {}
