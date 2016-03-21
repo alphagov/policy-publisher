@@ -1,9 +1,10 @@
 # Publishes an email alert signup content item to the Publishing API
 class EmailAlertSignupContentItemPublisher
-  attr_reader :policy
+  attr_reader :policy, :update_type
 
-  def initialize(policy)
+  def initialize(policy, update_type: "major")
     @policy = policy
+    @update_type = update_type
   end
 
   def run!
@@ -11,7 +12,7 @@ class EmailAlertSignupContentItemPublisher
       content_id: policy.email_alert_signup_content_id,
       content_payload: content_payload,
       links_payload: links_payload,
-      update_type: 'major',
+      update_type: update_type,
     )
   end
 
