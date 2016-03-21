@@ -44,8 +44,10 @@ private
       email_alert_type: "policies",
       breadcrumbs: breadcrumbs,
       summary: summary,
-      signup_tags: {
-        policies: [policy.slug],
+      subscriber_list: {
+        tags: {
+          policies: [policy.slug],
+        }
       },
       govdelivery_title: "#{policy.name} policy",
     }

@@ -11,11 +11,13 @@ RSpec.describe EmailAlertSignupContentItemPresenter do
     it "includes appropriate tags to get the subscriptions URL" do
       policy = FactoryGirl.create(:policy)
       presenter = EmailAlertSignupContentItemPresenter.new(policy)
-      signup_tags = {
-        "policies" => [policy.slug]
+      expected_subscriber_list = {
+        "tags" => {
+          "policies" => [policy.slug]
+        }
       }
 
-      expect(presenter.exportable_attributes.as_json['details']["signup_tags"]).to eq(signup_tags)
+      expect(presenter.exportable_attributes.as_json['details']["subscriber_list"]).to eq(expected_subscriber_list)
     end
 
     it "includes breadcrumbs with the relevant policy" do
