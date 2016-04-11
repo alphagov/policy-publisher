@@ -1,7 +1,8 @@
 # Policy publisher
 
-The policy publisher exists to create and manage policies and sub-policies
-through the Publishing 2.0 pipeline.
+The policy publisher exists to create and manage policies and sub-policies. [Whitehall](https://github.com/alphagov/whitehall) allows departmental editors to tag content to these policies. The policy pages themself are "finders" and served by [finder-frontend](https://github.com/alphagov/finder-frontend).
+
+![Screenshot of Policy Publisher](docs/screenshot.png)
 
 ## Nomenclature
 
@@ -10,24 +11,28 @@ through the Publishing 2.0 pipeline.
 
 ## Technical documentation
 
-PostgreSQL-backed Rails 4 "Publishing 2.0" application. It is used by departmental editors.
+This a Ruby on Rails application backed by PostgreSQL.
 
 ### Dependencies
 
-- PostgreSQL
-
-### Getting set up
-
-- Run `bundle exec rake db:setup` to create your databases
-  and create the default SSO user for dev and test.
+- [rummager](https://github.com/alphagov/rummager)
+- [publishing-api](https://github.com/alphagov/publishing-api)
 
 ### Running the application
 
-- Run `./startup.sh`.  This will start the application on port 3098.
+Run `./startup.sh`.  This will start the application on port 3098.
+
+If you're on the dev VM:
+
+```
+bowl policy-publisher
+```
+
+The application will appear on http://policy-publisher.dev.gov.uk/
 
 ### Running the tests
 
-- Run `bundle exec rake`
+Run `bundle exec rake`
 
 ### Licence
 
