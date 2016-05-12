@@ -73,6 +73,7 @@ private
       summary: summary,
       show_summaries: false,
       facets: facets,
+      emphasised_organisations: policy.lead_organisation_content_ids,
     }
 
     details.merge(nation_applicability).merge(internal_name)

@@ -81,5 +81,14 @@ RSpec.describe ContentItemPresenter do
       sub_policy = FactoryGirl.create(:sub_policy, parent_policies: [policy])
       expect(ContentItemPresenter.new(sub_policy).exportable_attributes[:details][:internal_name]).to eq("#{sub_policy.name}: #{policy.name}")
     end
+
+    it "includes the emphasised_organisations" do
+      policy = create(:policy)
+      policy.lead_organisation_content_ids = [1, 2, 3]
+
+      payload = ContentItemPresenter.new(policy).exportable_attributes
+
+      expect(payload[:details][:emphasised_organisations]).to eql([1, 2, 3])
+    end
   end
 end
