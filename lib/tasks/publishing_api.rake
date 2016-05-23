@@ -8,7 +8,7 @@ namespace :publishing_api do
       # application database.
       policy.fetch_links!
 
-      ContentItemPublisher.new(policy, update_type: 'republish').publish!
+      ContentItemPublisher.new(policy, update_type: 'republish').run!
     end
   end
 
