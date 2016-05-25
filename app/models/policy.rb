@@ -63,18 +63,6 @@ class Policy < ActiveRecord::Base
     possible_nations - applicable_nations
   end
 
-  def organisations(fetcher = ContentItemFetcher.new)
-    @fetched_organisations ||= organisation_content_ids.map { |content_id| fetcher.find_organisation(content_id) }.compact
-  end
-
-  def people(fetcher = ContentItemFetcher.new)
-    @fetched_people ||= people_content_ids.map { |content_id| fetcher.find_person(content_id) }.compact
-  end
-
-  def working_groups(fetcher = ContentItemFetcher.new)
-    @fetched_working_groups ||= working_group_content_ids.map { |content_id| fetcher.find_working_group(content_id) }.compact
-  end
-
   # Fetch links from the publisher-api
   def fetch_links!
     return if content_id.blank?
