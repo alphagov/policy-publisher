@@ -15,6 +15,7 @@ class PolicyForm
     parent_policy_ids
   ]
 
+# should load this from the policylinkset item
   LINK_ATTRIBUTES = %w[
     lead_organisation_content_ids
     supporting_organisation_content_ids

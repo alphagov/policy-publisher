@@ -4,10 +4,6 @@ namespace :publishing_api do
     Policy.all.order("name DESC").each do |policy|
       puts "Publishing #{policy.name}"
 
-      # Load the links from publishing-api, because we don't keep those in the
-      # application database.
-      policy.fetch_links!
-
       ContentItemPublisher.new(policy, update_type: 'republish').run!
     end
   end

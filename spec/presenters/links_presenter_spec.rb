@@ -1,9 +1,23 @@
 require "rails_helper"
 
 RSpec.describe LinksPresenter do
+  include GdsApi::TestHelpers::PublishingApiV2
+
+# move to helper
+  def stub_has_links(policy, links = {})
+    links["email_alert_signup"] = [policy.email_alert_signup_content_id]
+    response = {
+      content_id: policy.content_id,
+      links: links,
+    }
+    publishing_api_has_links(response)
+  end
+
   describe "#exportable_attributes" do
     it "validates against the policy links schema" do
-      presenter = LinksPresenter.new(create(:policy))
+      policy = create(:policy)
+      presenter = LinksPresenter.new(policy)
+      stub_has_links(policy, {})
 
       expect(presenter.exportable_attributes).to be_valid_against_links_schema("policy")
     end
@@ -11,6 +25,7 @@ RSpec.describe LinksPresenter do
     it "includes linked organisations" do
       content_id = SecureRandom.uuid
       policy = create(:policy, organisation_content_ids: [content_id])
+      # stub_has_links(policy.content_id, {organisation_content_ids: [content_id]})
 
       attributes = LinksPresenter.new(policy).exportable_attributes.as_json
 
@@ -38,6 +53,7 @@ RSpec.describe LinksPresenter do
     it "includes related policies" do
       related_policy = create(:policy)
       policy = create(:policy, related_policies: [related_policy])
+      stub_has_links(policy, {related_policies: [related_policy]})
 
       attributes = LinksPresenter.new(policy).exportable_attributes.as_json
 
@@ -48,6 +64,8 @@ RSpec.describe LinksPresenter do
       sub_policy = create(:sub_policy)
       policy_area = sub_policy.parent_policies.first
 
+      stub_has_links(sub_policy, {policy_areas: [sub_policy.parent_policies.first]})
+
       attributes = LinksPresenter.new(sub_policy).exportable_attributes.as_json
 
       expect(attributes["links"]["policy_areas"]).to eq([policy_area.content_id])
@@ -55,6 +73,8 @@ RSpec.describe LinksPresenter do
 
     it "includes the linked email alert signup" do
       policy = create(:policy)
+
+      stub_has_links(policy)
 
       attributes = LinksPresenter.new(policy).exportable_attributes.as_json
 

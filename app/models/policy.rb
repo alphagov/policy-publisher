@@ -1,38 +1,3 @@
-class PolicyLinkset
-  attr_accessor :organisation_content_ids,
-                :lead_organisation_content_ids,
-                :people_content_ids,
-                :working_group_content_ids
-
-  def initialize
-    organisation_content_ids = []
-    lead_organisation_content_ids = []
-    people_content_ids = []
-    working_group_content_ids = []
-  end
-
-# refactor and rename
-  def initialize_from_policy(content_id)
-    new if content_id.blank?
-
-    links = Services.publishing_api.get_links(content_id)["links"]
-
-    lead_organisation_content_ids = links["lead_organisations"] || []
-    organisation_content_ids = links["organisations"] || []
-    people_content_ids = links["people"] || []
-    working_group_content_ids = links["working_groups"] || []
-  end
-
-  def set_organisation_priority(lead_organisation_content_ids, supporting_organisation_content_ids)
-    lead_organisation_content_ids = lead_organisation_content_ids
-    organisation_content_ids = lead_organisation_content_ids + supporting_organisation_content_ids
-  end
-
-  def supporting_organisation_content_ids
-    organisation_content_ids - lead_organisation_content_ids
-  end
-end
-
 class Policy < ActiveRecord::Base
   validates :content_id, presence: true, uniqueness: true
   validates :name, :slug, presence: true, uniqueness: true
@@ -65,17 +30,21 @@ class Policy < ActiveRecord::Base
   end
   alias_method :sub_policy?, :sub_policy
 
-  attr_accessor :policy_linkset
+  # TODO remove delegation
   delegate :organisation_content_ids,
-                :lead_organisation_content_ids,
-                :people_content_ids,
-                :working_group_content_ids,
-                :set_organisation_priority,
-                :supporting_organisation_content_ids,
-                to: :policy_linkset
+           :organisation_content_ids=,
+           :lead_organisation_content_ids,
+           :lead_organisation_content_ids=,
+           :people_content_ids,
+           :people_content_ids=,
+           :working_group_content_ids,
+           :working_group_content_ids=,
+           :set_organisation_priority,
+           :supporting_organisation_content_ids,
+           to: :policy_linkset
 
-  after_initialize do
-    @policy_linkset = PolicyLinkset.new
+  def policy_linkset
+    @policy_linkset ||= PolicyLinkset.new(content_id)
   end
 
   def base_path
