@@ -1,23 +1,13 @@
 require "rails_helper"
 
 RSpec.describe LinksPresenter do
-  include GdsApi::TestHelpers::PublishingApiV2
-
-# move to helper
-  def stub_has_links(policy, links = {})
-    links["email_alert_signup"] = [policy.email_alert_signup_content_id]
-    response = {
-      content_id: policy.content_id,
-      links: links,
-    }
-    publishing_api_has_links(response)
-  end
+  include PublishingApiContentHelpers
 
   describe "#exportable_attributes" do
     it "validates against the policy links schema" do
       policy = create(:policy)
       presenter = LinksPresenter.new(policy)
-      stub_has_links(policy, {})
+      stub_has_links(policy)
 
       expect(presenter.exportable_attributes).to be_valid_against_links_schema("policy")
     end
