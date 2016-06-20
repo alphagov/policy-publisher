@@ -17,7 +17,6 @@ class SearchIndexer
       link: policy.base_path,
       slug: policy.slug,
       indexable_content: "",
-      organisations: organisations,
       people: people,
       policy_groups: working_groups,
       public_timestamp: policy.updated_at,
@@ -25,11 +24,6 @@ class SearchIndexer
   end
 
 private
-
-  def organisations
-    fetched_organisations = policy.organisation_content_ids.map { |content_id| fetcher.find_organisation(content_id) }.compact
-    get_slugs(fetched_organisations)
-  end
 
   def people
     fetched_people = policy.people_content_ids.map { |content_id| fetcher.find_person(content_id) }.compact
