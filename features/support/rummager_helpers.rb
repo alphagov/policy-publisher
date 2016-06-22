@@ -16,7 +16,6 @@ module RummagerHelpers
       description: policy.description,
       link: policy.base_path,
       indexable_content: "",
-      organisations: [],
       public_timestamp: policy.updated_at,
       _type: "policy",
       _id: policy.base_path,
