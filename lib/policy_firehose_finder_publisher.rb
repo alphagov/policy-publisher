@@ -19,7 +19,8 @@ class PolicyFirehoseFinderPublisher
   def exportable_attributes
     {
       base_path: base_path,
-      format: "finder",
+      document_type: "finder",
+      schema_name: "finder",
       title: "All policy content",
       phase: "alpha",
       description: "",
