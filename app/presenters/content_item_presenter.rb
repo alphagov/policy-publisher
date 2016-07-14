@@ -9,7 +9,8 @@ class ContentItemPresenter
   def exportable_attributes
     {
       base_path: base_path,
-      format: "policy",
+      document_type: "policy",
+      schema_name: "policy",
       title: title,
       description: description,
       public_updated_at: public_updated_at,

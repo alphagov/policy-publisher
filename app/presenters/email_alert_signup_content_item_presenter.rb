@@ -7,7 +7,8 @@ class EmailAlertSignupContentItemPresenter
   def exportable_attributes
     {
       base_path: base_path,
-      format: "email_alert_signup",
+      document_type: "email_alert_signup",
+      schema_name: "email_alert_signup",
       title: policy.name,
       description: "",
       public_updated_at: public_updated_at,

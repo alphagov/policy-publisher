@@ -18,7 +18,8 @@ class PoliciesFinderPublisher
   def exportable_attributes
     {
       "base_path" => base_path,
-      "format" => "finder",
+      "document_type" => "finder",
+      "schema_name" => "finder",
       "title" => "Policies",
       "description" => "",
       "public_updated_at" => public_updated_at,
