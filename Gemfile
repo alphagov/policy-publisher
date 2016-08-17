@@ -23,6 +23,7 @@ gem 'govspeak','3.3.0'
 group :development, :test do
   gem 'pry-byebug'
   gem 'web-console', '~> 2.0'
+  gem 'govuk-lint'
 end
 
 group :test do
