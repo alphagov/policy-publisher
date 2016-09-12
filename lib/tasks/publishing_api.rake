@@ -12,6 +12,9 @@ namespace :publishing_api do
     end
   end
 
+  desc "Publish semi-static pages. This is run after each deploy."
+  task publish: [:publish_policies_finder, :publish_policy_firehose_finder]
+
   desc "Publish the Policies Finder to the Publishing API"
   task publish_policies_finder: :environment do
     require "policies_finder_publisher"
