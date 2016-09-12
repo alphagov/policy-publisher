@@ -107,6 +107,7 @@ private
         type: "text",
         display_as_result_metadata: true,
         filterable: true
+        # finder-frontend will fetch the `allowed_values` for this from rummager.
       },
       {
         key: "policies",

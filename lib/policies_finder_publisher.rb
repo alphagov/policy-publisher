@@ -76,6 +76,7 @@ private
         filterable: true,
         preposition: "from",
         name: "Organisation",
+        # finder-frontend will fetch the `allowed_values` for this from rummager.
       },
     ]
   end
