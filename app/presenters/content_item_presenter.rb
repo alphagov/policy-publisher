@@ -70,7 +70,6 @@ private
         policies: [policy.slug]
       },
       human_readable_finder_format: 'Policy',
-      signup_link: '',
       summary: summary,
       show_summaries: false,
       facets: facets,
