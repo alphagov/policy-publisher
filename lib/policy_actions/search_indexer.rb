@@ -13,7 +13,7 @@ class SearchIndexer
   def document
     {
       title: policy.name,
-      description: policy.description,
+      description: search_description,
       link: policy.base_path,
       slug: policy.slug,
       indexable_content: "",
@@ -24,6 +24,10 @@ class SearchIndexer
   end
 
 private
+
+  def search_description
+    Govspeak::Document.new(policy.description).to_text
+  end
 
   def people
     fetched_people = policy.people_content_ids.map { |content_id| fetcher.find_person(content_id) }.compact
