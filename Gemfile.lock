@@ -195,7 +195,7 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.20.0)
-    plek (1.10.0)
+    plek (2.0.0)
     poltergeist (1.5.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -344,7 +344,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0.3)
   launchy
   pg
-  plek (= 1.10.0)
+  plek (~> 2.0)
   poltergeist (= 1.5.0)
   pry-byebug
   rails (= 4.2.7.1)
