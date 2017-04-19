@@ -11,7 +11,7 @@ gem 'unicorn'
 gem 'gds-sso', '~> 11.2'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
-gem 'govuk_admin_template', '~> 3.5'
+gem 'govuk_admin_template', '~> 5.0.1'
 gem 'generic_form_builder', '0.13.0'
 gem 'selectize-rails', '~> 0.12.1'
 
