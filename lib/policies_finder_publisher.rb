@@ -8,7 +8,7 @@ require "gds_api/publishing_api"
 #   bundle exec rake publish_policies_finder
 #
 class PoliciesFinderPublisher
-  CONTENT_ID = "d6582d48-df19-46b3-bf84-9157192801a6"
+  CONTENT_ID = "d6582d48-df19-46b3-bf84-9157192801a6".freeze
 
   def publish
     Services.publishing_api.put_content(CONTENT_ID, exportable_attributes)

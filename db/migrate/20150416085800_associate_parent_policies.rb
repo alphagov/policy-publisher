@@ -4,7 +4,7 @@ class AssociateParentPolicies < ActiveRecord::Migration
     'city-deal' => ['localism'],
     'regional-growth-fund' => ['employment'],
     'hs2-high-speed-rail' => ['rail-network']
-  }
+  }.freeze
 
   def change
     POLICY_PARENT_MAPPINGS.each do |policy_slug, parent_policy_slugs|

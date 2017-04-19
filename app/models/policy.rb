@@ -19,9 +19,11 @@ class Policy < ActiveRecord::Base
     object.email_alert_signup_content_id = SecureRandom.uuid
   end
 
-  scope :areas, -> { joins("LEFT OUTER JOIN policy_relations
-                            ON policies.id = policy_relations.related_policy_id
-                            WHERE policy_relations.related_policy_id IS NULL") }
+  scope :areas, -> {
+    joins("LEFT OUTER JOIN policy_relations
+              ON policies.id = policy_relations.related_policy_id
+              WHERE policy_relations.related_policy_id IS NULL")
+  }
 
   # Virtual attribute used to identify a new record as a sub-policy
   attr_writer :sub_policy
@@ -85,6 +87,7 @@ class Policy < ActiveRecord::Base
   end
 
 private
+
   def applicable_to_at_least_one_nation
     if applicable_nations.empty?
       errors.add(:applicability, "must have at least one nation")
@@ -97,7 +100,7 @@ private
     }
 
     nations_with_bad_urls = alt_policy_urls.reject { |nation|
-      self.send(:"#{nation}_policy_url") =~ /\A#{URI::regexp(['http', 'https'])}\z/
+      self.send(:"#{nation}_policy_url") =~ /\A#{URI::regexp(%w(http https))}\z/
     }
 
     nations_with_bad_urls.each do |nation|

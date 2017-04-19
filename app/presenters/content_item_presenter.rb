@@ -1,7 +1,6 @@
 require 'govspeak'
 
 class ContentItemPresenter
-
   def initialize(policy)
     @policy = policy
   end
@@ -27,6 +26,7 @@ class ContentItemPresenter
   end
 
 private
+
   attr_reader :policy, :update_type
 
   def content_id
@@ -111,7 +111,7 @@ private
       policy.send(:"#{nation}_policy_url").present?
     }
     inapplicable_nations_with_urls.map { |nation|
-      {nation: nation, alt_policy_url: policy.send(:"#{nation}_policy_url")}
+      { nation: nation, alt_policy_url: policy.send(:"#{nation}_policy_url") }
     }
   end
 

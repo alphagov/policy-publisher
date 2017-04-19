@@ -4,7 +4,7 @@ FactoryGirl.define do
   end
 
   factory :policy do
-    sequence(:name) {|n| "Policy #{n}" }
+    sequence(:name) { |n| "Policy #{n}" }
     description "Policy description"
   end
 

@@ -9,7 +9,7 @@ require "gds_api/publishing_api"
 #   bundle exec rake publishing_api:publish_policies_firehose_finder
 #
 class PolicyFirehoseFinderPublisher
-  CONTENT_ID = "ccb6c301-2c64-4a59-88c9-0528d0ffd088"
+  CONTENT_ID = "ccb6c301-2c64-4a59-88c9-0528d0ffd088".freeze
 
   def publish
     publishing_api.put_content(CONTENT_ID, exportable_attributes)

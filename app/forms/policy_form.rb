@@ -13,14 +13,14 @@ class PolicyForm
     wales
     wales_policy_url
     parent_policy_ids
-  ]
+  ].freeze
 
   LINK_ATTRIBUTES = %w[
     lead_organisation_content_ids
     supporting_organisation_content_ids
     people_content_ids
     working_group_content_ids
-  ]
+  ].freeze
 
   attr_accessor(*ATTRIBUTES)
   attr_accessor(*LINK_ATTRIBUTES)
@@ -113,6 +113,7 @@ class PolicyForm
   end
 
 private
+
   def publish!
     Publisher.new(policy).publish!
     true

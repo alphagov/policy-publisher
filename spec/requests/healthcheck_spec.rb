@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "the healthcheck page", :type => :request do
+RSpec.describe "the healthcheck page", type: :request do
   it "should return success" do
     get "/healthcheck"
 

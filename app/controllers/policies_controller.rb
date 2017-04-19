@@ -60,9 +60,9 @@ private
   # being included in the resulting parameter array. We clean this out to prevent
   # blank strings being stored.
   def clean_blank_parameters
-    params[:policy][:lead_organisation_content_ids].reject! {|id| id.blank? }
-    params[:policy][:supporting_organisation_content_ids].reject! {|id| id.blank? }
-    params[:policy][:people_content_ids].reject! {|id| id.blank? }
-    params[:policy][:working_group_content_ids].reject! {|id| id.blank? }
+    params[:policy][:lead_organisation_content_ids].reject!(&:blank?)
+    params[:policy][:supporting_organisation_content_ids].reject!(&:blank?)
+    params[:policy][:people_content_ids].reject!(&:blank?)
+    params[:policy][:working_group_content_ids].reject!(&:blank?)
   end
 end

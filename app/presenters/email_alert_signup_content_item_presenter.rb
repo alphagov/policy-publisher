@@ -1,5 +1,4 @@
 class EmailAlertSignupContentItemPresenter
-
   def initialize(policy)
     @policy = policy
   end
@@ -25,6 +24,7 @@ class EmailAlertSignupContentItemPresenter
   end
 
 private
+
   attr_reader :policy, :update_type
 
   def public_updated_at
@@ -55,10 +55,10 @@ private
   end
 
   def summary
-    %q[
+    "
       You'll get an email each time a document about
       this policy is published or updated.
-    ]
+    "
   end
 
   def breadcrumbs
@@ -69,5 +69,4 @@ private
       }
     ]
   end
-
 end

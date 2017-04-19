@@ -14,7 +14,7 @@ module PublishingApiContentHelpers
   end
 
   def stub_post_to_search
-    stub_request(:post, "#{Plek.find("rummager")}/documents")
+    stub_request(:post, "#{Plek.find('rummager')}/documents")
   end
 
   def stub_content_calls_from_publishing_api

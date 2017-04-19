@@ -35,6 +35,6 @@ module PolicyPublisher
     # Better forms
     require "admin_form_builder"
     config.action_view.default_form_builder = AdminFormBuilder
-    config.action_view.field_error_proc = proc {|html_tag, _| html_tag }
+    config.action_view.field_error_proc = proc { |html_tag, _| html_tag }
   end
 end

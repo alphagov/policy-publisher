@@ -4,10 +4,10 @@ module PolicyHelpers
   include GdsApi::TestHelpers::PublishingApiV2
 
   def check_nation_applicability(policy, nation)
-    nation = nation.downcase.gsub(' ', '_')
+    nation = nation.downcase.tr(' ', '_')
     policy.send(nation) == true
 
-    policy.inapplicable_nations.each do |n|
+    policy.inapplicable_nations.each do |_n|
       policy.send("#{nation}_policy_url") == "http://www.#{nation}policyurl.com"
     end
   end

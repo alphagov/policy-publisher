@@ -8,7 +8,7 @@ RSpec.describe DataForSelectHelper, type: :helper do
 
   def build_response_body(titles: [])
     titles.map! do |title|
-      {'content_id' => SecureRandom.uuid, 'title' => title}
+      { 'content_id' => SecureRandom.uuid, 'title' => title }
     end
 
     titles.to_json

@@ -44,10 +44,9 @@ RSpec.describe SearchIndexer do
 
   it "indexes a a policy with rummager" do
     policy = FactoryGirl.create(:policy,
-      people_content_ids: people.map {|person| person["content_id"] },
-      working_group_content_ids: working_groups.map {|wg| wg["content_id"] },
-      description: "Something with **govspeak**"
-    )
+      people_content_ids: people.map { |person| person["content_id"] },
+      working_group_content_ids: working_groups.map { |wg| wg["content_id"] },
+      description: "Something with **govspeak**")
     indexer = SearchIndexer.new(policy)
 
     expected_json = {

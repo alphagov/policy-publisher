@@ -1,12 +1,12 @@
 require 'csv'
 
 class ReseedPolicies < ActiveRecord::Migration
-POLICY_PARENT_MAPPINGS = {
-    'automatic-enrolment-in-workplace-pensions' => ['employment', 'older-people'],
-    'city-deal' => ['localism'],
-    'regional-growth-fund' => ['employment'],
-    'hs2-high-speed-rail' => ['rail-network']
-  }
+  POLICY_PARENT_MAPPINGS = {
+      'automatic-enrolment-in-workplace-pensions' => ['employment', 'older-people'],
+      'city-deal' => ['localism'],
+      'regional-growth-fund' => ['employment'],
+      'hs2-high-speed-rail' => ['rail-network']
+    }.freeze
 
   def change
     Policy.destroy_all
@@ -26,8 +26,9 @@ POLICY_PARENT_MAPPINGS = {
   end
 
 private
+
   def create_policy!(row)
-    puts %Q(Creating policy "#{row['name']}")
+    puts %(Creating policy "#{row['name']}")
     Policy.create!(
       name: row['name'],
       description: row['description'],
@@ -36,4 +37,3 @@ private
     )
   end
 end
-
