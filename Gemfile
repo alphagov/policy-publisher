@@ -8,7 +8,7 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 
-gem 'gds-sso', '~> 11.2'
+gem 'gds-sso', '~> 13.2'
 gem 'plek', '1.10.0'
 gem 'airbrake', '4.1.0'
 gem 'govuk_admin_template', '~> 5.0.1'
