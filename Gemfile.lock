@@ -90,9 +90,6 @@ GEM
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.8.0)
-      factory_girl (~> 4.8.0)
-      railties (>= 3.0.0)
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     gds-api-adapters (30.9.0)
@@ -324,7 +321,7 @@ DEPENDENCIES
   airbrake (= 4.1.0)
   cucumber-rails
   database_cleaner
-  factory_girl_rails
+  factory_girl (~> 4.8)
   gds-api-adapters (~> 30.4)
   gds-sso (~> 11.2)
   generic_form_builder (= 0.13.0)
