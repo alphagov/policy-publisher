@@ -7,7 +7,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
-gem 'quiet_assets', '1.1.0'
 
 gem 'gds-sso', '~> 11.2'
 gem 'plek', '1.10.0'
