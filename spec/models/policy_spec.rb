@@ -96,7 +96,7 @@ RSpec.describe Policy do
     )
 
     expect(policy).not_to be_valid
-    expect(policy.errors.messages).to eq({:northern_ireland=>["must have a valid alternative policy URL"]})
+    expect(policy.errors.messages).to eq(northern_ireland: ["must have a valid alternative policy URL"])
   end
 
   it "allows valid alternative policy URLs" do

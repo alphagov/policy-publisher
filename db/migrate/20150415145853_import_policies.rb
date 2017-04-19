@@ -15,7 +15,7 @@ class ImportPolicies < ActiveRecord::Migration
 private
 
   def create_policy!(row)
-    puts %Q(Creating policy "#{row['name']}")
+    puts %(Creating policy "#{row['name']}")
     Policy.create!(
       name: row['name'],
       description: row['description'],

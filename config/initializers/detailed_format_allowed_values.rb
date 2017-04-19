@@ -123,4 +123,4 @@ DETAILED_FORMAT_ALLOWED_VALUES = [
     label: "Transparency data",
     value: "transparency-data",
   },
-]
+].freeze

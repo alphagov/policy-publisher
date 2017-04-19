@@ -22,13 +22,14 @@ RSpec.describe PolicyForm do
   def set_organisation_attributes(lead = [], supporting = [])
     policy_attributes.merge!(
       lead_organisation_content_ids: lead,
-      supporting_organisation_content_ids: supporting)
+      supporting_organisation_content_ids: supporting
+)
   end
 
   context 'validations' do
     context 'when organisations' do
       it 'should not have lead organisations that are also supporting organisations' do
-        set_organisation_attributes([1], [1,2,3])
+        set_organisation_attributes([1], [1, 2, 3])
 
         policy_form = PolicyForm.new(policy_attributes)
 
@@ -37,7 +38,7 @@ RSpec.describe PolicyForm do
       end
 
       it 'valid to have different lead and supporting organisations' do
-        set_organisation_attributes([1], [2,3])
+        set_organisation_attributes([1], [2, 3])
 
         policy_form = PolicyForm.new(policy_attributes)
 
@@ -119,7 +120,7 @@ RSpec.describe PolicyForm do
       policy_form.save
       policy = policy_form.policy
 
-      expect(policy.organisation_content_ids).to eql [1,2,3,4]
+      expect(policy.organisation_content_ids).to eql [1, 2, 3, 4]
     end
   end
 end

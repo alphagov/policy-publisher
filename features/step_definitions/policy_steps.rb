@@ -8,10 +8,10 @@ end
 Given(/^it is associated with two organisations, two people and two working groups$/) do
   stub_publishing_api_links(
     @policy.content_id,
-    organisations: [@organisation_1, @organisation_2].map {|org| org["content_id"]},
+    organisations: [@organisation_1, @organisation_2].map { |org| org["content_id"] },
     lead_organisations: [@organisation_1["content_id"]],
-    people: [@person_1, @person_2].map {|person| person["content_id"]},
-    working_groups: [@working_group_1, @working_group_2].map {|working_group| working_group["content_id"]}
+    people: [@person_1, @person_2].map { |person| person["content_id"] },
+    working_groups: [@working_group_1, @working_group_2].map { |working_group| working_group["content_id"] }
   )
 
   items = [organisation_1, organisation_2, person_1, person_2, working_group_1, working_group_2]
@@ -109,9 +109,7 @@ Then(/^a policy called "(.*?)" is republished to publishing API$/) do |policy_na
 
   assert_publishing_api_publish(
     policy.content_id,
-    {
-      "update_type" => "minor",
-    },
+          "update_type" => "minor",
   )
 end
 
@@ -147,8 +145,7 @@ Then(/^the policy should be linked to the organisation when published to publish
 
   assert_publishing_api_patch_links(
     @policy.content_id,
-    {
-      "links" => {
+          "links" => {
         "organisations" => [organisation_1["content_id"]],
         "lead_organisations" => [organisation_1["content_id"]],
         "people" => [],
@@ -156,8 +153,7 @@ Then(/^the policy should be linked to the organisation when published to publish
         "related" => [],
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],
-      },
-    }
+      }
   )
 end
 
@@ -175,8 +171,7 @@ Then(/^the policy should be linked to the person when published to publishing AP
 
   assert_publishing_api_patch_links(
     @policy.content_id,
-    {
-      "links" => {
+          "links" => {
         "organisations" => [],
         "lead_organisations" => [],
         "people" => [person_1["content_id"]],
@@ -185,7 +180,6 @@ Then(/^the policy should be linked to the person when published to publishing AP
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],
       }
-    }
   )
 end
 
@@ -203,8 +197,7 @@ Then(/^the policy should be linked to the working group when published to publis
 
   assert_publishing_api_patch_links(
     @policy.content_id,
-    {
-      "links" => {
+          "links" => {
         "organisations" => [],
         "lead_organisations" => [],
         "people" => [],
@@ -213,7 +206,6 @@ Then(/^the policy should be linked to the working group when published to publis
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],
       }
-    }
   )
 end
 
@@ -232,8 +224,7 @@ Then(/^the policy links should remain unchanged$/) do
 
   assert_publishing_api_patch_links(
     @policy.content_id,
-    {
-      "links" => {
+          "links" => {
         "organisations" => [organisation_1["content_id"], organisation_2["content_id"]],
         "lead_organisations" => [organisation_1["content_id"]],
         "people" => [person_1["content_id"], person_2["content_id"]],
@@ -242,7 +233,6 @@ Then(/^the policy links should remain unchanged$/) do
         "email_alert_signup" => [@policy.email_alert_signup_content_id],
         "policy_areas" => [],
       }
-    }
   )
 end
 
