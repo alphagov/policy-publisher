@@ -104,4 +104,13 @@ module PublishingApiContentHelpers
     }
     stub_request(:get, url).to_return(status: 200, body: links.to_json, headers: {})
   end
+
+  def stub_has_links(policy, links = {})
+    links["email_alert_signup"] = [policy.email_alert_signup_content_id]
+    response = {
+      content_id: policy.content_id,
+      links: links,
+    }
+    publishing_api_has_links(response)
+  end
 end

@@ -3,7 +3,7 @@ require 'gds_api/test_helpers/publishing_api_v2'
 require 'gds_api/test_helpers/rummager'
 
 RSpec.describe Publisher do
-  include GdsApi::TestHelpers::PublishingApiV2
+  include PublishingApiContentHelpers
   include GdsApi::TestHelpers::Rummager
 
   let(:indexer) { double(:indexer) }
@@ -18,6 +18,7 @@ RSpec.describe Publisher do
     let(:policy) { FactoryGirl.create(:policy) }
 
     before do
+      stub_has_links(policy)
       Publisher.new(policy).publish!
     end
 
@@ -42,11 +43,13 @@ RSpec.describe Publisher do
     end
   end
 
-
   context "when publishing a sub-policy" do
     let!(:policy) { FactoryGirl.create(:sub_policy) }
 
     before do
+      # there's something wrong with the moking here
+      parent_policy = policy.parent_policies.first
+      stub_has_links(policy, {parent_policies: [parent_policy]})
       Publisher.new(policy).publish!
     end
 

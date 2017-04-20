@@ -32,16 +32,21 @@ class Policy < ActiveRecord::Base
   end
   alias_method :sub_policy?, :sub_policy
 
-  attr_accessor :organisation_content_ids
-  attr_accessor :lead_organisation_content_ids
-  attr_accessor :people_content_ids
-  attr_accessor :working_group_content_ids
+  # TODO remove delegation
+  delegate :organisation_content_ids,
+           :organisation_content_ids=,
+           :lead_organisation_content_ids,
+           :lead_organisation_content_ids=,
+           :people_content_ids,
+           :people_content_ids=,
+           :working_group_content_ids,
+           :working_group_content_ids=,
+           :set_organisation_priority,
+           :supporting_organisation_content_ids,
+           to: :policy_linkset
 
-  after_initialize do
-    self.organisation_content_ids ||= []
-    self.lead_organisation_content_ids ||= []
-    self.people_content_ids ||= []
-    self.working_group_content_ids ||= []
+  def policy_linkset
+    @policy_linkset ||= PolicyLinkset.new(content_id)
   end
 
   def base_path
@@ -63,27 +68,6 @@ class Policy < ActiveRecord::Base
 
   def inapplicable_nations
     possible_nations - applicable_nations
-  end
-
-  # Fetch links from the publisher-api
-  def fetch_links!
-    return if content_id.blank?
-
-    links = Services.publishing_api.get_links(content_id)["links"]
-
-    self.lead_organisation_content_ids = links["lead_organisations"] || []
-    self.organisation_content_ids = links["organisations"] || []
-    self.people_content_ids = links["people"] || []
-    self.working_group_content_ids = links["working_groups"] || []
-  end
-
-  def set_organisation_priority(lead_organisation_content_ids, supporting_organisation_content_ids)
-    self.lead_organisation_content_ids = lead_organisation_content_ids
-    self.organisation_content_ids = lead_organisation_content_ids + supporting_organisation_content_ids
-  end
-
-  def supporting_organisation_content_ids
-    organisation_content_ids - lead_organisation_content_ids
   end
 
 private

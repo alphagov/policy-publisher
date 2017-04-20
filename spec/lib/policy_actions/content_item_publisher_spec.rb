@@ -2,7 +2,7 @@ require "rails_helper"
 require 'gds_api/test_helpers/publishing_api_v2'
 
 RSpec.describe ContentItemPublisher do
-  include GdsApi::TestHelpers::PublishingApiV2
+  include PublishingApiContentHelpers
 
   let(:policy) { create(:policy) }
   let(:content_item_publisher) { ContentItemPublisher.new(policy, update_type: "major") }
@@ -10,6 +10,7 @@ RSpec.describe ContentItemPublisher do
   describe '#run! method' do
     before do
       stub_any_publishing_api_call
+      stub_has_links(policy)
       content_item_publisher.run!
     end
 
@@ -34,6 +35,12 @@ RSpec.describe ContentItemPublisher do
     it "publishes lead organisations and organisations in the links hash" do
       lead       = [SecureRandom.uuid]
       supporting = [SecureRandom.uuid, SecureRandom.uuid]
+
+      stub_has_links(policy, {
+        organisations: lead + supporting,
+        lead_organisations: lead,
+      })
+
       policy.set_organisation_priority(lead, supporting)
 
       links_payload = content_item_publisher.links_payload
