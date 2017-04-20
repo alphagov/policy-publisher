@@ -61,7 +61,7 @@ class PolicyForm
       parent_policy_ids: [],
     }
 
-    super defaults.merge(attributes)
+    super defaults.merge(attributes.to_h)
   end
 
   def self.from_existing(policy)

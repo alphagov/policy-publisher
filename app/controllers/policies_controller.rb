@@ -50,9 +50,24 @@ private
   end
 
   def policy_params
-    # We don't need to validate here because our forms will only forward
-    # whitelisted attributes.
-    params.require(:policy).permit!
+    params.require(:policy).permit(
+      :description,
+      :england_policy_url,
+      :england,
+      :name,
+      :northern_ireland_policy_url,
+      :northern_ireland,
+      :scotland_policy_url,
+      :scotland,
+      :sub_policy,
+      :wales_policy_url,
+      :wales,
+      lead_organisation_content_ids: [],
+      parent_policy_ids: [],
+      people_content_ids: [],
+      supporting_organisation_content_ids: [],
+      working_group_content_ids: [],
+    )
   end
 
   # Rails includes a hidden field for selects on multi-selects so that a value
