@@ -1,5 +1,5 @@
 class PoliciesController < ApplicationController
-  before_filter :clean_blank_parameters, only: [:create, :update]
+  before_action :clean_blank_parameters, only: [:create, :update]
 
   def index
     @policies = Policy.includes(:parent_policies).order(:name)
