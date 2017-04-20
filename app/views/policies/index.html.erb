@@ -26,11 +26,11 @@
 
   <tbody>
     <% @policies.each do |policy| %>
-      <%= content_tag_for(:tr, policy) do %>
+      <tr>
         <td><%= link_to policy.name, edit_policy_path(policy) %></td>
         <td><%= policy.updated_at.to_s(:govuk_date) %></td>
         <td><%= policy.parent_policies.map(&:name).to_sentence %></td>
-      <% end %>
+      </tr>
     <% end %>
   </tbody>
 </table>
