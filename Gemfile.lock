@@ -40,7 +40,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (4.1.0)
+    airbrake (4.3.8)
       builder
       multi_json
     arel (7.1.4)
@@ -331,7 +331,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (= 4.1.0)
+  airbrake (~> 4.3.8)
   cucumber-rails
   database_cleaner
   factory_girl (~> 4.8)
