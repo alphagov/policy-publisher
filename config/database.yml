@@ -1,5 +1,3 @@
-# This file overwritten on deploy
-
 default: &default
   adapter: postgresql
   encoding: unicode
