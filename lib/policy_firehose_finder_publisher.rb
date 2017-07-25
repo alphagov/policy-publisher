@@ -30,6 +30,7 @@ class PolicyFirehoseFinderPublisher
       rendering_app: "finder-frontend",
       routes: routes,
       details: details,
+      update_type: "major",
     }
   end
 
