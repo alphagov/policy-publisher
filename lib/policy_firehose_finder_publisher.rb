@@ -13,7 +13,7 @@ class PolicyFirehoseFinderPublisher
 
   def publish
     publishing_api.put_content(CONTENT_ID, exportable_attributes)
-    publishing_api.publish(CONTENT_ID, 'major')
+    publishing_api.publish(CONTENT_ID)
   end
 
   def exportable_attributes
@@ -30,6 +30,7 @@ class PolicyFirehoseFinderPublisher
       rendering_app: "finder-frontend",
       routes: routes,
       details: details,
+      update_type: "major",
     }
   end
 

@@ -96,7 +96,7 @@ GEM
       activesupport (>= 3.0.0)
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
-    gds-api-adapters (41.5.0)
+    gds-api-adapters (47.2.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -242,7 +242,7 @@ GEM
     rainbow (2.2.1)
     raindrops (0.18.0)
     rake (12.0.0)
-    rest-client (2.0.1)
+    rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
@@ -335,7 +335,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   factory_girl (~> 4.8)
-  gds-api-adapters (~> 41.5)
+  gds-api-adapters (~> 47.2)
   gds-sso (~> 13.2)
   generic_form_builder (= 0.13.0)
   govspeak (~> 5.0.2)
@@ -359,4 +359,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.14.5
+   1.15.1

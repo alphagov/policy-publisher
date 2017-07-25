@@ -12,7 +12,7 @@ class PoliciesFinderPublisher
 
   def publish
     Services.publishing_api.put_content(CONTENT_ID, exportable_attributes)
-    Services.publishing_api.publish(CONTENT_ID, "major")
+    Services.publishing_api.publish(CONTENT_ID)
   end
 
   def exportable_attributes
@@ -28,6 +28,7 @@ class PoliciesFinderPublisher
       "rendering_app" => "finder-frontend",
       "routes" => routes,
       "details" => details,
+      "update_type" => "major",
     }
   end
 

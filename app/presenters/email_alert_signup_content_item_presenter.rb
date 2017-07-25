@@ -16,6 +16,7 @@ class EmailAlertSignupContentItemPresenter
       rendering_app: "email-alert-frontend",
       routes: routes,
       details: details,
+      update_type: "major",
     }
   end
 

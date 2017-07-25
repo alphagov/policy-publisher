@@ -29,7 +29,6 @@ RSpec.describe Publisher do
 
       assert_publishing_api_publish(
         policy.content_id,
-        update_type: "major"
       )
 
       assert_publishing_api_patch_links(
@@ -58,7 +57,6 @@ RSpec.describe Publisher do
 
       assert_publishing_api_publish(
         policy.content_id,
-        update_type: "major"
       )
 
       assert_publishing_api_patch_links(

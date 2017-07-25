@@ -2,7 +2,7 @@
 class ContentItemPublisher
   attr_reader :policy, :update_type
 
-  def initialize(policy, update_type: "major")
+  def initialize(policy, update_type: nil)
     @policy = policy
     @update_type = update_type
   end
