@@ -20,7 +20,7 @@ class PoliciesFinderPublisher
       "base_path" => base_path,
       "document_type" => "finder",
       "schema_name" => "finder",
-      "title" => "Policies",
+      "title" => "Policy content",
       "description" => "",
       "public_updated_at" => public_updated_at,
       "locale" => "en",
@@ -62,6 +62,7 @@ private
       filter: {
         document_type: "policy"
       },
+      summary: "Search for information about government policy or filter by department.",
       show_summaries: false,
       facets: facets,
     }
