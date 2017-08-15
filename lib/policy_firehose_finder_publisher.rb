@@ -21,7 +21,7 @@ class PolicyFirehoseFinderPublisher
       base_path: base_path,
       document_type: "finder",
       schema_name: "finder",
-      title: "All policy content",
+      title: "Policy content",
       phase: "alpha",
       description: "",
       public_updated_at: public_updated_at,
@@ -68,6 +68,7 @@ private
       reject: {
         policies: ["_MISSING"],
       },
+      summary: "Search for information about government policy or filter by department, people or policy area.",
       show_summaries: false,
       facets: facets,
     }
