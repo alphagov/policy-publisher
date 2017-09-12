@@ -21,7 +21,7 @@ class PolicyFirehoseFinderPublisher
       base_path: base_path,
       document_type: "finder",
       schema_name: "finder",
-      title: "Policy content",
+      title: "All policy content",
       phase: "alpha",
       description: "",
       public_updated_at: public_updated_at,
