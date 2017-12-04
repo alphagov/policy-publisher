@@ -15,7 +15,7 @@ gem 'govuk_admin_template', '~> 5.0.1'
 gem 'generic_form_builder', '0.13.0'
 gem 'selectize-rails', '~> 0.12.1'
 
-gem 'gds-api-adapters', '~> 47.2'
+gem 'gds-api-adapters', '~> 50.1'
 
 gem 'govspeak', '~> 5.0.2'
 
