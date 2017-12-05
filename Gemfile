@@ -7,7 +7,6 @@ gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'uglifier', '>= 1.3.0'
-gem 'unicorn'
 
 gem 'gds-sso', '~> 13.2'
 gem 'plek', '~> 2.0'
