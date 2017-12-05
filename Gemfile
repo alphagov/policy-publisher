@@ -5,7 +5,7 @@ gem 'govuk_app_config', '~> 0.2'
 
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
-gem 'jquery-ui-rails', '~> 5.0.3'
+gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 
