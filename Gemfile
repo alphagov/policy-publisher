@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '5.1.4'
-gem 'govuk_app_config', '~> 1.0'
+gem 'govuk_app_config', '~> 1.1'
 
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
