@@ -13,10 +13,6 @@ module PublishingApiContentHelpers
     stub_request(:post, %r{\A#{PUBLISHING_API_V2_ENDPOINT}/content/})
   end
 
-  def stub_post_to_search
-    stub_request(:post, "#{Plek.find('rummager')}/documents")
-  end
-
   def stub_content_calls_from_publishing_api
     publishing_api_has_linkables([lead_organisation_1, lead_organisation_2], document_type: "lead_organisation")
     publishing_api_has_linkables([organisation_1, organisation_2], document_type: "organisation")

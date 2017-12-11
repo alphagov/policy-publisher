@@ -11,7 +11,6 @@ Scenario: Creating a policy
   Then there should be a policy called "Climate change"
   And a policy called "Climate change" is published to publishing API
   And an email alert signup page for a policy called "Climate change" is published to publishing API
-  And a policy called "Climate change" is indexed for search
 
 Scenario: Editing a policy
   Given a published policy exists called "Global warming"
@@ -19,7 +18,6 @@ Scenario: Editing a policy
   Then there should be a policy called "Climate change"
   And a policy called "Climate change" is published to publishing API
   And an email alert signup page for a policy called "Climate change" is published to publishing API
-  And a policy called "Climate change" is indexed for search
 
 Scenario: Creating a sub-policy that is part of another
   Given a published policy exists called "Global warming"
@@ -28,7 +26,6 @@ Scenario: Creating a sub-policy that is part of another
   When I create a sub-policy called "CO2 reduction" that is part of a policy called "Global warming"
   Then there should be a policy called "CO2 reduction" that is part of a policy called "Global warming"
   And a policy called "CO2 reduction" is published to publishing API
-  And a policy called "CO2 reduction" is indexed for search
   And a policy called "Global warming" is republished to publishing API
 
 Scenario: Associating a policy with an organisation

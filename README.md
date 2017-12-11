@@ -15,7 +15,6 @@ This a Ruby on Rails application backed by PostgreSQL.
 
 ### Dependencies
 
-- [rummager](https://github.com/alphagov/rummager)
 - [publishing-api](https://github.com/alphagov/publishing-api)
 
 ### Running the application
