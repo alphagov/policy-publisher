@@ -8,7 +8,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'gds-sso', '~> 13.3'
+gem 'gds-sso', '~> 13.4'
 gem 'plek', '~> 2.0'
 gem 'govuk_admin_template', '~> 6.4.0'
 gem 'generic_form_builder', '0.13.0'
