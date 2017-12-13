@@ -7,7 +7,6 @@ RSpec.describe PolicyForm do
     stub_content_calls_from_publishing_api
     stub_any_publishing_api_write
     stub_any_publishing_api_publish
-    stub_post_to_search
   end
 
   let(:policy_attributes) do

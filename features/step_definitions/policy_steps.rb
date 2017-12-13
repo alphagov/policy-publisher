@@ -1,6 +1,5 @@
 Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
   stub_any_publishing_api_write
-  stub_rummager
   @policy = FactoryGirl.create(:policy, name: policy_name)
   stub_publishing_api_links(@policy.content_id)
 end
@@ -36,13 +35,11 @@ end
 
 When(/^I create a policy called "([^"]+?)"$/) do |policy_name|
   stub_any_publishing_api_write
-  stub_rummager
   create_policy(name: policy_name)
 end
 
 When(/^I create a sub-policy called "(.*?)" that is part of a policy called "(.*?)"$/) do |policy_name, part_of_policy_name|
   stub_any_publishing_api_write
-  stub_rummager
 
   create_sub_policy(name: policy_name, parent_policies: [part_of_policy_name])
 end
@@ -124,11 +121,6 @@ Then(/^an email alert signup page for a policy called "(.*?)" is published to pu
       "publishing_app" => "policy-publisher",
     ),
   )
-end
-
-Then(/^a policy called "(.*?)" is indexed for search$/) do |policy_name|
-  policy = Policy.find_by_name(policy_name)
-  assert_policy_published_to_rummager(policy)
 end
 
 Then(/^the policy should be linked to the organisation when published to publishing API$/) do
@@ -238,7 +230,6 @@ end
 
 When(/^I create a policy called "([^"]+?)" that only applies to "([^"]+?)"$/) do |policy_name, nation|
   stub_any_publishing_api_write
-  stub_rummager
   possible_nations = ["England", "Northern Ireland", "Scotland", "Wales"]
   inapplicable_nations = possible_nations - [nation]
   alt_policy_urls = {}
