@@ -39,7 +39,7 @@ private
   end
 
   def description
-    Govspeak::Document.new(policy.description).to_html
+    Govspeak::Document.new(policy.description).to_text
   end
 
   def public_updated_at
@@ -71,7 +71,7 @@ private
         policies: [policy.slug]
       },
       human_readable_finder_format: 'Policy',
-      summary: description,
+      summary: summary,
       show_summaries: false,
       facets: facets,
       emphasised_organisations: policy.lead_organisation_content_ids,
@@ -101,6 +101,10 @@ private
     else
       {}
     end
+  end
+
+  def summary
+    Govspeak::Document.new(policy.description).to_html
   end
 
   def alternative_policies
