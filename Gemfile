@@ -16,7 +16,7 @@ gem 'selectize-rails', '~> 0.12.1'
 
 gem 'gds-api-adapters', '~> 50.8'
 
-gem 'govspeak', '~> 5.2.2'
+gem 'govspeak', '~> 5.3.0'
 
 group :development do
   gem 'web-console', '~> 3.5'
