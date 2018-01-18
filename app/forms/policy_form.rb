@@ -12,7 +12,6 @@ class PolicyForm
     scotland_policy_url
     wales
     wales_policy_url
-    parent_policy_ids
   ].freeze
 
   LINK_ATTRIBUTES = %w[
@@ -20,6 +19,7 @@ class PolicyForm
     supporting_organisation_content_ids
     people_content_ids
     working_group_content_ids
+    parent_policy_ids
   ].freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -71,6 +71,7 @@ class PolicyForm
     form.supporting_organisation_content_ids = policy.supporting_organisation_content_ids
     form.people_content_ids = policy.people_content_ids
     form.working_group_content_ids = policy.working_group_content_ids
+    form.parent_policy_ids = policy.parent_policy_ids
     form
   end
 
@@ -88,6 +89,7 @@ class PolicyForm
     policy.set_organisation_priority(@lead_organisation_content_ids, @supporting_organisation_content_ids)
     policy.people_content_ids = @people_content_ids
     policy.working_group_content_ids = @working_group_content_ids
+    policy.parent_policy_ids = @parent_policy_ids
 
     policy.update_attributes(attributes) && publish!
   end
@@ -109,7 +111,7 @@ class PolicyForm
   end
 
   def sub_policy?
-    sub_policy
+    policy.sub_policy?
   end
 
 private
