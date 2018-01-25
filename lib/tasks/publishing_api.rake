@@ -13,7 +13,7 @@ namespace :publishing_api do
   end
 
   desc "Publish semi-static pages. This is run after each deploy."
-  task publish: [:publish_policies_finder, :publish_policy_firehose_finder]
+  task publish: [:publish_policies_finder]
 
   desc "Publish the Policies Finder to the Publishing API"
   task publish_policies_finder: :environment do
@@ -22,10 +22,12 @@ namespace :publishing_api do
     PoliciesFinderPublisher.new.publish
   end
 
-  desc "Publish the Policy Firehose Finder to the Publishing API"
-  task publish_policy_firehose_finder: :environment do
-    require "policy_firehose_finder_publisher"
-
-    PolicyFirehoseFinderPublisher.new.publish
+  desc "Unpublish the Policy Firehose Finder to the Publishing API. Can be removed once run on production."
+  task unpublish_policy_firehose_finder: :environment do
+    Services.publishing_api.unpublish(
+      "ccb6c301-2c64-4a59-88c9-0528d0ffd088",
+      type: "redirect",
+      alternative_path: "/government/policies"
+    )
   end
 end
