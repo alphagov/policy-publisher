@@ -9,7 +9,7 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'gds-sso', '~> 13.5'
-gem 'plek', '~> 2.0'
+gem 'plek', '~> 2.1'
 gem 'govuk_admin_template', '~> 6.5.0'
 gem 'generic_form_builder', '0.13.0'
 gem 'selectize-rails', '~> 0.12.1'
