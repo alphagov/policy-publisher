@@ -143,8 +143,7 @@ Then(/^the policy should be linked to the organisation when published to publish
         "people" => [],
         "working_groups" => [],
         "related" => [],
-        "email_alert_signup" => [@policy.email_alert_signup_content_id],
-        "policy_areas" => [],
+        "email_alert_signup" => [@policy.email_alert_signup_content_id]
       }
   )
 end
@@ -169,8 +168,7 @@ Then(/^the policy should be linked to the person when published to publishing AP
         "people" => [person_1["content_id"]],
         "working_groups" => [],
         "related" => [],
-        "email_alert_signup" => [@policy.email_alert_signup_content_id],
-        "policy_areas" => [],
+        "email_alert_signup" => [@policy.email_alert_signup_content_id]
       }
   )
 end
@@ -195,8 +193,7 @@ Then(/^the policy should be linked to the working group when published to publis
         "people" => [],
         "working_groups" => [working_group_1["content_id"]],
         "related" => [],
-        "email_alert_signup" => [@policy.email_alert_signup_content_id],
-        "policy_areas" => [],
+        "email_alert_signup" => [@policy.email_alert_signup_content_id]
       }
   )
 end
@@ -222,8 +219,7 @@ Then(/^the policy links should remain unchanged$/) do
         "people" => [person_1["content_id"], person_2["content_id"]],
         "working_groups" => [working_group_1["content_id"], working_group_2["content_id"]],
         "related" => [],
-        "email_alert_signup" => [@policy.email_alert_signup_content_id],
-        "policy_areas" => [],
+        "email_alert_signup" => [@policy.email_alert_signup_content_id]
       }
   )
 end
