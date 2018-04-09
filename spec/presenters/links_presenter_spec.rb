@@ -44,15 +44,6 @@ RSpec.describe LinksPresenter do
       expect(attributes["links"]["related"]).to eq([related_policy.content_id])
     end
 
-    it "includes policies" do
-      sub_policy = create(:sub_policy)
-      policy_area = sub_policy.parent_policies.first
-
-      attributes = LinksPresenter.new(sub_policy).exportable_attributes.as_json
-
-      expect(attributes["links"]["policy_areas"]).to eq([policy_area.content_id])
-    end
-
     it "includes the linked email alert signup" do
       policy = create(:policy)
 
