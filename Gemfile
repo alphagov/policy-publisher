@@ -19,7 +19,7 @@ gem 'gds-api-adapters', '~> 52.5'
 gem 'govspeak', '~> 5.6.0'
 
 group :development do
-  gem 'web-console', '~> 3.5'
+  gem 'web-console', '~> 3.6'
 end
 
 group :development, :test do
