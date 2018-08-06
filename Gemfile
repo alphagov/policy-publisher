@@ -28,7 +28,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.7.2'
+  gem 'rspec-rails', '~> 3.8.0'
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'database_cleaner'
