@@ -30,4 +30,23 @@ namespace :publishing_api do
       alternative_path: "/government/policies"
     )
   end
+
+  desc "Unpublish one or more Policies from a CSV file (policy,taxon) given as argument"
+  task :unpublish_policies, [:csv_file_path] => :environment do |_t, args|
+    CSV.foreach(args[:file_path], headers: true) do |row|
+      from_policy = Policy.find_by(slug: row['policy'].split('/').last)
+
+      if from_policy.present?
+        Services.publishing_api.unpublish(
+          from_policy.content_id,
+          type: 'redirect',
+          alternative_path: row['taxon'],
+          discard_drafts: true
+        )
+        puts "The '#{from_policy.name}' Policy has been unpublished"
+      else
+        puts "No Policy found for path #{row['policy']}"
+      end
+    end
+  end
 end
