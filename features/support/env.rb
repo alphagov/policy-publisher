@@ -10,8 +10,7 @@ After('@no-txn') { DatabaseCleaner.strategy = :transaction }
 require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 
-require "capybara/poltergeist"
-Capybara.javascript_driver = :poltergeist
+GovukTest.configure
 
 require_relative '../../spec/support/factories'
 
