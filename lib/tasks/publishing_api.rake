@@ -45,6 +45,14 @@ namespace :publishing_api do
           alternative_path: row['taxon'],
           discard_drafts: true
         )
+
+        Services.publishing_api.unpublish(
+          from_policy.email_alert_signup_content_id,
+          type: 'redirect',
+          alternative_path: "/email-signup/?topic=#{row['taxon']}",
+          discard_drafts: true
+        )
+
         puts "The '#{from_policy.name}' Policy has been unpublished"
       else
         puts "No Policy found for path #{row['policy']}"
