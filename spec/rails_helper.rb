@@ -30,5 +30,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include GovukContentSchemaTestHelpers::RSpecMatchers
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 end

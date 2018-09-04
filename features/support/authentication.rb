@@ -1,3 +1,3 @@
 Before do
-  FactoryGirl.create(:user)
+  FactoryBot.create(:user)
 end

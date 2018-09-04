@@ -30,7 +30,7 @@ end
 group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'factory_girl', '~> 4.8'
+  gem 'factory_bot'
   gem 'govuk-content-schema-test-helpers', '~> 1.6'
   gem 'govuk_test'
   gem 'launchy'

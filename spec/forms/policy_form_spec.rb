@@ -71,7 +71,7 @@ RSpec.describe PolicyForm do
   end
 
   describe '.from_existing' do
-    let(:policy) { FactoryGirl.create(:policy, name: "Climate change") }
+    let(:policy) { FactoryBot.create(:policy, name: "Climate change") }
 
     it 'loads active record attributes from the policy model' do
       policy_form = PolicyForm.from_existing(policy)

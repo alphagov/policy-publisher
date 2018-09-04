@@ -12,7 +12,7 @@ RSpec.describe Publisher do
   end
 
   context "when publishing a policy" do
-    let(:policy) { FactoryGirl.create(:policy) }
+    let(:policy) { FactoryBot.create(:policy) }
 
     before do
       Publisher.new(policy).publish!
@@ -36,7 +36,7 @@ RSpec.describe Publisher do
 
 
   context "when publishing a sub-policy" do
-    let!(:policy) { FactoryGirl.create(:sub_policy) }
+    let!(:policy) { FactoryBot.create(:sub_policy) }
 
     before do
       Publisher.new(policy).publish!

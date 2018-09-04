@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe EmailAlertSignupContentItemPresenter do
   describe "#exportable_attributes" do
     it "validates against the email alert signup schema" do
-      presenter = EmailAlertSignupContentItemPresenter.new(FactoryGirl.create(:policy))
+      presenter = EmailAlertSignupContentItemPresenter.new(FactoryBot.create(:policy))
 
       expect(presenter.exportable_attributes.as_json).to be_valid_against_schema('email_alert_signup')
     end
 
     it "includes appropriate tags to get the subscriptions URL" do
-      policy = FactoryGirl.create(:policy)
+      policy = FactoryBot.create(:policy)
       presenter = EmailAlertSignupContentItemPresenter.new(policy)
       expected_subscriber_list = {
         "tags" => {
@@ -21,7 +21,7 @@ RSpec.describe EmailAlertSignupContentItemPresenter do
     end
 
     it "includes breadcrumbs with the relevant policy" do
-      policy = FactoryGirl.create(:policy)
+      policy = FactoryBot.create(:policy)
       presenter = EmailAlertSignupContentItemPresenter.new(policy)
       breadcrumbs = [
         {
@@ -34,7 +34,7 @@ RSpec.describe EmailAlertSignupContentItemPresenter do
     end
 
     it "includes the govdelivery_title" do
-      policy = FactoryGirl.create(:policy, name: "Employment")
+      policy = FactoryBot.create(:policy, name: "Employment")
       presenter = EmailAlertSignupContentItemPresenter.new(policy)
 
       expect(presenter.exportable_attributes.as_json["details"]["govdelivery_title"]).to eq("Employment policy")

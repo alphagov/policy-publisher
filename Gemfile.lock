@@ -104,7 +104,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.11.0)
       activesupport (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -388,7 +388,7 @@ PLATFORMS
 DEPENDENCIES
   cucumber-rails
   database_cleaner
-  factory_girl (~> 4.8)
+  factory_bot
   gds-api-adapters (~> 53.0)
   gds-sso (~> 13.6)
   generic_form_builder (= 0.13.0)
