@@ -28,13 +28,13 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.8.0'
   gem 'cucumber-rails', require: false
-  gem 'launchy'
   gem 'database_cleaner'
-  gem 'factory_girl', '~> 4.8'
-  gem 'webmock'
-  gem 'timecop'
+  gem 'factory_bot'
   gem 'govuk-content-schema-test-helpers', '~> 1.6'
-  gem 'poltergeist', '1.17.0'
+  gem 'govuk_test'
+  gem 'launchy'
+  gem 'rspec-rails', '~> 3.8.0'
+  gem 'timecop'
+  gem 'webmock'
 end

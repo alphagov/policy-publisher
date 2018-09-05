@@ -1,3 +1,7 @@
 Before do
-  FactoryGirl.create(:user)
+  FactoryBot.create(:user)
+end
+
+After do
+  Capybara.reset_session!
 end

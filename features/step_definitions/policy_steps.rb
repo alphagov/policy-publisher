@@ -1,6 +1,6 @@
 Given(/^a (?:published )?policy exists called "(.*?)"$/) do |policy_name|
   stub_any_publishing_api_write
-  @policy = FactoryGirl.create(:policy, name: policy_name)
+  @policy = FactoryBot.create(:policy, name: policy_name)
   stub_publishing_api_links(@policy.content_id)
 end
 
